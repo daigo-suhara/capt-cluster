@@ -7,7 +7,7 @@ spec:
   project: default
   source:
     path: system/apps
-    repoURL: https://github.com/your-username/capt-cluster.git
+    repoURL: https://github.com/daigo-suhara/capt-cluster.git
     targetRevision: HEAD
     directory:
       recurse: true

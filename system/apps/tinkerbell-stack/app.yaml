@@ -7,7 +7,7 @@ spec:
   project: default
   source:
     path: system/apps/tinkerbell-stack/manifests
-    repoURL: https://github.com/your-username/capt-cluster.git # 後ほど要変更
+    repoURL: https://github.com/daigo-suhara/capt-cluster.git # 後ほど要変更
     targetRevision: HEAD
   destination:
     server: https://kubernetes.default.svc

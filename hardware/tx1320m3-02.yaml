@@ -3,8 +3,6 @@ kind: Hardware
 metadata:
   name: tx1320m3-02
   namespace: tinkerbell
-  labels:
-    cluster-role: worker
 spec:
   metadata:
     facility:
@@ -13,12 +11,5 @@ spec:
       id: "tx1320m3-02"
       hostname: "tx1320m3-02"
   interfaces:
-    - netboot:
-        allowPXE: true
-      dhcp:
-        arch: x86_64
+    - dhcp:
         mac: "4c:52:62:16:8b:9f"
-        ip:
-          address: "172.16.1.22"
-          netmask: "255.255.255.0"
-          gateway: "172.16.1.1"

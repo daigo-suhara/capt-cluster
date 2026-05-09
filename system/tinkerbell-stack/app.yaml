@@ -1,18 +1,20 @@
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: capi-providers
+  name: tinkerbell-stack
   namespace: argocd
 spec:
   project: default
   source:
-    path: system/apps/capi-providers
+    path: system/tinkerbell-stack
     repoURL: https://github.com/daigo-suhara/capt-cluster.git
     targetRevision: HEAD
   destination:
     server: https://kubernetes.default.svc
-    namespace: capi-system
+    namespace: tinkerbell
   syncPolicy:
     automated:
       prune: true
       selfHeal: true
+    syncOptions:
+      - CreateNamespace=true

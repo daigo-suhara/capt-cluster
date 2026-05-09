@@ -1,13 +1,14 @@
 apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
-helmCharts:
-  - name: stack
-    releaseName: tinkerbell
-    version: 0.3.0
-    repo: oci://ghcr.io/tinkerbell/charts
-    valuesInline:
-      stack:
-        interface: eno1
-        loadBalancerIP: 172.16.1.10
-      hegel:
-        trustedProxies: [10.0.0.0/8]
+namespace: tinkerbell
+
+resources:
+  # Tinkerbell本体のマニフェスト
+  - https://raw.githubusercontent.com/tinkerbell/stack/main/deploy/stack.yaml
+  # TinkerbellのCRD
+  - https://raw.githubusercontent.com/tinkerbell/tink/main/config/crd/bases/tinkerbell.org_hardware.yaml
+  - https://raw.githubusercontent.com/tinkerbell/tink/main/config/crd/bases/tinkerbell.org_templates.yaml
+  - https://raw.githubusercontent.com/tinkerbell/tink/main/config/crd/bases/tinkerbell.org_workflows.yaml
+  - https://raw.githubusercontent.com/tinkerbell/rufio/main/config/crd/bases/bmc.tinkerbell.org_machines.yaml
+  - https://raw.githubusercontent.com/tinkerbell/rufio/main/config/crd/bases/bmc.tinkerbell.org_tasks.yaml
+  - https://raw.githubusercontent.com/tinkerbell/rufio/main/config/crd/bases/bmc.tinkerbell.org_jobs.yaml

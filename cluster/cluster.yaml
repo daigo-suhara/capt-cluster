@@ -1,7 +1,7 @@
 apiVersion: cluster.x-k8s.io/v1beta1
 kind: Cluster
 metadata:
-  name: prod
+  name: cluster
   namespace: tinkerbell
   labels:
     cni: cilium
@@ -14,16 +14,16 @@ spec:
   controlPlaneRef:
     apiVersion: controlplane.cluster.x-k8s.io/v1beta1
     kind: KubeadmControlPlane
-    name: prod-control-plane
+    name: control-plane
   infrastructureRef:
     apiVersion: infrastructure.cluster.x-k8s.io/v1beta1
     kind: TinkerbellCluster
-    name: prod
+    name: cluster
 ---
 apiVersion: infrastructure.cluster.x-k8s.io/v1beta1
 kind: TinkerbellCluster
 metadata:
-  name: prod
+  name: cluster
   namespace: tinkerbell
 spec:
   controlPlaneEndpoint:

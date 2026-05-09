@@ -1,32 +1,32 @@
 apiVersion: cluster.x-k8s.io/v1beta1
 kind: MachineDeployment
 metadata:
-  name: prod-worker
+  name: worker
   namespace: tinkerbell
 spec:
-  clusterName: prod
+  clusterName: cluster
   replicas: 2
   selector:
     matchLabels:
-      cluster.x-k8s.io/cluster-name: prod
+      cluster.x-k8s.io/cluster-name: cluster
   template:
     spec:
-      clusterName: prod
+      clusterName: cluster
       version: v1.35.4
       bootstrap:
         configRef:
           apiVersion: bootstrap.cluster.x-k8s.io/v1beta1
           kind: KubeadmConfigTemplate
-          name: prod-worker
+          name: worker
       infrastructureRef:
         apiVersion: infrastructure.cluster.x-k8s.io/v1alpha1
         kind: TinkerbellMachineTemplate
-        name: prod-worker
+        name: worker
 ---
 apiVersion: infrastructure.cluster.x-k8s.io/v1alpha1
 kind: TinkerbellMachineTemplate
 metadata:
-  name: prod-worker
+  name: worker
   namespace: tinkerbell
 spec:
   template:
@@ -44,7 +44,7 @@ spec:
 apiVersion: bootstrap.cluster.x-k8s.io/v1beta1
 kind: KubeadmConfigTemplate
 metadata:
-  name: prod-worker
+  name: worker
   namespace: tinkerbell
 spec:
   template:

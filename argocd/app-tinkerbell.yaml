@@ -9,6 +9,8 @@ spec:
     path: system/tinkerbell
     repoURL: https://github.com/daigo-suhara/capt-cluster.git
     targetRevision: HEAD
+    kustomize:
+      buildOptions: "- --enable-helm"
   destination:
     server: https://kubernetes.default.svc
     namespace: tinkerbell

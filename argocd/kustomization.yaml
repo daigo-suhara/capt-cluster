@@ -3,5 +3,5 @@ kind: Kustomization
 resources:
   - app-hardware.yaml
   - app-cluster.yaml
-  - app-tinkerbell-stack.yaml
-  - app-capi-providers.yaml
+  - app-tinkerbell.yaml
+  - app-capt.yaml

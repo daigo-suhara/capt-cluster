@@ -1,12 +1,12 @@
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: tinkerbell-stack
+  name: tinkerbell
   namespace: argocd
 spec:
   project: default
   source:
-    path: system/tinkerbell-stack
+    path: system/tinkerbell
     repoURL: https://github.com/daigo-suhara/capt-cluster.git
     targetRevision: HEAD
   destination:

@@ -1,19 +1,16 @@
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  annotations:
-    argocd.argoproj.io/sync-wave: "0"
-
   name: tinkerbell
   namespace: argocd
+  annotations:
+    argocd.argoproj.io/sync-wave: "0"
 spec:
   project: default
   source:
     path: system/tinkerbell
     repoURL: https://github.com/daigo-suhara/capt-cluster.git
     targetRevision: HEAD
-    kustomize:
-      buildOptions: "--enable-helm"
   destination:
     server: https://kubernetes.default.svc
     namespace: tinkerbell
@@ -24,4 +21,3 @@ spec:
     syncOptions:
       - CreateNamespace=true
       - ServerSideApply=true
-

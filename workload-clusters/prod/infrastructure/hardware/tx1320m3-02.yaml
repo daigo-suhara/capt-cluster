@@ -1,0 +1,29 @@
+apiVersion: tinkerbell.org/v1alpha1
+kind: Hardware
+metadata:
+  name: tx1320m3-02
+  namespace: tinkerbell
+  labels:
+    cluster-role: worker
+spec:
+  metadata:
+    facility:
+      facility_code: "home-lab"
+    instance:
+      id: "tx1320m3-02"
+      hostname: "tx1320m3-02"
+  interfaces:
+    - netboot:
+        allowPXE: true
+      dhcp:
+        arch: x86_64
+        mac: "4c:52:62:16:8b:9f"
+        ip:
+          address: "172.16.1.22"
+          netmask: "255.255.255.0"
+          gateway: "172.16.1.1"
+          nameservers: ["8.8.8.8"]
+  bmc:
+    ip: "172.16.1.12"
+    username: "admin"
+    password: "admin"

@@ -10,7 +10,7 @@ spec:
   source:
     repoURL: oci://ghcr.io/tinkerbell/charts
     chart: stack
-    targetRevision: 0.22.1 
+    targetRevision: 0.23.1 
     helm:
       passCredentials: true
       values: |

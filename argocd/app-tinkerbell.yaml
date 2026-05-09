@@ -8,9 +8,9 @@ metadata:
 spec:
   project: default
   source:
-    repoURL: oci://ghcr.io/tinkerbell/charts
+    repoURL: oci://ghcr.io/tinkerbell/charts/tinkerbell
     chart: stack
-    targetRevision: 0.22.1
+    targetRevision: 0.6.2
     helm:
       values: |
         stack:

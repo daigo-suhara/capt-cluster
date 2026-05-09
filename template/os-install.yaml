@@ -1,12 +1,12 @@
 apiVersion: tinkerbell.org/v1alpha1
 kind: Template
 metadata:
-  name: ubuntu-2404-kube-v1.35
+  name: os-install
   namespace: tinkerbell
 spec:
   data: |
     version: "0.1"
-    name: ubuntu_2404_install
+    name: os-install
     steps:
     - name: "image2disk"
       image: "quay.io/tinkerbell-actions/image2disk:v1.0.0"

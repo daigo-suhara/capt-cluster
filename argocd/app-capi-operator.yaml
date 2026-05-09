@@ -1,21 +1,23 @@
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  annotations:
-    argocd.argoproj.io/sync-wave: "2"
-
-  name: capt
+  name: capi-operator
   namespace: argocd
+  annotations:
+    argocd.argoproj.io/sync-wave: "1"
 spec:
   project: default
   source:
-    path: system/capt
+    path: system/capi-operator
     repoURL: https://github.com/daigo-suhara/capt-cluster.git
     targetRevision: HEAD
   destination:
     server: https://kubernetes.default.svc
-    namespace: capi-system
+    namespace: capi-operator-system
   syncPolicy:
     automated:
       prune: true
       selfHeal: true
+    syncOptions:
+      - CreateNamespace=true
+      - ServerSideApply=true

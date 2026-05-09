@@ -12,6 +12,7 @@ spec:
     chart: stack
     targetRevision: 0.22.1 
     helm:
+      passCredentials: true
       values: |
         stack:
           interface: eno1

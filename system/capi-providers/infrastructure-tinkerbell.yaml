@@ -1,7 +1,0 @@
-apiVersion: operator.cluster.x-k8s.io/v1alpha2
-kind: InfrastructureProvider
-metadata:
-  name: tinkerbell
-  namespace: capt-system
-spec:
-  version: v0.6.0

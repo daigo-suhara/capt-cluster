@@ -7,7 +7,7 @@ if ! command -v minikube &> /dev/null; then
     rm minikube-linux-amd64
 fi
 
-minikube start --driver=docker --memory=8192 --cpus=4
+minikube start --driver=docker --memory=6144 --cpus=4
 
 if ! command -v kubectl &> /dev/null; then
     curl -LO "https://dl.k8s.io/release/$(curl -L -s https://dl.k8s.io/release/stable.txt)/bin/linux/amd64/kubectl"

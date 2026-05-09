@@ -10,7 +10,7 @@ spec:
   source:
     repoURL: oci://ghcr.io/tinkerbell/charts
     chart: stack
-    targetRevision: 0.3.0
+    targetRevision: HEAD
     helm:
       values: |
         stack:

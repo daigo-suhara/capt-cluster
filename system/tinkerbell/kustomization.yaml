@@ -4,7 +4,7 @@ helmCharts:
   - name: stack
     releaseName: tinkerbell
     version: 0.3.0
-    repo: https://tinkerbell.github.io/charts
+    repo: https://tinkerbell.github.io/tink-charts
     valuesInline:
       stack:
         interface: eno1

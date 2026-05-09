@@ -1,0 +1,71 @@
+{{- if not .Values.deployment.hostNetwork }}
+apiVersion: v1
+kind: Service
+metadata:
+  annotations:
+    {{- with .Values.service.annotations }}
+    {{- toYaml . | nindent 4 }}
+    {{- end }}
+  labels:
+    {{- with .Values.service.labels }}
+    {{- toYaml . | nindent 4 }}
+    {{- end }}
+  name: {{ .Values.service.name }}
+  namespace: {{ .Release.Namespace | quote }}
+spec:
+  type: {{ .Values.service.type }}
+  {{- if eq .Values.service.type "LoadBalancer" }}
+  {{- if .Values.service.lbClass }}
+  loadBalancerClass: {{ .Values.service.lbClass }}
+  {{- end }}
+  loadBalancerIP: {{ coalesce .Values.service.loadBalancerIP .Values.publicIP }}
+  externalTrafficPolicy: Local
+  {{- end }}
+  ports:
+  {{- if .Values.deployment.envs.globals.enableSmee}}
+  - port: {{ .Values.service.ports.dhcp.port }}
+    targetPort: {{ .Values.service.ports.dhcp.name }}
+    protocol: {{ .Values.service.ports.dhcp.protocol }}
+    name: {{ .Values.service.ports.dhcp.name }}
+  - port: {{ .Values.service.ports.tftp.port }}
+    targetPort: {{ .Values.service.ports.tftp.name }}
+    protocol: {{ .Values.service.ports.tftp.protocol }}
+    name: {{ .Values.service.ports.tftp.name }}
+  - port: {{ .Values.service.ports.syslog.port }}
+    targetPort: {{ .Values.service.ports.syslog.name }}
+    protocol: {{ .Values.service.ports.syslog.protocol }}
+    name: {{ .Values.service.ports.syslog.name }}
+  - port: {{ .Values.service.ports.httpSmee.port }}
+    targetPort: {{ .Values.service.ports.httpSmee.name }}
+    protocol: {{ .Values.service.ports.httpSmee.protocol }}
+    name: {{ .Values.service.ports.httpSmee.name }}
+  {{- end }}
+  {{- if .Values.deployment.envs.globals.enableTootles }}
+  - port: {{ .Values.service.ports.httpTootles.port }}
+    targetPort: {{ .Values.service.ports.httpTootles.name }}
+    protocol: {{ .Values.service.ports.httpTootles.protocol }}
+    name: {{ .Values.service.ports.httpTootles.name }}
+  {{- end }}
+  {{- if .Values.deployment.envs.globals.enableTinkServer }}
+  - port: {{ .Values.service.ports.grpc.port }}
+    targetPort: {{ .Values.service.ports.grpc.name }}
+    protocol: {{ .Values.service.ports.grpc.protocol }}
+    name: {{ .Values.service.ports.grpc.name }}
+  {{- end}}
+  {{- if .Values.deployment.envs.globals.enableSecondstar}}
+  - port: {{ .Values.service.ports.ssh.port }}
+    targetPort: {{ .Values.service.ports.ssh.name }}
+    protocol: {{ .Values.service.ports.ssh.protocol }}
+    name: {{ .Values.service.ports.ssh.name }}
+  {{- end }}
+  {{- if and .Values.deployment.envs.globals.tlsCertFile .Values.deployment.envs.globals.tlsKeyFile }}
+  - port: {{ .Values.service.ports.https.port }}
+    targetPort: {{ .Values.service.ports.https.name }}
+    protocol: {{ .Values.service.ports.https.protocol }}
+    name: {{ .Values.service.ports.https.name }}
+  {{- end }}
+  selector:
+    {{- with .Values.service.selector }}
+    {{- toYaml . | nindent 4 }}
+    {{- end }}
+{{- end }}

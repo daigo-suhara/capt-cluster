@@ -8,9 +8,14 @@ metadata:
 spec:
   project: default
   source:
-    repoURL: https://github.com/daigo-suhara/capt-cluster.git
-    targetRevision: HEAD
-    path: system/tinkerbell
+    repoURL: oci://ghcr.io/tinkerbell/charts
+    chart: tinkerbell
+    targetRevision: v0.22.1
+    helm:
+      values: |
+        trustedProxies: "10.0.0.0/8"
+        publicIP: 192.0.2.116
+        artifactsFileServer: http://192.0.2.117:7173
   destination:
     server: https://kubernetes.default.svc
     namespace: tinkerbell
@@ -20,4 +25,3 @@ spec:
       selfHeal: true
     syncOptions:
       - CreateNamespace=true
-      - ServerSideApply=true

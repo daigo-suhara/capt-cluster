@@ -50,9 +50,6 @@ spec:
   template:
     spec:
       format: cloud-config
-      preKubeadmCommands:
-        - swapoff -a || true
-        - sed -i '/\sswap\s/ s/^/#/' /etc/fstab
       users:
         - name: tinkerbell
           sudo: "ALL=(ALL) NOPASSWD:ALL"

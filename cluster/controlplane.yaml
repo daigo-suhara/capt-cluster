@@ -42,9 +42,6 @@ spec:
       controllerManager:
         extraArgs:
           enable-hostpath-provisioner: "true"
-    preKubeadmCommands:
-      - swapoff -a || true
-      - sed -i '/\sswap\s/ s/^/#/' /etc/fstab
     users:
       - name: tinkerbell
         sudo: "ALL=(ALL) NOPASSWD:ALL"

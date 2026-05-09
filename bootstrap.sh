@@ -20,4 +20,6 @@ kubectl apply --server-side --force-conflicts -n argocd -f https://raw.githubuse
 
 kubectl wait --for=condition=available deployment/argocd-server -n argocd --timeout=300s
 
+kubectl patch configmap argocd-cm -n argocd --type merge -p '{"data":{"kustomize.buildOptions":"--enable-helm"}}'
+
 kubectl apply -f https://raw.githubusercontent.com/daigo-suhara/capt-cluster/master/argocd/app-of-apps.yaml

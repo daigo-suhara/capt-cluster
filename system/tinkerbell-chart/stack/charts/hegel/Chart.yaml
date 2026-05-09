@@ -1,0 +1,6 @@
+apiVersion: v2
+appVersion: 0.10.1
+description: A Helm chart for Kubernetes
+name: hegel
+type: application
+version: 0.3.1

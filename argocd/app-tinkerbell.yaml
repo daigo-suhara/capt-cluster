@@ -8,9 +8,9 @@ metadata:
 spec:
   project: default
   source:
-    repoURL: oci://ghcr.io/tinkerbell/charts
-    chart: stack
-    targetRevision: 0.3.0
+    path: system/tinkerbell-chart/stack
+    repoURL: https://github.com/daigo-suhara/capt-cluster.git
+    targetRevision: HEAD
     helm:
       values: |
         stack:

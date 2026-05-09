@@ -45,21 +45,6 @@ spec:
     preKubeadmCommands:
       - swapoff -a || true
       - sed -i '/\sswap\s/ s/^/#/' /etc/fstab
-    postKubeadmCommands:
-      - kubectl --kubeconfig /etc/kubernetes/super-admin.conf apply -f /etc/kubernetes/rbac.yaml
-    files:
-      - path: /etc/kubernetes/manifests/kube-vip.yaml
-        permissions: "0644"
-        contentFrom:
-          secret:
-            name: kubeadm-addons
-            key: kube-vip.yaml
-      - path: /etc/kubernetes/rbac.yaml
-        permissions: "0644"
-        contentFrom:
-          secret:
-            name: kubeadm-addons
-            key: rbac.yaml
     users:
       - name: tinkerbell
         sudo: "ALL=(ALL) NOPASSWD:ALL"

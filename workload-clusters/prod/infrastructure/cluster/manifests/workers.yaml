@@ -1,0 +1,60 @@
+apiVersion: cluster.x-k8s.io/v1beta1
+kind: MachineDeployment
+metadata:
+  name: prod-worker
+  namespace: tinkerbell
+spec:
+  clusterName: prod
+  replicas: 2
+  selector:
+    matchLabels:
+      cluster.x-k8s.io/cluster-name: prod
+  template:
+    spec:
+      clusterName: prod
+      version: v1.35.4
+      bootstrap:
+        configRef:
+          apiVersion: bootstrap.cluster.x-k8s.io/v1beta1
+          kind: KubeadmConfigTemplate
+          name: prod-worker
+      infrastructureRef:
+        apiVersion: infrastructure.cluster.x-k8s.io/v1alpha1
+        kind: TinkerbellMachineTemplate
+        name: prod-worker
+---
+apiVersion: infrastructure.cluster.x-k8s.io/v1alpha1
+kind: TinkerbellMachineTemplate
+metadata:
+  name: prod-worker
+  namespace: tinkerbell
+spec:
+  template:
+    spec:
+      templateRef:
+        name: ubuntu-2404-kube-v1.35
+      hardwareAffinity:
+        required:
+          - labelSelector:
+              matchLabels:
+                cluster-role: worker
+      bootOptions:
+        bootMode: uefi
+---
+apiVersion: bootstrap.cluster.x-k8s.io/v1beta1
+kind: KubeadmConfigTemplate
+metadata:
+  name: prod-worker
+  namespace: tinkerbell
+spec:
+  template:
+    spec:
+      format: cloud-config
+      preKubeadmCommands:
+        - swapoff -a || true
+        - sed -i '/\sswap\s/ s/^/#/' /etc/fstab
+      users:
+        - name: tinkerbell
+          sudo: "ALL=(ALL) NOPASSWD:ALL"
+          sshAuthorizedKeys:
+            - "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAID+3Q/eAOgoIs0pNtGvQ8ueXK1Gg8CnIdhcU9rwpeMFm suharadaigo"

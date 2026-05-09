@@ -1,0 +1,31 @@
+apiVersion: cluster.x-k8s.io/v1beta1
+kind: Cluster
+metadata:
+  name: prod
+  namespace: tinkerbell
+  labels:
+    cni: cilium
+spec:
+  clusterNetwork:
+    pods:
+      cidrBlocks: ["10.0.0.0/16"]
+    services:
+      cidrBlocks: ["10.96.0.0/12"]
+  controlPlaneRef:
+    apiVersion: controlplane.cluster.x-k8s.io/v1beta1
+    kind: KubeadmControlPlane
+    name: prod-control-plane
+  infrastructureRef:
+    apiVersion: infrastructure.cluster.x-k8s.io/v1beta1
+    kind: TinkerbellCluster
+    name: prod
+---
+apiVersion: infrastructure.cluster.x-k8s.io/v1beta1
+kind: TinkerbellCluster
+metadata:
+  name: prod
+  namespace: tinkerbell
+spec:
+  controlPlaneEndpoint:
+    host: 172.16.1.100
+    port: 6443

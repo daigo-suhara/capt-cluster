@@ -23,6 +23,3 @@ spec:
           netmask: "255.255.255.0"
           gateway: "172.16.1.1"
           nameservers: ["8.8.8.8"]
-    ip: "172.16.1.12"
-    username: "admin"
-    password: "admin"

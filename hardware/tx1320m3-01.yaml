@@ -17,12 +17,11 @@ spec:
         allowPXE: true
       dhcp:
         arch: x86_64
-        mac: "4c:52:62:16:33:8d"
+        mac: "4c:52:62:16:33:8d
+4c:52:62:16:8b:9f"
         ip:
-          address: "172.16.1.21"
+          address: "172.16.1.21
+172.16.1.22"
           netmask: "255.255.255.0"
           gateway: "172.16.1.1"
           nameservers: ["8.8.8.8"]
-    ip: "172.16.1.11"
-    username: "admin"
-    password: "admin"

@@ -7,9 +7,7 @@ helmCharts:
     repo: https://tinkerbell.github.io/charts
     valuesInline:
       stack:
-        # インターフェース名やIPは環境に合わせて調整してください
         interface: eno1
         loadBalancerIP: 172.16.1.10
       hegel:
-        trustedProxies:
-          - 10.0.0.0/8
+        trustedProxies: [10.0.0.0/8]

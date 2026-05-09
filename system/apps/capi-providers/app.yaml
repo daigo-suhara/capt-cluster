@@ -6,7 +6,7 @@ metadata:
 spec:
   project: default
   source:
-    path: system/apps/capi-providers/manifests
+    path: system/apps/capi-providers
     repoURL: https://github.com/daigo-suhara/capt-cluster.git
     targetRevision: HEAD
   destination:

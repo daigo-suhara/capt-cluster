@@ -6,7 +6,7 @@ metadata:
 spec:
   project: default
   source:
-    path: workload-clusters/prod/infrastructure/cluster/manifests
+    path: workload-clusters/prod/infrastructure/cluster
     repoURL: https://github.com/daigo-suhara/capt-cluster.git
     targetRevision: HEAD
   destination:

@@ -6,7 +6,7 @@ metadata:
 spec:
   project: default
   source:
-    path: bootstrap
+    path: argocd
     repoURL: https://github.com/daigo-suhara/capt-cluster.git
     targetRevision: HEAD
   destination:

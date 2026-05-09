@@ -22,4 +22,3 @@ spec:
           address: "172.16.1.22"
           netmask: "255.255.255.0"
           gateway: "172.16.1.1"
-          nameservers: ["8.8.8.8"]

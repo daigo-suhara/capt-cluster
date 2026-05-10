@@ -1,7 +1,7 @@
 apiVersion: bmc.tinkerbell.org/v1alpha1
 kind: Machine
 metadata:
-  name: tx1320m3-03
+  name: "4c52621710ef"
   namespace: tinkerbell
 spec:
   connection:
@@ -20,7 +20,7 @@ spec:
 apiVersion: tinkerbell.org/v1alpha1
 kind: Hardware
 metadata:
-  name: tx1320m3-03
+  name: "4c52621710ef"
   namespace: tinkerbell
   labels:
     cluster-role: control-plane
@@ -28,7 +28,7 @@ spec:
   bmcRef:
     apiGroup: bmc.tinkerbell.org
     kind: Machine
-    name: tx1320m3-03
+    name: "4c52621710ef"
   metadata:
     facility:
       facility_code: "home-lab"

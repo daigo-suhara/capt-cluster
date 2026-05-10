@@ -60,10 +60,10 @@ spec:
                 cluster-role: control-plane
       templateOverride: |
         version: "0.1"
-        name: {{.Name}}
+        name: ubuntu-2404-control-plane
         global_timeout: 6000
         tasks:
-          - name: "{{.Name}}"
+          - name: "ubuntu-2404-control-plane"
             worker: "{{.device_1}}"
             volumes:
               - /dev:/dev

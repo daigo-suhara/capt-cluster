@@ -21,11 +21,17 @@ metadata:
   namespace: tinkerbell
 spec:
   replicas: 1
+  rolloutStrategy:
+    rollingUpdate:
+      maxSurge: 1
+    type: RollingUpdate
   machineTemplate:
     infrastructureRef:
       apiVersion: infrastructure.cluster.x-k8s.io/v1beta1
       kind: TinkerbellMachineTemplate
       name: control-plane
+      namespace: tinkerbell
+    metadata: {}
   kubeadmConfigSpec:
     format: cloud-config
     clusterConfiguration:
@@ -36,6 +42,10 @@ spec:
       controllerManager:
         extraArgs:
           enable-hostpath-provisioner: "true"
+      dns: {}
+      etcd: {}
+      networking: {}
+      scheduler: {}
     users:
       - name: tinkerbell
         sudo: "ALL=(ALL) NOPASSWD:ALL"

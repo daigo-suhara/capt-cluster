@@ -6,6 +6,9 @@ metadata:
   labels:
     cni: cilium
 spec:
+  controlPlaneEndpoint:
+    host: 172.16.1.100
+    port: 6443
   clusterNetwork:
     pods:
       cidrBlocks: ["10.0.0.0/16"]
@@ -15,10 +18,12 @@ spec:
     apiVersion: controlplane.cluster.x-k8s.io/v1beta1
     kind: KubeadmControlPlane
     name: control-plane
+    namespace: tinkerbell
   infrastructureRef:
     apiVersion: infrastructure.cluster.x-k8s.io/v1beta1
     kind: TinkerbellCluster
     name: cluster
+    namespace: tinkerbell
 ---
 apiVersion: infrastructure.cluster.x-k8s.io/v1beta1
 kind: TinkerbellCluster

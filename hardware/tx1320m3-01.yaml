@@ -43,3 +43,5 @@ spec:
           family: 4
           gateway: 172.16.0.1
           netmask: 255.255.0.0
+  disks:
+    - device: /dev/sda

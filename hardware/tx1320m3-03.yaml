@@ -1,9 +1,32 @@
+apiVersion: bmc.tinkerbell.org/v1alpha1
+kind: Machine
+metadata:
+  name: tx1320m3-03
+  namespace: tinkerbell
+spec:
+  connection:
+    host: 172.16.1.13
+    port: 623
+    insecureTLS: true
+    authSecretRef:
+      name: bmc-auth
+      namespace: tinkerbell
+    providerOptions:
+      preferredOrder:
+        - ipmitool
+      ipmitool:
+        port: 623
+---
 apiVersion: tinkerbell.org/v1alpha1
 kind: Hardware
 metadata:
   name: tx1320m3-03
   namespace: tinkerbell
 spec:
+  bmcRef:
+    apiGroup: bmc.tinkerbell.org
+    kind: Machine
+    name: tx1320m3-03
   metadata:
     facility:
       facility_code: "home-lab"

@@ -12,5 +12,4 @@ spec:
       hostname: "tx1320m3-01"
   interfaces:
     - dhcp:
-        mac: "4c:52:62:16:33:8d
-4c:52:62:16:8b:9f"
+        mac: "4c:52:62:16:33:8d"

@@ -13,6 +13,7 @@ spec:
     targetRevision: v0.22.1
     helm:
       values: |
+        hostNetwork: true
         publicIP: 172.16.1.10
         artifactsFileServer: http://172.16.1.10:7173
         trustedProxies:

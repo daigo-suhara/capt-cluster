@@ -43,6 +43,8 @@ kind: TinkerbellMachineTemplate
 metadata:
   name: worker
   namespace: tinkerbell
+  annotations:
+    argocd.argoproj.io/sync-options: Replace=true
 spec:
   template:
     spec:

@@ -46,6 +46,8 @@ kind: TinkerbellMachineTemplate
 metadata:
   name: control-plane
   namespace: tinkerbell
+  annotations:
+    argocd.argoproj.io/sync-options: Replace=true
 spec:
   template:
     spec:

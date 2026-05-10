@@ -8,18 +8,21 @@ metadata:
 spec:
   project: default
   source:
-    repoURL: oci://ghcr.io/tinkerbell/charts
-    chart: tinkerbell
-    targetRevision: v0.23.1-94b3809a
+    repoURL: https://github.com/daigo-suhara/capt-cluster.git
+    targetRevision: HEAD
+    path: system/tinkerbell-stack
     helm:
       values: |
-        stack:
-          interface: eno1
-          loadBalancerIP: 172.16.1.10
-        hegel:
-          trustedProxies: [10.0.0.0/8]
-        nginx:
-          resolver: 127.0.0.1
+        publicIP: 172.16.1.10
+        artifactsFileServer: http://172.16.1.10:7173
+        trustedProxies:
+          - 10.0.0.0/8
+        deployment:
+          init:
+            sourceInterface: eno1
+        optional:
+          kubevip:
+            interface: eno1
   destination:
     server: https://kubernetes.default.svc
     namespace: tinkerbell

@@ -51,6 +51,10 @@ spec:
     spec:
       bootOptions:
         bootMode: netboot
+      imageLookupBaseRegistry: ghcr.io/tinkerbell/cluster-api-provider-tinkerbell
+      imageLookupFormat: '{{.BaseRegistry}}/{{.OSDistro}}:{{.OSVersion}}-{{.KubernetesVersion}}-amd64.gz'
+      imageLookupOSDistro: ubuntu
+      imageLookupOSVersion: "24.04"
       hardwareAffinity:
         required:
           - labelSelector:

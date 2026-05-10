@@ -34,3 +34,7 @@ spec:
   controlPlaneEndpoint:
     host: 172.16.1.100
     port: 6443
+  imageLookupBaseRegistry: ghcr.io/tinkerbell/cluster-api-provider-tinkerbell
+  imageLookupFormat: '{{.BaseRegistry}}/{{.OSDistro}}:{{.OSVersion}}-{{.KubernetesVersion}}-amd64.gz'
+  imageLookupOSDistro: ubuntu
+  imageLookupOSVersion: "24.04"

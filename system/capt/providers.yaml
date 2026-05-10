@@ -29,5 +29,16 @@ metadata:
   namespace: capt-system
 spec:
   version: v0.6.0
+  configSecret:
+    name: tinkerbell-variables
   fetchConfig:
     url: https://github.com/tinkerbell/cluster-api-provider-tinkerbell/releases/v0.6.0/infrastructure-components.yaml
+---
+apiVersion: v1
+kind: Secret
+metadata:
+  name: tinkerbell-variables
+  namespace: capt-system
+type: Opaque
+stringData:
+  TINKERBELL_IP: 172.16.1.10

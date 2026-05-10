@@ -33,7 +33,7 @@ spec:
     facility:
       facility_code: "home-lab"
     instance:
-      id: "tx1320m3-03"
+      id: "4c:52:62:17:10:ef"
       hostname: "tx1320m3-03"
   interfaces:
     - dhcp:

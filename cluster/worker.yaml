@@ -5,7 +5,7 @@ metadata:
   namespace: tinkerbell
 spec:
   clusterName: cluster
-  replicas: 2
+  replicas: 0
   selector:
     matchLabels:
       cluster.x-k8s.io/cluster-name: cluster

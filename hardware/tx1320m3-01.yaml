@@ -38,3 +38,8 @@ spec:
   interfaces:
     - dhcp:
         mac: "4c:52:62:16:33:8d"
+        ip:
+          address: 172.16.10.11
+          family: 4
+          gateway: 172.16.0.1
+          netmask: 255.255.0.0

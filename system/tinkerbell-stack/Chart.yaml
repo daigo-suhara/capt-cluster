@@ -1,7 +1,0 @@
-apiVersion: v2
-appVersion: v0.22.1
-description: A Helm chart for Kubernetes
-icon: https://github.com/tinkerbell/artwork/blob/6f07de53d75cb8932dbc7d14201e038cf3a3b230/Tinkerbell-Icon-Dark.png
-name: tinkerbell
-type: application
-version: v0.22.1

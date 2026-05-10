@@ -17,12 +17,6 @@ spec:
         artifactsFileServer: http://172.16.1.10:7173
         trustedProxies:
           - 10.0.0.0/8
-        deployment:
-          init:
-            sourceInterface: eno1
-        optional:
-          kubevip:
-            interface: eno1
   destination:
     server: https://kubernetes.default.svc
     namespace: tinkerbell

@@ -12,7 +12,7 @@ if ! command -v microk8s &> /dev/null; then
     sudo microk8s status --wait-ready
     
     echo "Enabling addons..."
-    sudo microk8s enable dns storage
+    sudo microk8s enable dns storage rbac
 fi
 
 # Alias kubectl
@@ -29,7 +29,7 @@ export KUBECONFIG=~/.kube/config
 # 2. Install ArgoCD
 echo "Installing ArgoCD..."
 kubectl create namespace argocd --dry-run=client -o yaml | kubectl apply -f -
-kubectl apply -n argocd -f https://raw.githubusercontent.com/argoproj/argo-cd/stable/manifests/install.yaml
+kubectl apply -n argocd --server-side --force-conflicts -f https://raw.githubusercontent.com/argoproj/argo-cd/stable/manifests/install.yaml
 
 # 3. Wait for ArgoCD to be ready
 echo "Waiting for ArgoCD..."

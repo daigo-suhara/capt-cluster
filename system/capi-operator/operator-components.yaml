@@ -22,7 +22,7 @@ spec:
       clientConfig:
         service:
           name: capi-operator-webhook-service
-          namespace: capi-operator-system
+          
           path: /convert
       conversionReviewVersions:
       - v1
@@ -3283,7 +3283,7 @@ spec:
       clientConfig:
         service:
           name: capi-operator-webhook-service
-          namespace: capi-operator-system
+          
           path: /convert
       conversionReviewVersions:
       - v1
@@ -6544,7 +6544,7 @@ spec:
       clientConfig:
         service:
           name: capi-operator-webhook-service
-          namespace: capi-operator-system
+          
           path: /convert
       conversionReviewVersions:
       - v1
@@ -9807,7 +9807,7 @@ spec:
       clientConfig:
         service:
           name: capi-operator-webhook-service
-          namespace: capi-operator-system
+          
           path: /convert
       conversionReviewVersions:
       - v1
@@ -13068,7 +13068,7 @@ spec:
       clientConfig:
         service:
           name: capi-operator-webhook-service
-          namespace: capi-operator-system
+          
           path: /convert
       conversionReviewVersions:
       - v1
@@ -16331,7 +16331,7 @@ spec:
       clientConfig:
         service:
           name: capi-operator-webhook-service
-          namespace: capi-operator-system
+          
           path: /convert
       conversionReviewVersions:
       - v1
@@ -19592,7 +19592,7 @@ spec:
       clientConfig:
         service:
           name: capi-operator-webhook-service
-          namespace: capi-operator-system
+          
           path: /convert
       conversionReviewVersions:
       - v1
@@ -22846,7 +22846,7 @@ metadata:
   labels:
     clusterctl.cluster.x-k8s.io/core: capi-operator
   name: capi-operator-manager
-  namespace: capi-operator-system
+  
 ---
 apiVersion: rbac.authorization.k8s.io/v1
 kind: Role
@@ -22854,7 +22854,7 @@ metadata:
   labels:
     clusterctl.cluster.x-k8s.io/core: capi-operator
   name: capi-operator-leader-election-role
-  namespace: capi-operator-system
+  
 rules:
 - apiGroups:
   - ""
@@ -22915,7 +22915,7 @@ metadata:
   labels:
     clusterctl.cluster.x-k8s.io/core: capi-operator
   name: capi-operator-leader-election-rolebinding
-  namespace: capi-operator-system
+  
 roleRef:
   apiGroup: rbac.authorization.k8s.io
   kind: Role
@@ -22923,7 +22923,7 @@ roleRef:
 subjects:
 - kind: ServiceAccount
   name: capi-operator-manager
-  namespace: capi-operator-system
+  
 ---
 apiVersion: rbac.authorization.k8s.io/v1
 kind: ClusterRoleBinding
@@ -22938,7 +22938,7 @@ roleRef:
 subjects:
 - kind: ServiceAccount
   name: capi-operator-manager
-  namespace: capi-operator-system
+  
 ---
 apiVersion: v1
 kind: Service
@@ -22946,7 +22946,7 @@ metadata:
   labels:
     clusterctl.cluster.x-k8s.io/core: capi-operator
   name: capi-operator-webhook-service
-  namespace: capi-operator-system
+  
 spec:
   ports:
   - port: 443
@@ -22962,7 +22962,7 @@ metadata:
     clusterctl.cluster.x-k8s.io/core: capi-operator
     control-plane: controller-manager
   name: capi-operator-controller-manager
-  namespace: capi-operator-system
+  
 spec:
   replicas: 1
   selector:
@@ -23024,7 +23024,7 @@ metadata:
   labels:
     clusterctl.cluster.x-k8s.io/core: capi-operator
   name: capi-operator-serving-cert
-  namespace: capi-operator-system
+  
 spec:
   dnsNames:
   - capi-operator-webhook-service.capi-operator-system.svc
@@ -23040,7 +23040,7 @@ metadata:
   labels:
     clusterctl.cluster.x-k8s.io/core: capi-operator
   name: capi-operator-selfsigned-issuer
-  namespace: capi-operator-system
+  
 spec:
   selfSigned: {}
 ---
@@ -23059,7 +23059,7 @@ webhooks:
   clientConfig:
     service:
       name: capi-operator-webhook-service
-      namespace: capi-operator-system
+      
       path: /mutate-operator-cluster-x-k8s-io-v1alpha2-addonprovider
   failurePolicy: Fail
   matchPolicy: Equivalent
@@ -23081,7 +23081,7 @@ webhooks:
   clientConfig:
     service:
       name: capi-operator-webhook-service
-      namespace: capi-operator-system
+      
       path: /mutate-operator-cluster-x-k8s-io-v1alpha2-bootstrapprovider
   failurePolicy: Fail
   matchPolicy: Equivalent
@@ -23103,7 +23103,7 @@ webhooks:
   clientConfig:
     service:
       name: capi-operator-webhook-service
-      namespace: capi-operator-system
+      
       path: /mutate-operator-cluster-x-k8s-io-v1alpha2-controlplaneprovider
   failurePolicy: Fail
   matchPolicy: Equivalent
@@ -23125,7 +23125,7 @@ webhooks:
   clientConfig:
     service:
       name: capi-operator-webhook-service
-      namespace: capi-operator-system
+      
       path: /mutate-operator-cluster-x-k8s-io-v1alpha2-coreprovider
   failurePolicy: Fail
   matchPolicy: Equivalent
@@ -23147,7 +23147,7 @@ webhooks:
   clientConfig:
     service:
       name: capi-operator-webhook-service
-      namespace: capi-operator-system
+      
       path: /mutate-operator-cluster-x-k8s-io-v1alpha2-infrastructureprovider
   failurePolicy: Fail
   matchPolicy: Equivalent
@@ -23169,7 +23169,7 @@ webhooks:
   clientConfig:
     service:
       name: capi-operator-webhook-service
-      namespace: capi-operator-system
+      
       path: /mutate-operator-cluster-x-k8s-io-v1alpha2-ipamprovider
   failurePolicy: Fail
   matchPolicy: Equivalent
@@ -23191,7 +23191,7 @@ webhooks:
   clientConfig:
     service:
       name: capi-operator-webhook-service
-      namespace: capi-operator-system
+      
       path: /mutate-operator-cluster-x-k8s-io-v1alpha2-runtimeextensionprovider
   failurePolicy: Fail
   matchPolicy: Equivalent
@@ -23223,7 +23223,7 @@ webhooks:
   clientConfig:
     service:
       name: capi-operator-webhook-service
-      namespace: capi-operator-system
+      
       path: /validate-operator-cluster-x-k8s-io-v1alpha2-addonprovider
   failurePolicy: Fail
   matchPolicy: Equivalent
@@ -23245,7 +23245,7 @@ webhooks:
   clientConfig:
     service:
       name: capi-operator-webhook-service
-      namespace: capi-operator-system
+      
       path: /validate-operator-cluster-x-k8s-io-v1alpha2-bootstrapprovider
   failurePolicy: Fail
   matchPolicy: Equivalent
@@ -23267,7 +23267,7 @@ webhooks:
   clientConfig:
     service:
       name: capi-operator-webhook-service
-      namespace: capi-operator-system
+      
       path: /validate-operator-cluster-x-k8s-io-v1alpha2-controlplaneprovider
   failurePolicy: Fail
   matchPolicy: Equivalent
@@ -23289,7 +23289,7 @@ webhooks:
   clientConfig:
     service:
       name: capi-operator-webhook-service
-      namespace: capi-operator-system
+      
       path: /validate-operator-cluster-x-k8s-io-v1alpha2-coreprovider
   failurePolicy: Fail
   matchPolicy: Equivalent
@@ -23311,7 +23311,7 @@ webhooks:
   clientConfig:
     service:
       name: capi-operator-webhook-service
-      namespace: capi-operator-system
+      
       path: /validate-operator-cluster-x-k8s-io-v1alpha2-infrastructureprovider
   failurePolicy: Fail
   matchPolicy: Equivalent
@@ -23333,7 +23333,7 @@ webhooks:
   clientConfig:
     service:
       name: capi-operator-webhook-service
-      namespace: capi-operator-system
+      
       path: /validate-operator-cluster-x-k8s-io-v1alpha2-ipamprovider
   failurePolicy: Fail
   matchPolicy: Equivalent
@@ -23355,7 +23355,7 @@ webhooks:
   clientConfig:
     service:
       name: capi-operator-webhook-service
-      namespace: capi-operator-system
+      
       path: /validate-operator-cluster-x-k8s-io-v1alpha2-runtimeextensionprovider
   failurePolicy: Fail
   matchPolicy: Equivalent

@@ -17,6 +17,12 @@ spec:
         artifactsFileServer: http://172.16.1.10:7173
         trustedProxies:
           - 10.0.0.0/8
+        optional:
+          hookos:
+            persistence:
+              localPersistentVolume:
+                accessModes:
+                  - ReadWriteOnce
   destination:
     server: https://kubernetes.default.svc
     namespace: tinkerbell

@@ -30,4 +30,4 @@ metadata:
 spec:
   version: v0.6.0
   fetchConfig:
-    url: https://github.com/tinkerbell/cluster-api-provider-tinkerbell/releases
+    url: https://github.com/tinkerbell/cluster-api-provider-tinkerbell/releases/v0.6.0/infrastructure-components.yaml

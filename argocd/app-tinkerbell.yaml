@@ -7,16 +7,19 @@ metadata:
     argocd.argoproj.io/sync-wave: "0"
 spec:
   project: default
-  source:
-    repoURL: oci://ghcr.io/tinkerbell/charts/tinkerbell
-    path: .
-    targetRevision: v0.22.1
-    helm:
-      values: |
-        publicIP: 172.16.1.10
-        artifactsFileServer: http://172.16.1.10:7173
-        trustedProxies:
-          - 10.0.0.0/8
+  sources:
+    - repoURL: oci://ghcr.io/tinkerbell/charts/tinkerbell
+      path: .
+      targetRevision: v0.22.1
+      helm:
+        values: |
+          publicIP: 172.16.1.10
+          artifactsFileServer: http://172.16.1.10:7173
+          trustedProxies:
+            - 10.0.0.0/8
+    - repoURL: https://github.com/daigo-suhara/capt-cluster.git
+      path: system/tinkerbell
+      targetRevision: master
   destination:
     server: https://kubernetes.default.svc
     namespace: tinkerbell

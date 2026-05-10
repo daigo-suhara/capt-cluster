@@ -1,0 +1,10 @@
+apiVersion: v1
+kind: Secret
+metadata:
+  name: bmc-auth
+  namespace: tinkerbell
+type: Opaque
+data:
+  # admin / admin
+  username: YWRtaW4=
+  password: YWRtaW4=

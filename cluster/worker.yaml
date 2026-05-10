@@ -19,11 +19,11 @@ spec:
           kind: KubeadmConfigTemplate
           name: worker
       infrastructureRef:
-        apiVersion: infrastructure.cluster.x-k8s.io/v1alpha1
+        apiVersion: infrastructure.cluster.x-k8s.io/v1beta1
         kind: TinkerbellMachineTemplate
         name: worker
 ---
-apiVersion: infrastructure.cluster.x-k8s.io/v1alpha1
+apiVersion: infrastructure.cluster.x-k8s.io/v1beta1
 kind: TinkerbellMachineTemplate
 metadata:
   name: worker

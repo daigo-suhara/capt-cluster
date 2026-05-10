@@ -1,24 +1,29 @@
 #!/bin/bash
 set -eo pipefail
 
-# 1. Install K3s (Host Network is used by default)
-if ! command -v k3s &> /dev/null; then
-    echo "Installing K3s..."
-    curl -sfL https://get.k3s.io | sh -
-    sudo chmod 644 /etc/rancher/k3s/k3s.yaml
+# 1. Install MicroK8s
+if ! command -v microk8s &> /dev/null; then
+    echo "Installing MicroK8s..."
+    sudo snap install microk8s --classic
+    sudo usermod -a -G microk8s $USER
+    sudo chown -f -R $USER ~/.kube
     
-    # Persist KUBECONFIG for the current user
-    if ! grep -q "KUBECONFIG" ~/.bashrc; then
-        echo 'export KUBECONFIG=/etc/rancher/k3s/k3s.yaml' >> ~/.bashrc
-    fi
+    echo "Waiting for MicroK8s to be ready..."
+    sudo microk8s status --wait-ready
+    
+    echo "Enabling addons..."
+    sudo microk8s enable dns storage
 fi
 
-export KUBECONFIG=/etc/rancher/k3s/k3s.yaml
+# Alias kubectl
+if ! command -v kubectl &> /dev/null; then
+    sudo snap alias microk8s.kubectl kubectl
+fi
 
 # 2. Install ArgoCD
 echo "Installing ArgoCD..."
 kubectl create namespace argocd --dry-run=client -o yaml | kubectl apply -f -
-kubectl apply -n argocd --server-side --force-conflicts -f https://raw.githubusercontent.com/argoproj/argo-cd/stable/manifests/install.yaml
+kubectl apply -n argocd -f https://raw.githubusercontent.com/argoproj/argo-cd/stable/manifests/install.yaml
 
 # 3. Wait for ArgoCD to be ready
 echo "Waiting for ArgoCD..."

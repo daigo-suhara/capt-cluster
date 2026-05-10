@@ -44,7 +44,7 @@ spec:
           gateway: 172.16.0.1
           netmask: 255.255.0.0
         uefi: true
-        dns:
+        name_servers:
           - 8.8.8.8
       netboot:
         allowPXE: true

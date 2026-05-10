@@ -31,15 +31,13 @@ metadata:
 spec:
   template:
     spec:
-      templateRef:
-        name: os-install
       hardwareAffinity:
         required:
           - labelSelector:
               matchLabels:
                 cluster-role: worker
       bootOptions:
-        bootMode: uefi
+        bootMode: netboot
 ---
 apiVersion: bootstrap.cluster.x-k8s.io/v1beta1
 kind: KubeadmConfigTemplate

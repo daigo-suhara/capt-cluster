@@ -20,6 +20,12 @@ if ! command -v kubectl &> /dev/null; then
     sudo snap alias microk8s.kubectl kubectl
 fi
 
+# Set KUBECONFIG for MicroK8s
+mkdir -p ~/.kube
+sudo microk8s config > ~/.kube/config
+chmod 600 ~/.kube/config
+export KUBECONFIG=~/.kube/config
+
 # 2. Install ArgoCD
 echo "Installing ArgoCD..."
 kubectl create namespace argocd --dry-run=client -o yaml | kubectl apply -f -

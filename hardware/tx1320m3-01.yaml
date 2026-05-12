@@ -22,8 +22,6 @@ kind: Hardware
 metadata:
   name: tx1320m3-01
   namespace: tinkerbell
-  annotations:
-    capt.daigo-suhara.com/reconcile-request: "2026-05-12T15:40:00+09:00"
   labels:
     cluster-role: control-plane
 spec:

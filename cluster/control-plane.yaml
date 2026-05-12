@@ -35,7 +35,6 @@ spec:
             value: "true"
       dns: {}
       etcd: {}
-      networking: {}
       scheduler: {}
     users:
       - name: tinkerbell

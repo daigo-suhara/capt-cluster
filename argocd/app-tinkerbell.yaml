@@ -22,10 +22,16 @@ spec:
           envs:
             smee:
               dhcpBindInterface: enx00e04c247a98
-              dhcpTftpIP: 172.16.1.10
-              dhcpIpxeHttpBinaryHost: 172.16.1.10
-              dhcpIpxeHttpScriptHost: 172.16.1.10
-        publicIP: 172.16.1.10
+              dhcpTftpIP: 172.16.0.10
+              dhcpIpxeHttpBinaryHost: 172.16.0.10
+              dhcpIpxeHttpScriptHost: 172.16.0.10
+              ipxeHttpScriptBindAddr: 0.0.0.0
+              tftpServerBindAddr: 0.0.0.0
+            tinkServer:
+              bindAddr: 0.0.0.0
+            tootles:
+              bindAddr: 0.0.0.0
+        publicIP: 172.16.0.10
         artifactsFileServer: http://172.16.1.10:7173
   destination:
     server: https://kubernetes.default.svc

@@ -7,7 +7,6 @@ spec:
   replicas: 3
   version: v1.35.4
   machineTemplate:
-    metadata: {}
     spec:
       infrastructureRef:
         apiGroup: infrastructure.cluster.x-k8s.io
@@ -33,9 +32,6 @@ spec:
         extraArgs:
           - name: enable-hostpath-provisioner
             value: "true"
-      dns: {}
-      etcd: {}
-      scheduler: {}
     users:
       - name: tinkerbell
         sudo: "ALL=(ALL) NOPASSWD:ALL"

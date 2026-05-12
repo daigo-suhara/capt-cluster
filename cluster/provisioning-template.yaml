@@ -35,7 +35,7 @@ spec:
               CONTENTS: |
                 datasource:
                   Ec2:
-                    metadata_urls: ["http://172.16.1.10:50061"]
+                    metadata_urls: ["http://172.16.1.10:7080"]
                     strict_id: false
                 system_info:
                   default_user:

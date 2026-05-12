@@ -37,7 +37,7 @@ spec:
               CONTENTS: |
                 datasource:
                   Ec2:
-                    metadata_urls: ["http://{{ .tootles_ip_port }}"]
+                    metadata_urls: ["http://172.16.0.10:7172"]
                     strict_id: false
                 system_info:
                   default_user:

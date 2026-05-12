@@ -17,8 +17,6 @@ spec:
           strategy:
             type: Recreate
           hostNetwork: true
-          init:
-            enabled: false
           envs:
             smee:
               dhcpBindInterface: enx00e04c247a98

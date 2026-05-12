@@ -15,6 +15,8 @@ spec:
       values: |
         deployment:
           hostNetwork: true
+          init:
+            enabled: false
         publicIP: 172.16.1.10
         artifactsFileServer: http://172.16.1.10:7173
         trustedProxies:

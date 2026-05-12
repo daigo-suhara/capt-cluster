@@ -4,4 +4,3 @@ resources:
   - cluster.yaml
   - control-plane.yaml
   - workers.yaml
-  - provisioning-template.yaml

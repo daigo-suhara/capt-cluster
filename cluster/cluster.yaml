@@ -36,6 +36,3 @@ spec:
   imageLookupFormat: '{{.BaseRegistry}}/{{.OSDistro}}:{{.OSVersion}}-{{.KubernetesVersion}}-amd64.gz'
   imageLookupOSDistro: ubuntu
   imageLookupOSVersion: "24.04"
-  templateOverrideRef:
-    name: cluster-provisioning-template
-    namespace: tinkerbell

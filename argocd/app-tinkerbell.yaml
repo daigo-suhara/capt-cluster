@@ -30,3 +30,11 @@ spec:
       selfHeal: true
     syncOptions:
       - CreateNamespace=true
+      - RespectIgnoreDifferences=true
+  ignoreDifferences:
+    - group: ""
+      kind: PersistentVolumeClaim
+      namespace: tinkerbell
+      name: hook-artifacts
+      jsonPointers:
+        - /spec/volumeName

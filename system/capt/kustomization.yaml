@@ -3,3 +3,4 @@ kind: Kustomization
 resources:
   - namespaces.yaml
   - providers.yaml
+  - cleanup-macvlan.yaml

@@ -35,6 +35,9 @@ kubectl apply -n argocd --server-side --force-conflicts -f https://raw.githubuse
 echo "Waiting for ArgoCD..."
 kubectl wait --for=condition=available deployment/argocd-server -n argocd --timeout=300s
 
+# Expose ArgoCD through a stable NodePort so we do not depend on port-forward.
+kubectl patch service argocd-server -n argocd --type merge -p '{"spec":{"type":"NodePort"}}'
+
 # 4. Configure ArgoCD (Enable Helm in Kustomize)
 kubectl patch configmap argocd-cm -n argocd --type merge -p '{"data":{"kustomize.buildOptions":"--enable-helm"}}'
 

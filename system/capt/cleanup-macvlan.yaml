@@ -1,0 +1,24 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: cleanup-macvlan0
+  namespace: capt-system
+  annotations:
+    argocd.argoproj.io/hook: PostSync
+    argocd.argoproj.io/hook-delete-policy: HookSucceeded,BeforeHookCreation
+spec:
+  backoffLimit: 0
+  template:
+    spec:
+      nodeName: mgmt
+      hostNetwork: true
+      restartPolicy: Never
+      containers:
+        - name: cleanup
+          image: ghcr.io/nicolaka/netshoot:latest
+          securityContext:
+            privileged: true
+          command:
+            - sh
+            - -c
+            - ip link delete macvlan0 || true

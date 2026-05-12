@@ -3,8 +3,6 @@ kind: Machine
 metadata:
   name: tx1320m3-01
   namespace: tinkerbell
-  annotations:
-    capt.daigo-suhara.com/reconcile-request: "2026-05-12T15:45:00+09:00"
 spec:
   connection:
     host: 172.16.1.11

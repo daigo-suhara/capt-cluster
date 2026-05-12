@@ -1,4 +1,4 @@
-apiVersion: controlplane.cluster.x-k8s.io/v1beta1
+apiVersion: controlplane.cluster.x-k8s.io/v1beta2
 kind: KubeadmControlPlane
 metadata:
   name: control-plane
@@ -8,15 +8,16 @@ spec:
   version: v1.35.4
   machineTemplate:
     metadata: {}
-    infrastructureRef:
-      apiVersion: infrastructure.cluster.x-k8s.io/v1beta1
-      kind: TinkerbellMachineTemplate
-      name: control-plane
-      namespace: tinkerbell
-  rolloutStrategy:
-    type: RollingUpdate
-    rollingUpdate:
-      maxSurge: 1
+    spec:
+      infrastructureRef:
+        apiGroup: infrastructure.cluster.x-k8s.io
+        kind: TinkerbellMachineTemplate
+        name: control-plane
+  rollout:
+    strategy:
+      type: RollingUpdate
+      rollingUpdate:
+        maxSurge: 1
   kubeadmConfigSpec:
     format: cloud-config
     preKubeadmCommands:
@@ -30,7 +31,8 @@ spec:
           - 127.0.0.1
       controllerManager:
         extraArgs:
-          enable-hostpath-provisioner: "true"
+          - name: enable-hostpath-provisioner
+            value: "true"
       dns: {}
       etcd: {}
       networking: {}

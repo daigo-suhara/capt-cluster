@@ -80,16 +80,12 @@ spec:
                     id0:
                       match:
                         name: en*
-                      addresses:
-                        - "{{ (index .Hardware.Metadata.Instance.IPs 0).Address }}/16"
+                      addresses: ["{{ (index .Hardware.Metadata.Instance.IPs 0).Address }}/16"]
                       routes:
                         - to: default
                           via: "{{ (index .Hardware.Metadata.Instance.IPs 0).Gateway }}"
                       nameservers:
-                        addresses:
-{{- range $ns := (index .Hardware.Interfaces 0).DHCP.NameServers }}
-                          - "{{ $ns }}"
-{{- end }}
+                        addresses: ["8.8.8.8"]
                       optional: true
           - name: "kexec image"
             image: ghcr.io/jacobweinstock/waitdaemon:0.2.1

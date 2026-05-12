@@ -14,6 +14,8 @@ spec:
     helm:
       values: |
         deployment:
+          strategy:
+            type: Recreate
           hostNetwork: true
           init:
             enabled: false

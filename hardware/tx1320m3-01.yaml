@@ -24,8 +24,6 @@ metadata:
   namespace: tinkerbell
   labels:
     cluster-role: control-plane
-  annotations:
-    capt.daigo-suhara.com/reconcile-request: "2026-05-12T18:00:00+09:00"
 spec:
   bmcRef:
     apiGroup: bmc.tinkerbell.org

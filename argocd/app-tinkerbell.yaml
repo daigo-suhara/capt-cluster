@@ -14,8 +14,6 @@ spec:
     helm:
       values: |
         deployment:
-          strategy:
-            type: Recreate
           hostNetwork: true
           envs:
             smee:

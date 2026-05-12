@@ -29,6 +29,7 @@ spec:
               bindAddr: 0.0.0.0
             tootles:
               bindAddr: 0.0.0.0
+              bindPort: 50061
         publicIP: 172.16.1.10
         artifactsFileServer: http://172.16.1.10:7173
         trustedProxies:

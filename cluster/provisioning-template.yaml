@@ -80,12 +80,9 @@ spec:
                     id0:
                       match:
                         name: en*
-                      addresses: ["{{ (index .Hardware.Interfaces 0).DHCP.IP.Address }}/16"]
-                      routes:
-                        - to: default
-                          via: "{{ (index .Hardware.Interfaces 0).DHCP.IP.Gateway }}"
-                      nameservers:
-                        addresses: ["8.8.8.8"]
+                      dhcp4: true
+                      dhcp6: false
+                      accept-ra: false
                       optional: true
           - name: "kexec image"
             image: ghcr.io/jacobweinstock/waitdaemon:0.2.1

@@ -27,8 +27,6 @@ kind: InfrastructureProvider
 metadata:
   name: tinkerbell
   namespace: capt-system
-  annotations:
-    capt.daigo-suhara.com/reconcile-request: "2026-05-10T11:45:00+09:00"
 spec:
   version: latest
   configSecret:

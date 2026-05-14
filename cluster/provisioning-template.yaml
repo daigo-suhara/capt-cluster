@@ -79,9 +79,17 @@ spec:
                   ethernets:
                     id0:
                       match:
-                        name: en*
+                        macaddress: "{{ (index .Hardware.Interfaces 0).DHCP.MAC }}"
+                      set-name: eno1
+                      addresses: ["{{ (index .Hardware.Interfaces 0).DHCP.IP.Address }}/16"]
+                      routes:
+                        - to: default
+                          via: "{{ (index .Hardware.Interfaces 0).DHCP.IP.Gateway }}"
+                      nameservers:
+                        addresses:
+                          - 8.8.8.8
                       link-local: [ipv4]
-                      dhcp4: true
+                      dhcp4: false
                       dhcp6: false
                       accept-ra: false
                       optional: true

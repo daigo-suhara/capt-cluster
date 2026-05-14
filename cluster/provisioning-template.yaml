@@ -80,6 +80,7 @@ spec:
                     id0:
                       match:
                         name: en*
+                      link-local: [ipv4]
                       dhcp4: true
                       dhcp6: false
                       accept-ra: false

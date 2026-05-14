@@ -29,7 +29,7 @@ spec:
   interfaces:
     - dhcp:
         uefi: true
-        mac: "4c:52:62:16:33:8d"
+        mac: "4c:52:62:16:8b:9f"
         ip:
           address: 172.16.10.12
           gateway: 172.16.0.1

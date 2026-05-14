@@ -3,21 +3,13 @@ kind: Machine
 metadata:
   name: tx1320m3-02
   namespace: tinkerbell
-  annotations:
-    argocd.argoproj.io/sync-options: Force=true,Replace=true
 spec:
   connection:
     host: 172.16.1.12
-    port: 623
-    insecureTLS: true
     authSecretRef:
       name: bmc-auth
       namespace: tinkerbell
-    providerOptions:
-      preferredOrder:
-        - ipmitool
-      ipmitool:
-        port: 623
+    insecureTLS: true
 ---
 apiVersion: tinkerbell.org/v1alpha1
 kind: Hardware
@@ -32,23 +24,17 @@ spec:
     kind: Machine
     name: tx1320m3-02
   metadata:
-    facility:
-      facility_code: "home-lab"
     instance:
-      id: "4c:52:62:16:8b:9f"
-      hostname: "tx1320m3-02"
+      id: "4c:52:62:16:33:8d"
   interfaces:
     - dhcp:
-        mac: "4c:52:62:16:8b:9f"
+        uefi: true
+        mac: "4c:52:62:16:33:8d"
         ip:
           address: 172.16.10.12
-          family: 4
           gateway: 172.16.0.1
           netmask: 255.255.0.0
-        uefi: true
         name_servers:
           - 8.8.8.8
-      netboot:
-        allowPXE: true
   disks:
     - device: /dev/sda

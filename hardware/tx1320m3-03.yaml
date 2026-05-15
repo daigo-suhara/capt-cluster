@@ -38,5 +38,8 @@ spec:
           - 1.1.1.1
           - 8.8.8.8
       disableDhcp: false
+      netboot:
+        allowPXE: true
+        allowWorkflow: true
   disks:
     - device: /dev/sda

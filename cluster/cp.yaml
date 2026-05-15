@@ -33,6 +33,12 @@ spec:
         extraArgs:
           - name: enable-hostpath-provisioner
             value: "true"
+    initConfiguration:
+      nodeRegistration:
+        name: '{{ ds.meta_data.instance_id }}'
+    joinConfiguration:
+      nodeRegistration:
+        name: '{{ ds.meta_data.instance_id }}'
     postKubeadmCommands:
       - kubectl --kubeconfig /etc/kubernetes/admin.conf taint nodes --all node-role.kubernetes.io/control-plane-
     users:

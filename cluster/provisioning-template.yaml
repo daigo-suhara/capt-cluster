@@ -35,7 +35,7 @@ spec:
               MODE: 0600
               DIRMODE: 0700
               CONTENTS: |
-                hostname: {{ index .Hardware.Labels "v1alpha1.tinkerbell.org/ownerName" }}
+                hostname: {{.Hardware.Metadata.Instance.ID}}
                 preserve_hostname: false
                 datasource:
                   Ec2:

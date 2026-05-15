@@ -35,6 +35,7 @@ spec:
           gateway: 172.16.0.1
           netmask: 255.255.0.0
         name_servers:
+          - 1.1.1.1
           - 8.8.8.8
   disks:
     - device: /dev/sda

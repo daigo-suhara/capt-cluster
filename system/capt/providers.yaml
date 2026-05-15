@@ -31,6 +31,8 @@ spec:
   version: v0.6.8
   configSecret:
     name: tinkerbell-variables
+  fetchConfig:
+    oci: ghcr.io/tinkerbell/cluster-api-provider-tinkerbell:sha-987031a
 ---
 apiVersion: v1
 kind: Secret

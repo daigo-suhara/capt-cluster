@@ -33,6 +33,9 @@ spec:
         extraArgs:
           - name: enable-hostpath-provisioner
             value: "true"
+    postKubeadmCommands:
+      - kubectl --kubeconfig /etc/kubernetes/admin.conf taint nodes --all node-role.kubernetes.io/control-plane-
+      - kubectl --kubeconfig /etc/kubernetes/admin.conf taint nodes --all node-role.kubernetes.io/master- || true
     users:
       - name: tinkerbell
         sudo: "ALL=(ALL) NOPASSWD:ALL"

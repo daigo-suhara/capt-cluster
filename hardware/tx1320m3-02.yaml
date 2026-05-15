@@ -17,7 +17,7 @@ metadata:
   name: tx1320m3-02
   namespace: tinkerbell
   labels:
-    cluster-role: control-plane
+    cluster-role: cp
 spec:
   bmcRef:
     apiGroup: bmc.tinkerbell.org

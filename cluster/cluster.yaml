@@ -5,6 +5,7 @@ metadata:
   namespace: tinkerbell
   labels:
     cni: cilium
+    cluster.x-k8s.io/cluster-name: cluster
 spec:
   controlPlaneEndpoint:
     host: 172.16.1.100

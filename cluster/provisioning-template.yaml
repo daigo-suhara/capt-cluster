@@ -35,6 +35,7 @@ spec:
               MODE: 0600
               DIRMODE: 0700
               CONTENTS: |
+                network: {config: disabled}
                 datasource:
                   Ec2:
                     metadata_urls: ["http://172.16.0.10:7172"]
@@ -80,7 +81,6 @@ spec:
                     id0:
                       match:
                         macaddress: "{{ (index .Hardware.Interfaces 0).DHCP.MAC }}"
-                      set-name: eno1
                       addresses: ["{{ (index .Hardware.Interfaces 0).DHCP.IP.Address }}/16"]
                       routes:
                         - to: default

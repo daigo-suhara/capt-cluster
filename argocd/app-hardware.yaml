@@ -21,3 +21,8 @@ spec:
     syncOptions:
       - CreateNamespace=true
       - ServerSideApply=true
+  ignoreDifferences:
+    - group: tinkerbell.org
+      kind: Hardware
+      jsonPointers:
+        - /spec/userData

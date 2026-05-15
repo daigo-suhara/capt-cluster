@@ -78,9 +78,7 @@ spec:
                   version: 2
                   renderer: networkd
                   ethernets:
-                    id0:
-                      match:
-                        macaddress: "{{ (index .Hardware.Interfaces 0).DHCP.MAC }}"
+                    eno1:
                       addresses: ["{{ (index .Hardware.Interfaces 0).DHCP.IP.Address }}/16"]
                       routes:
                         - to: default

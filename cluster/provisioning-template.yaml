@@ -35,8 +35,6 @@ spec:
               MODE: 0600
               DIRMODE: 0700
               CONTENTS: |
-                hostname: {{.Hardware.Metadata.Instance.ID}}
-                preserve_hostname: false
                 datasource:
                   Ec2:
                     metadata_urls: ["http://172.16.0.10:7172"]

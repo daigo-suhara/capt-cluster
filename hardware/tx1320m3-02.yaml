@@ -25,7 +25,7 @@ spec:
     name: tx1320m3-02
   metadata:
     instance:
-      id: "4c:52:62:16:33:8d"
+      id: "4c:52:62:16:8b:9f"
   interfaces:
     - dhcp:
         uefi: true

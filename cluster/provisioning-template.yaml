@@ -91,14 +91,8 @@ spec:
                       dhcp6: false
                       accept-ra: false
                       optional: true
-          - name: "kexec image"
-            image: ghcr.io/jacobweinstock/waitdaemon:0.2.1
+          - name: "reboot"
+            image: alpine:3
             timeout: 90
             pid: host
-            environment:
-              BLOCK_DEVICE: {{ formatPartition ( index .Hardware.Disks 0 ) 3 }}
-              FS_TYPE: ext4
-              IMAGE: quay.io/tinkerbell/actions/kexec
-              WAIT_SECONDS: 5
-            volumes:
-              - /var/run/docker.sock:/var/run/docker.sock
+            command: ["chroot", "/proc/1/root", "reboot"]

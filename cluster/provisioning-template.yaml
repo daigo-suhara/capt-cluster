@@ -35,14 +35,13 @@ spec:
               MODE: 0600
               DIRMODE: 0700
               CONTENTS: |
-                network: {config: disabled}
                 datasource:
                   Ec2:
                     metadata_urls: ["http://172.16.0.10:7172"]
                     strict_id: false
                 system_info:
                   default_user:
-                    name: tink
+                    name: tinkerbell
                     groups: [wheel, adm]
                     sudo: ["ALL=(ALL) NOPASSWD:ALL"]
                     shell: /bin/bash

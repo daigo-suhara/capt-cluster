@@ -5,3 +5,13 @@ resources:
   - control-plane.yaml
   - workers.yaml
   - provisioning-template.yaml
+  - addons/crs-cilium.yaml
+
+secretGenerator:
+  - name: cilium-manifest
+    namespace: tinkerbell
+    files:
+      - addons/cilium.yaml
+generatorOptions:
+  disableNameSuffixHash: true
+

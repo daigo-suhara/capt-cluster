@@ -97,6 +97,6 @@ spec:
             environment:
               BLOCK_DEVICE: {{ formatPartition ( index .Hardware.Disks 0 ) 3 }}
               FS_TYPE: ext4
-              KERNEL_PATH: /boot/vmlinuz
-              INITRD_PATH: /boot/initrd
+              KERNEL_PATH: /vmlinuz
+              INITRD_PATH: /initrd.img
               CMD_LINE: "root={{ formatPartition ( index .Hardware.Disks 0 ) 3 }} ro"

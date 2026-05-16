@@ -20,7 +20,6 @@ spec:
   kubeadmConfigSpec:
     format: cloud-config
     preKubeadmCommands:
-      - hostnamectl set-hostname '{{ ds.meta_data.instance_id }}'
       - mkdir -p /etc/kubernetes/manifests
       - ctr images pull ghcr.io/kube-vip/kube-vip:v1.0.0
       - >-
@@ -36,10 +35,14 @@ spec:
             value: "true"
     initConfiguration:
       nodeRegistration:
-        name: '{{ ds.meta_data.instance_id }}'
+        name: '{{ ds.meta_data.hostname }}'
+        kubeletExtraArgs:
+          provider-id: 'tinkerbell://tinkerbell/{{ ds.meta_data.hostname }}'
     joinConfiguration:
       nodeRegistration:
-        name: '{{ ds.meta_data.instance_id }}'
+        name: '{{ ds.meta_data.hostname }}'
+        kubeletExtraArgs:
+          provider-id: 'tinkerbell://tinkerbell/{{ ds.meta_data.hostname }}'
     postKubeadmCommands:
       - kubectl --kubeconfig /etc/kubernetes/admin.conf taint nodes --all node-role.kubernetes.io/control-plane-
     users:

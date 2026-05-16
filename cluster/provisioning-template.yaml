@@ -97,4 +97,4 @@ spec:
             environment:
               BLOCK_DEVICE: {{ formatPartition ( index .Hardware.Disks 0 ) 3 }}
               FS_TYPE: ext4
-              GRUBCFG_PATH: /boot/grub/grub.cfg
+              GRUBCFG_PATH: boot/grub/grub.cfg

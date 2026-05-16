@@ -28,13 +28,12 @@ spec:
             timeout: 120
             pid: host
             command: ["sh", "-c", "echo '--- PARTITION SCAN ---' && fdisk -l {{ index .Hardware.Disks 0 }} && for p in 1 2 3; do echo \"--- MOUNTING /dev/sda$p ---\" && mkdir -p /mnt/$p && mount {{ index .Hardware.Disks 0 }}$p /mnt/$p 2>/dev/null && (find /mnt/$p -name vmlinuz -o -name grub.cfg | head -n 10 && umount /mnt/$p) || echo \"Failed to mount /dev/sda$p\"; done"]
-          - name: "kexec-tentative"
-            image: quay.io/tinkerbell/actions/kexec:latest
+          - name: "reboot"
+            image: ghcr.io/jacobweinstock/waitdaemon:latest
             timeout: 90
             pid: host
+            command: ["reboot"]
             environment:
-              BLOCK_DEVICE: {{ formatPartition ( index .Hardware.Disks 0 ) 3 }}
-              FS_TYPE: ext4
-              KERNEL_PATH: boot/vmlinuz
-              INITRD_PATH: boot/initrd.img
-              CMD_LINE: "root={{ formatPartition ( index .Hardware.Disks 0 ) 3 }} ro"
+              IMAGE: alpine
+            volumes:
+              - /var/run/docker.sock:/var/run/docker.sock

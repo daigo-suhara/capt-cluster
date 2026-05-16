@@ -90,11 +90,12 @@ spec:
                       dhcp6: false
                       accept-ra: false
                       optional: true
-          - name: "kexec"
-            image: quay.io/tinkerbell/actions/kexec:latest
+          - name: "reboot"
+            image: ghcr.io/jacobweinstock/waitdaemon:latest
             timeout: 90
             pid: host
+            command: ["reboot"]
             environment:
-              BLOCK_DEVICE: {{ formatPartition ( index .Hardware.Disks 0 ) 3 }}
-              FS_TYPE: ext4
-              GRUBCFG_PATH: boot/grub/grub.cfg
+              IMAGE: alpine
+            volumes:
+              - /var/run/docker.sock:/var/run/docker.sock

@@ -20,7 +20,7 @@ spec:
   kubeadmConfigSpec:
     format: cloud-config
     preKubeadmCommands:
-      - hostnamectl set-hostname '{{ .Machine.Name }}'
+      - hostnamectl set-hostname '{{ ds.meta_data.instance_id }}'
       - mkdir -p /etc/kubernetes/manifests
       - ctr images pull ghcr.io/kube-vip/kube-vip:v1.0.0
       - >-
@@ -36,10 +36,10 @@ spec:
             value: "true"
     initConfiguration:
       nodeRegistration:
-        name: '{{ .Machine.Name }}'
+        name: '{{ ds.meta_data.instance_id }}'
     joinConfiguration:
       nodeRegistration:
-        name: '{{ .Machine.Name }}'
+        name: '{{ ds.meta_data.instance_id }}'
     postKubeadmCommands:
       - kubectl --kubeconfig /etc/kubernetes/admin.conf taint nodes --all node-role.kubernetes.io/control-plane-
     users:

@@ -37,12 +37,14 @@ spec:
       nodeRegistration:
         name: '{{ ds.meta_data.hostname }}'
         kubeletExtraArgs:
-          provider-id: 'tinkerbell://tinkerbell/{{ ds.meta_data.hostname }}'
+          - name: provider-id
+            value: 'tinkerbell://tinkerbell/{{ ds.meta_data.hostname }}'
     joinConfiguration:
       nodeRegistration:
         name: '{{ ds.meta_data.hostname }}'
         kubeletExtraArgs:
-          provider-id: 'tinkerbell://tinkerbell/{{ ds.meta_data.hostname }}'
+          - name: provider-id
+            value: 'tinkerbell://tinkerbell/{{ ds.meta_data.hostname }}'
     postKubeadmCommands:
       - kubectl --kubeconfig /etc/kubernetes/admin.conf taint nodes --all node-role.kubernetes.io/control-plane-
     users:

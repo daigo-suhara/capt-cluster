@@ -38,5 +38,5 @@ spec:
   imageLookupOSDistro: ubuntu
   imageLookupOSVersion: "24.04"
   templateOverrideRef:
-    name: cluster-provisioning-template
+    name: cluster-provisioning-template-v2
     namespace: tinkerbell

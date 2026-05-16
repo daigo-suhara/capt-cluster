@@ -1,14 +1,14 @@
 apiVersion: tinkerbell.org/v1alpha1
 kind: Template
 metadata:
-  name: cluster-provisioning-template
+  name: cluster-provisioning-template-v2
   namespace: tinkerbell
   annotations:
     argocd.argoproj.io/sync-options: Force=true,Replace=true
 spec:
   data: |
     version: "0.1"
-    name: cluster-provisioning-template
+    name: cluster-provisioning-template-v2
     global_timeout: 6000
     tasks:
       - name: "cluster-provisioning-template"

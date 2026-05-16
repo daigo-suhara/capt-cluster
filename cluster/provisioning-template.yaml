@@ -90,8 +90,13 @@ spec:
                       dhcp6: false
                       accept-ra: false
                       optional: true
-          - name: "reboot"
-            image: alpine:3
+          - name: "kexec"
+            image: quay.io/tinkerbell/actions/kexec:latest
             timeout: 90
             pid: host
-            command: ["chroot", "/proc/1/root", "reboot"]
+            environment:
+              BLOCK_DEVICE: {{ formatPartition ( index .Hardware.Disks 0 ) 3 }}
+              FS_TYPE: ext4
+              KERNEL_PATH: /vmlinuz
+              INITRD_PATH: /initrd.img
+              CMD_LINE: "root={{ formatPartition ( index .Hardware.Disks 0 ) 3 }} ro"

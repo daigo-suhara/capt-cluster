@@ -95,6 +95,6 @@ spec:
             timeout: 90
             pid: host
             environment:
-              BLOCK_DEVICE: {{ formatPartition ( index .Hardware.Disks 0 ) 3 }}
+              BLOCK_DEVICE: {{ formatPartition ( index .Hardware.Disks 0 ) 2 }}
               FS_TYPE: ext4
-              GRUBCFG_PATH: boot/grub/grub.cfg
+              GRUBCFG_PATH: grub/grub.cfg

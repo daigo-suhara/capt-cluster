@@ -1,22 +1,22 @@
 labels:
   api:
     node_selector_key: cluster-role
-    node_selector_value: cp
+    node_selector_value: control-plane
   backup:
     node_selector_key: cluster-role
-    node_selector_value: cp
+    node_selector_value: control-plane
   job:
     node_selector_key: cluster-role
-    node_selector_value: cp
+    node_selector_value: control-plane
   scheduler:
     node_selector_key: cluster-role
-    node_selector_value: cp
+    node_selector_value: control-plane
   test:
     node_selector_key: cluster-role
-    node_selector_value: cp
+    node_selector_value: control-plane
   volume:
     node_selector_key: cluster-role
-    node_selector_value: cp
+    node_selector_value: control-plane
 
 bootstrap:
   bootstrap_conf_backends: true

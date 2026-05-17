@@ -40,7 +40,7 @@ spec:
           - name: provider-id
             value: 'tinkerbell://tinkerbell/{{ ds.meta_data.hostname }}'
           - name: node-labels
-            value: 'cluster-role=cp,openstack-control-plane=enabled'
+            value: 'cluster-role=control-plane,openstack-control-plane=enabled'
     joinConfiguration:
       nodeRegistration:
         name: '{{ ds.meta_data.hostname }}'
@@ -48,7 +48,7 @@ spec:
           - name: provider-id
             value: 'tinkerbell://tinkerbell/{{ ds.meta_data.hostname }}'
           - name: node-labels
-            value: 'cluster-role=cp,openstack-control-plane=enabled'
+            value: 'cluster-role=control-plane,openstack-control-plane=enabled'
     postKubeadmCommands:
       - kubectl --kubeconfig /etc/kubernetes/admin.conf taint nodes --all node-role.kubernetes.io/control-plane-
     users:
@@ -73,4 +73,4 @@ spec:
         required:
           - labelSelector:
               matchLabels:
-                cluster-role: cp
+                cluster-role: control-plane

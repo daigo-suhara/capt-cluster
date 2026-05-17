@@ -1,13 +1,13 @@
 labels:
   mon:
     node_selector_key: cluster-role
-    node_selector_value: cp
+    node_selector_value: control-plane
   mgr:
     node_selector_key: cluster-role
-    node_selector_value: cp
+    node_selector_value: control-plane
   job:
     node_selector_key: cluster-role
-    node_selector_value: cp
+    node_selector_value: control-plane
   test:
     node_selector_key: cluster-role
-    node_selector_value: cp
+    node_selector_value: control-plane

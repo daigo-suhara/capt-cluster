@@ -1,19 +1,19 @@
 labels:
   osd:
     node_selector_key: cluster-role
-    node_selector_value: cp
+    node_selector_value: control-plane
   job:
     node_selector_key: cluster-role
-    node_selector_value: cp
+    node_selector_value: control-plane
   test:
     node_selector_key: cluster-role
-    node_selector_value: cp
+    node_selector_value: control-plane
 conf:
   storage:
     osd:
       - data:
-          type: block-logical
-          location: /dev/sdb
+          type: directory
+          location: /var/lib/openstack-helm/ceph/osd/osd-one
         journal:
           type: directory
-          location: /var/lib/openstack-helm/ceph/osd/journal-sdb
+          location: /var/lib/openstack-helm/ceph/osd/journal-one

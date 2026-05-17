@@ -1,10 +1,10 @@
 labels:
   provisioner:
     node_selector_key: cluster-role
-    node_selector_value: cp
+    node_selector_value: control-plane
   test:
     node_selector_key: cluster-role
-    node_selector_value: cp
+    node_selector_value: control-plane
 
 storageclass:
   csi_rbd:

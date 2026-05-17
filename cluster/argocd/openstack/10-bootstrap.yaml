@@ -14,12 +14,12 @@ spec:
       helm:
         releaseName: mariadb
         valueFiles:
-          - $values/argocd/openstack/values/bootstrap/mariadb.yaml
+          - $values/cluster/argocd/openstack/values/bootstrap/mariadb.yaml
     - repoURL: https://github.com/daigo-suhara/capt-cluster.git
       targetRevision: HEAD
       ref: values
   destination:
-    server: https://172.16.1.100:6443
+    server: https://kubernetes.default.svc
     namespace: openstack
   syncPolicy:
     automated:
@@ -44,12 +44,12 @@ spec:
       helm:
         releaseName: rabbitmq
         valueFiles:
-          - $values/argocd/openstack/values/bootstrap/rabbitmq.yaml
+          - $values/cluster/argocd/openstack/values/bootstrap/rabbitmq.yaml
     - repoURL: https://github.com/daigo-suhara/capt-cluster.git
       targetRevision: HEAD
       ref: values
   destination:
-    server: https://172.16.1.100:6443
+    server: https://kubernetes.default.svc
     namespace: openstack
   syncPolicy:
     automated:
@@ -74,12 +74,12 @@ spec:
       helm:
         releaseName: memcached
         valueFiles:
-          - $values/argocd/openstack/values/bootstrap/memcached.yaml
+          - $values/cluster/argocd/openstack/values/bootstrap/memcached.yaml
     - repoURL: https://github.com/daigo-suhara/capt-cluster.git
       targetRevision: HEAD
       ref: values
   destination:
-    server: https://172.16.1.100:6443
+    server: https://kubernetes.default.svc
     namespace: openstack
   syncPolicy:
     automated:
@@ -104,12 +104,12 @@ spec:
       helm:
         releaseName: openvswitch
         valueFiles:
-          - $values/argocd/openstack/values/bootstrap/openvswitch.yaml
+          - $values/cluster/argocd/openstack/values/bootstrap/openvswitch.yaml
     - repoURL: https://github.com/daigo-suhara/capt-cluster.git
       targetRevision: HEAD
       ref: values
   destination:
-    server: https://172.16.1.100:6443
+    server: https://kubernetes.default.svc
     namespace: openstack
   syncPolicy:
     automated:
@@ -134,12 +134,12 @@ spec:
       helm:
         releaseName: libvirt
         valueFiles:
-          - $values/argocd/openstack/values/bootstrap/libvirt.yaml
+          - $values/cluster/argocd/openstack/values/bootstrap/libvirt.yaml
     - repoURL: https://github.com/daigo-suhara/capt-cluster.git
       targetRevision: HEAD
       ref: values
   destination:
-    server: https://172.16.1.100:6443
+    server: https://kubernetes.default.svc
     namespace: openstack
   syncPolicy:
     automated:

@@ -14,12 +14,12 @@ spec:
       helm:
         releaseName: ceph-provisioners
         valueFiles:
-          - $values/argocd/openstack/values/storage/ceph-provisioners.yaml
+          - $values/cluster/argocd/openstack/values/storage/ceph-provisioners.yaml
     - repoURL: https://github.com/daigo-suhara/capt-cluster.git
       targetRevision: HEAD
       ref: values
   destination:
-    server: https://172.16.1.100:6443
+    server: https://kubernetes.default.svc
     namespace: ceph
   syncPolicy:
     automated:

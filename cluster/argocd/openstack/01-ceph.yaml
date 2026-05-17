@@ -1,26 +1,26 @@
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: keystone
+  name: ceph-mon
   namespace: argocd
   annotations:
-    argocd.argoproj.io/sync-wave: "5"
+    argocd.argoproj.io/sync-wave: "-3"
 spec:
   project: default
   sources:
     - repoURL: https://opendev.org/openstack/openstack-helm
       targetRevision: master
-      path: keystone
+      path: ceph-mon
       helm:
-        releaseName: keystone
+        releaseName: ceph-mon
         valueFiles:
-          - $values/argocd/openstack/values/core/keystone.yaml
+          - $values/cluster/argocd/openstack/values/ceph/mon.yaml
     - repoURL: https://github.com/daigo-suhara/capt-cluster.git
       targetRevision: HEAD
       ref: values
   destination:
-    server: https://172.16.1.100:6443
-    namespace: openstack
+    server: https://kubernetes.default.svc
+    namespace: ceph
   syncPolicy:
     automated:
       prune: true
@@ -31,26 +31,26 @@ spec:
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: placement
+  name: ceph-osd
   namespace: argocd
   annotations:
-    argocd.argoproj.io/sync-wave: "6"
+    argocd.argoproj.io/sync-wave: "-2"
 spec:
   project: default
   sources:
     - repoURL: https://opendev.org/openstack/openstack-helm
       targetRevision: master
-      path: placement
+      path: ceph-osd
       helm:
-        releaseName: placement
+        releaseName: ceph-osd
         valueFiles:
-          - $values/argocd/openstack/values/core/placement.yaml
+          - $values/cluster/argocd/openstack/values/ceph/osd.yaml
     - repoURL: https://github.com/daigo-suhara/capt-cluster.git
       targetRevision: HEAD
       ref: values
   destination:
-    server: https://172.16.1.100:6443
-    namespace: openstack
+    server: https://kubernetes.default.svc
+    namespace: ceph
   syncPolicy:
     automated:
       prune: true
@@ -61,56 +61,26 @@ spec:
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: glance
+  name: ceph-client
   namespace: argocd
   annotations:
-    argocd.argoproj.io/sync-wave: "7"
+    argocd.argoproj.io/sync-wave: "-1"
 spec:
   project: default
   sources:
     - repoURL: https://opendev.org/openstack/openstack-helm
       targetRevision: master
-      path: glance
+      path: ceph-client
       helm:
-        releaseName: glance
+        releaseName: ceph-client
         valueFiles:
-          - $values/argocd/openstack/values/core/glance.yaml
+          - $values/cluster/argocd/openstack/values/ceph/client.yaml
     - repoURL: https://github.com/daigo-suhara/capt-cluster.git
       targetRevision: HEAD
       ref: values
   destination:
-    server: https://172.16.1.100:6443
-    namespace: openstack
-  syncPolicy:
-    automated:
-      prune: true
-      selfHeal: true
-    syncOptions:
-      - CreateNamespace=true
----
-apiVersion: argoproj.io/v1alpha1
-kind: Application
-metadata:
-  name: neutron
-  namespace: argocd
-  annotations:
-    argocd.argoproj.io/sync-wave: "8"
-spec:
-  project: default
-  sources:
-    - repoURL: https://opendev.org/openstack/openstack-helm
-      targetRevision: master
-      path: neutron
-      helm:
-        releaseName: neutron
-        valueFiles:
-          - $values/argocd/openstack/values/core/neutron.yaml
-    - repoURL: https://github.com/daigo-suhara/capt-cluster.git
-      targetRevision: HEAD
-      ref: values
-  destination:
-    server: https://172.16.1.100:6443
-    namespace: openstack
+    server: https://kubernetes.default.svc
+    namespace: ceph
   syncPolicy:
     automated:
       prune: true

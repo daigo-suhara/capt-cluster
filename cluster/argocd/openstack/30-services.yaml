@@ -14,12 +14,12 @@ spec:
       helm:
         releaseName: nova
         valueFiles:
-          - $values/argocd/openstack/values/services/nova.yaml
+          - $values/cluster/argocd/openstack/values/services/nova.yaml
     - repoURL: https://github.com/daigo-suhara/capt-cluster.git
       targetRevision: HEAD
       ref: values
   destination:
-    server: https://172.16.1.100:6443
+    server: https://kubernetes.default.svc
     namespace: openstack
   syncPolicy:
     automated:
@@ -44,12 +44,12 @@ spec:
       helm:
         releaseName: cinder
         valueFiles:
-          - $values/argocd/openstack/values/services/cinder.yaml
+          - $values/cluster/argocd/openstack/values/services/cinder.yaml
     - repoURL: https://github.com/daigo-suhara/capt-cluster.git
       targetRevision: HEAD
       ref: values
   destination:
-    server: https://172.16.1.100:6443
+    server: https://kubernetes.default.svc
     namespace: openstack
   syncPolicy:
     automated:
@@ -74,12 +74,12 @@ spec:
       helm:
         releaseName: horizon
         valueFiles:
-          - $values/argocd/openstack/values/services/horizon.yaml
+          - $values/cluster/argocd/openstack/values/services/horizon.yaml
     - repoURL: https://github.com/daigo-suhara/capt-cluster.git
       targetRevision: HEAD
       ref: values
   destination:
-    server: https://172.16.1.100:6443
+    server: https://kubernetes.default.svc
     namespace: openstack
   syncPolicy:
     automated:

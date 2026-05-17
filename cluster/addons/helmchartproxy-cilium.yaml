@@ -32,8 +32,9 @@ spec:
       operator:
         create: false
     hubble:
+      enabled: false
       relay:
-        enabled: true
+        enabled: false
       ui:
-        enabled: true
+        enabled: false
     version: 1.15.4

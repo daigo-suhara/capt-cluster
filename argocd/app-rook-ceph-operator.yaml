@@ -10,7 +10,7 @@ spec:
   source:
     repoURL: https://charts.rook.io/release
     chart: rook-ceph
-    targetRevision: v1.19.5
+    targetRevision: "*"
     helm:
       releaseName: rook-ceph
       valuesObject:
@@ -28,5 +28,4 @@ spec:
       selfHeal: true
     syncOptions:
       - CreateNamespace=true
-      - SkipDryRunOnMissingResource=true
       - ServerSideApply=true

@@ -20,6 +20,7 @@ spec:
     install:
       createNamespace: true
     upgrade:
+      force: true
       maxHistory: 10
   valuesTemplate: |-
     ipam:

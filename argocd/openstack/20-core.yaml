@@ -19,7 +19,7 @@ spec:
       targetRevision: HEAD
       ref: values
   destination:
-    server: https://kubernetes.default.svc
+    server: https://172.16.1.100:6443
     namespace: openstack
   syncPolicy:
     automated:
@@ -49,7 +49,7 @@ spec:
       targetRevision: HEAD
       ref: values
   destination:
-    server: https://kubernetes.default.svc
+    server: https://172.16.1.100:6443
     namespace: openstack
   syncPolicy:
     automated:
@@ -79,7 +79,7 @@ spec:
       targetRevision: HEAD
       ref: values
   destination:
-    server: https://kubernetes.default.svc
+    server: https://172.16.1.100:6443
     namespace: openstack
   syncPolicy:
     automated:
@@ -109,7 +109,7 @@ spec:
       targetRevision: HEAD
       ref: values
   destination:
-    server: https://kubernetes.default.svc
+    server: https://172.16.1.100:6443
     namespace: openstack
   syncPolicy:
     automated:

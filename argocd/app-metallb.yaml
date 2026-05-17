@@ -2,21 +2,24 @@ apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
   annotations:
-    argocd.argoproj.io/sync-wave: "8"
-  name: openstack-helm
+    argocd.argoproj.io/sync-wave: "5"
+  name: metallb
   namespace: argocd
 spec:
   project: default
   source:
-    path: openstack-helm
-    repoURL: https://github.com/daigo-suhara/capt-cluster.git
-    targetRevision: HEAD
+    repoURL: https://metallb.github.io/metallb
+    chart: metallb
+    targetRevision: "*"
+    helm:
+      releaseName: metallb
   destination:
     server: https://kubernetes.default.svc
-    namespace: argocd
+    namespace: metallb-system
   syncPolicy:
     automated:
       prune: true
       selfHeal: true
     syncOptions:
+      - CreateNamespace=true
       - ServerSideApply=true

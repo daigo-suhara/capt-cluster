@@ -8,16 +8,16 @@ metadata:
 spec:
   project: default
   source:
-    repoURL: https://tarballs.opendev.org/openstack/openstack-helm
-    chart: rabbitmq
-    targetRevision: "*"
+    repoURL: https://opendev.org/openstack/openstack-helm.git
+    path: rabbitmq
+    targetRevision: master
     helm:
       releaseName: rabbitmq
       valuesObject:
         volume:
           class_name: ceph-block
   destination:
-    server: https://kubernetes.default.svc
+    server: https://172.16.1.100:6443
     namespace: openstack
   syncPolicy:
     automated:

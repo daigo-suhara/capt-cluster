@@ -37,12 +37,16 @@ spec:
       nodeRegistration:
         name: '{{ ds.meta_data.hostname }}'
         kubeletExtraArgs:
+          - name: node-labels
+            value: openstack-control-plane=enabled
           - name: provider-id
             value: 'tinkerbell://tinkerbell/{{ ds.meta_data.hostname }}'
     joinConfiguration:
       nodeRegistration:
         name: '{{ ds.meta_data.hostname }}'
         kubeletExtraArgs:
+          - name: node-labels
+            value: openstack-control-plane=enabled
           - name: provider-id
             value: 'tinkerbell://tinkerbell/{{ ds.meta_data.hostname }}'
     postKubeadmCommands:

@@ -13,7 +13,7 @@ spec:
     repoURL: https://github.com/daigo-suhara/capt-cluster.git
     targetRevision: HEAD
   destination:
-    server: https://kubernetes.default.svc
+    server: https://172.16.1.100:6443
     namespace: tinkerbell
   syncPolicy:
     automated:
@@ -21,4 +21,3 @@ spec:
       selfHeal: true
     syncOptions:
       - ServerSideApply=true
-

@@ -17,4 +17,6 @@ metadata:
 spec:
   ipAddressPools:
     - work-cluster-pool
+  interfaces:
+    - eno1
 ---

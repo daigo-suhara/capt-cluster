@@ -12,7 +12,7 @@ spec:
     repoURL: https://github.com/daigo-suhara/capt-cluster.git
     targetRevision: HEAD
   destination:
-    name: tinkerbell
+    server: https://172.16.1.100:6443
     namespace: metallb-system
   syncPolicy:
     automated:

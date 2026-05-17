@@ -19,7 +19,7 @@ spec:
             libvirt:
               images_type: rbd
   destination:
-    name: tinkerbell
+    server: https://172.16.1.100:6443
     namespace: openstack
   syncPolicy:
     automated:

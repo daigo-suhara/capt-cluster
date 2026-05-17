@@ -16,7 +16,7 @@ spec:
     enableClientCache: false
     waitForJobs: true
     wait: true
-    timeout: 10m
+    timeout: 10m0s
     install:
       createNamespace: true
     upgrade:

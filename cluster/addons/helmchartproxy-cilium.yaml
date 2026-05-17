@@ -11,7 +11,7 @@ spec:
   repoURL: https://helm.cilium.io/
   chartName: cilium
   version: 1.15.4
-  namespace: kube-system
+  namespace: cilium-system
   options:
     enableClientCache: false
     waitForJobs: true

@@ -10,20 +10,11 @@ spec:
   avoidBuggyIPs: true
 ---
 apiVersion: metallb.io/v1beta1
-kind: BGPAdvertisement
+kind: L2Advertisement
 metadata:
-  name: work-cluster-bgp
+  name: work-cluster-l2
   namespace: metallb-system
 spec:
   ipAddressPools:
     - work-cluster-pool
 ---
-apiVersion: metallb.io/v1beta2
-kind: BGPPeer
-metadata:
-  name: rtx1200
-  namespace: metallb-system
-spec:
-  myASN: 64512
-  peerASN: 64513
-  peerAddress: 172.16.0.1

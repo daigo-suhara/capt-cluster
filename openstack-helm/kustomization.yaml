@@ -2,6 +2,7 @@ apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
 resources:
   - namespace.yaml
+  - namespace-ceph.yaml
   - app-ceph-adapter-rook.yaml
   - app-mariadb.yaml
   - app-rabbitmq.yaml

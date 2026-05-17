@@ -8,9 +8,9 @@ metadata:
 spec:
   project: default
   source:
-    repoURL: https://tarballs.opendev.org/openstack/openstack-helm
+    repoURL: https://tarballs.opendev.org/openstack/openstack-helm-infra
     chart: ceph-adapter-rook
-    targetRevision: 2026.1.1+98d570b10
+    targetRevision: 2024.2.1+e599421b
     helm:
       releaseName: ceph-adapter-rook
       valuesObject:

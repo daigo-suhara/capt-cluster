@@ -1,0 +1,13 @@
+labels:
+  api:
+    node_selector_key: cluster-role
+    node_selector_value: cp
+  job:
+    node_selector_key: cluster-role
+    node_selector_value: cp
+  test:
+    node_selector_key: cluster-role
+    node_selector_value: cp
+  openvswitch:
+    node_selector_key: cluster-role
+    node_selector_value: cp

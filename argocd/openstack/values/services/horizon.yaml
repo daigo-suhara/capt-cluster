@@ -1,0 +1,7 @@
+labels:
+  dashboard:
+    node_selector_key: cluster-role
+    node_selector_value: cp
+  job:
+    node_selector_key: cluster-role
+    node_selector_value: cp

@@ -39,12 +39,16 @@ spec:
         kubeletExtraArgs:
           - name: provider-id
             value: 'tinkerbell://tinkerbell/{{ ds.meta_data.hostname }}'
+          - name: node-labels
+            value: 'cluster-role=cp'
     joinConfiguration:
       nodeRegistration:
         name: '{{ ds.meta_data.hostname }}'
         kubeletExtraArgs:
           - name: provider-id
             value: 'tinkerbell://tinkerbell/{{ ds.meta_data.hostname }}'
+          - name: node-labels
+            value: 'cluster-role=cp'
     postKubeadmCommands:
       - kubectl --kubeconfig /etc/kubernetes/admin.conf taint nodes --all node-role.kubernetes.io/control-plane-
     users:

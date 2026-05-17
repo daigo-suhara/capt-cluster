@@ -1,0 +1,89 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: ceph-mon
+  namespace: argocd
+  annotations:
+    argocd.argoproj.io/sync-wave: "-3"
+spec:
+  project: default
+  sources:
+    - repoURL: https://opendev.org/openstack/openstack-helm
+      targetRevision: master
+      path: ceph-mon
+      helm:
+        releaseName: ceph-mon
+        valueFiles:
+          - $values/argocd/openstack/values/ceph/mon.yaml
+    - repoURL: https://github.com/daigo-suhara/capt-cluster.git
+      targetRevision: HEAD
+      ref: values
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: ceph
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+    syncOptions:
+      - CreateNamespace=true
+---
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: ceph-osd
+  namespace: argocd
+  annotations:
+    argocd.argoproj.io/sync-wave: "-2"
+spec:
+  project: default
+  sources:
+    - repoURL: https://opendev.org/openstack/openstack-helm
+      targetRevision: master
+      path: ceph-osd
+      helm:
+        releaseName: ceph-osd
+        valueFiles:
+          - $values/argocd/openstack/values/ceph/osd.yaml
+    - repoURL: https://github.com/daigo-suhara/capt-cluster.git
+      targetRevision: HEAD
+      ref: values
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: ceph
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+    syncOptions:
+      - CreateNamespace=true
+---
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: ceph-client
+  namespace: argocd
+  annotations:
+    argocd.argoproj.io/sync-wave: "-1"
+spec:
+  project: default
+  sources:
+    - repoURL: https://opendev.org/openstack/openstack-helm
+      targetRevision: master
+      path: ceph-client
+      helm:
+        releaseName: ceph-client
+        valueFiles:
+          - $values/argocd/openstack/values/ceph/client.yaml
+    - repoURL: https://github.com/daigo-suhara/capt-cluster.git
+      targetRevision: HEAD
+      ref: values
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: ceph
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+    syncOptions:
+      - CreateNamespace=true

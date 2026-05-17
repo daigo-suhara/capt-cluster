@@ -1,0 +1,41 @@
+labels:
+  agent:
+    compute:
+      node_selector_key: cluster-role
+      node_selector_value: cp
+    compute_ironic:
+      node_selector_key: cluster-role
+      node_selector_value: cp
+  api_metadata:
+    node_selector_key: cluster-role
+    node_selector_value: cp
+  conductor:
+    node_selector_key: cluster-role
+    node_selector_value: cp
+  job:
+    node_selector_key: cluster-role
+    node_selector_value: cp
+  novncproxy:
+    node_selector_key: cluster-role
+    node_selector_value: cp
+  osapi:
+    node_selector_key: cluster-role
+    node_selector_value: cp
+  scheduler:
+    node_selector_key: cluster-role
+    node_selector_value: cp
+  serialproxy:
+    node_selector_key: cluster-role
+    node_selector_value: cp
+  spiceproxy:
+    node_selector_key: cluster-role
+    node_selector_value: cp
+  test:
+    node_selector_key: cluster-role
+    node_selector_value: cp
+
+rbd_pool:
+  app_name: nova-vms
+  chunk_size: 8
+  crush_rule: replicated_rule
+  replication: 3

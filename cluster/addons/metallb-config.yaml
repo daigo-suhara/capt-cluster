@@ -5,7 +5,7 @@ metadata:
   namespace: metallb-system
 spec:
   addresses:
-    - 172.16.100.10-172.16.100.199
+    - 172.16.1.110-172.16.1.199
   autoAssign: true
   avoidBuggyIPs: true
 ---

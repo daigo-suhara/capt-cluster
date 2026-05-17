@@ -21,3 +21,6 @@ spec:
       createNamespace: true
     upgrade:
       maxHistory: 10
+  valuesTemplate: |-
+    speaker:
+      ignoreExcludeLB: true

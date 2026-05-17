@@ -8,7 +8,7 @@ spec:
     spec:
       containers:
         - name: manager
-          image: registry.k8s.io/cluster-api-helm/cluster-api-helm-controller:v0.5.1
+          image: registry.k8s.io/cluster-api-helm/cluster-api-helm-controller:v0.4.1
           args:
             - --leader-elect
             - --diagnostics-address=:8443

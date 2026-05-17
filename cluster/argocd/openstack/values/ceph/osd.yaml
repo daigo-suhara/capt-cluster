@@ -12,8 +12,8 @@ conf:
   storage:
     osd:
       - data:
-          type: directory
-          location: /var/lib/openstack-helm/ceph/osd/osd-one
+          type: block-logical
+          location: /dev/sdb
         journal:
           type: directory
           location: /var/lib/openstack-helm/ceph/osd/journal-one

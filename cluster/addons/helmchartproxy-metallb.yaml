@@ -13,8 +13,11 @@ spec:
   version: 0.15.3
   namespace: metallb-system
   options:
+    enableClientCache: false
     waitForJobs: true
     wait: true
     timeout: 10m
     install:
       createNamespace: true
+    upgrade:
+      maxHistory: 10

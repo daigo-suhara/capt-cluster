@@ -13,11 +13,14 @@ spec:
   version: 9.5.13
   namespace: argocd
   options:
+    enableClientCache: false
     waitForJobs: true
     wait: true
     timeout: 10m
     install:
       createNamespace: true
+    upgrade:
+      maxHistory: 10
   valuesTemplate: |-
     configs:
       cm:

@@ -13,11 +13,14 @@ spec:
   version: 1.15.4
   namespace: kube-system
   options:
+    enableClientCache: false
     waitForJobs: true
     wait: true
     timeout: 10m
     install:
       createNamespace: true
+    upgrade:
+      maxHistory: 10
   valuesTemplate: |-
     ipam:
       mode: kubernetes

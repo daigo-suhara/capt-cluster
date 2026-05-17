@@ -12,7 +12,7 @@ spec:
     targetRevision: HEAD
     path: hardware
   destination:
-    server: https://172.16.1.100:6443
+    name: tinkerbell
     namespace: tinkerbell
   syncPolicy:
     automated:

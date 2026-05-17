@@ -14,7 +14,7 @@ spec:
     helm:
       releaseName: metallb
   destination:
-    server: https://172.16.1.100:6443
+    name: tinkerbell
     namespace: metallb-system
   syncPolicy:
     automated:

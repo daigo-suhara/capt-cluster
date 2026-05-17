@@ -20,7 +20,7 @@ spec:
             glance_store:
               default_store: rbd
   destination:
-    server: https://172.16.1.100:6443
+    name: tinkerbell
     namespace: openstack
   syncPolicy:
     automated:

@@ -3,6 +3,7 @@ kind: Kustomization
 resources:
   - app-capi-operator.yaml
   - app-cert-manager.yaml
+  - app-caaph.yaml
   - app-tinkerbell.yaml
   - app-capt.yaml
   - app-hardware.yaml

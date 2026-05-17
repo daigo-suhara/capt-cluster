@@ -1,0 +1,28 @@
+apiVersion: addons.cluster.x-k8s.io/v1alpha1
+kind: HelmChartProxy
+metadata:
+  name: argocd
+  namespace: tinkerbell
+spec:
+  clusterSelector:
+    matchLabels:
+      cluster.x-k8s.io/cluster-name: cluster
+  releaseName: argocd
+  repoURL: https://argoproj.github.io/argo-helm
+  chartName: argo-cd
+  version: 9.5.13
+  namespace: argocd
+  options:
+    waitForJobs: true
+    wait: true
+    timeout: 10m
+    install:
+      createNamespace: true
+  valuesTemplate: |-
+    configs:
+      cm:
+        kustomize.buildOptions: --enable-helm
+    server:
+      service:
+        type: LoadBalancer
+        externalTrafficPolicy: Local

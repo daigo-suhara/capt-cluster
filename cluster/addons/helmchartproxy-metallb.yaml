@@ -1,0 +1,20 @@
+apiVersion: addons.cluster.x-k8s.io/v1alpha1
+kind: HelmChartProxy
+metadata:
+  name: metallb
+  namespace: tinkerbell
+spec:
+  clusterSelector:
+    matchLabels:
+      cluster.x-k8s.io/cluster-name: cluster
+  releaseName: metallb
+  repoURL: https://metallb.github.io/metallb
+  chartName: metallb
+  version: 0.15.3
+  namespace: metallb-system
+  options:
+    waitForJobs: true
+    wait: true
+    timeout: 10m
+    install:
+      createNamespace: true

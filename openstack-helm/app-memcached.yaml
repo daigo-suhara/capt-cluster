@@ -8,13 +8,13 @@ metadata:
 spec:
   project: default
   source:
-    repoURL: https://opendev.org/openstack/openstack-helm.git
-    path: memcached
-    targetRevision: master
+    repoURL: https://tarballs.opendev.org/openstack/openstack-helm
+    chart: memcached
+    targetRevision: "*"
     helm:
       releaseName: memcached
   destination:
-    server: https://172.16.1.100:6443
+    server: https://kubernetes.default.svc
     namespace: openstack
   syncPolicy:
     automated:

@@ -8,16 +8,16 @@ metadata:
 spec:
   project: default
   source:
-    repoURL: https://opendev.org/openstack/openstack-helm.git
-    path: mariadb
-    targetRevision: master
+    repoURL: https://tarballs.opendev.org/openstack/openstack-helm
+    chart: mariadb
+    targetRevision: "*"
     helm:
       releaseName: mariadb
       valuesObject:
         volume:
           class_name: ceph-block
   destination:
-    server: https://172.16.1.100:6443
+    server: https://kubernetes.default.svc
     namespace: openstack
   syncPolicy:
     automated:

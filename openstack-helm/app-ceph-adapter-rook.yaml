@@ -8,9 +8,9 @@ metadata:
 spec:
   project: default
   source:
-    repoURL: https://opendev.org/openstack/openstack-helm.git
-    path: ceph-adapter-rook
-    targetRevision: master
+    repoURL: https://tarballs.opendev.org/openstack/openstack-helm-infra
+    chart: ceph-adapter-rook
+    targetRevision: 2024.2.1+e599421b
     helm:
       releaseName: ceph-adapter-rook
       valuesObject:
@@ -18,7 +18,7 @@ spec:
           ceph_mon:
             namespace: rook-ceph
   destination:
-    server: https://172.16.1.100:6443
+    server: https://kubernetes.default.svc
     namespace: openstack
   syncPolicy:
     automated:

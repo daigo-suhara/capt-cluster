@@ -20,7 +20,7 @@ spec:
           enableRbdDriver: true
           enableCephfsDriver: true
   destination:
-    server: https://172.16.1.100:6443
+    server: https://kubernetes.default.svc
     namespace: rook-ceph
   syncPolicy:
     automated:

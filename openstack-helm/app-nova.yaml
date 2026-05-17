@@ -8,9 +8,9 @@ metadata:
 spec:
   project: default
   source:
-    repoURL: https://opendev.org/openstack/openstack-helm.git
-    path: nova
-    targetRevision: master
+    repoURL: https://tarballs.opendev.org/openstack/openstack-helm
+    chart: nova
+    targetRevision: "*"
     helm:
       releaseName: nova
       valuesObject:
@@ -19,7 +19,7 @@ spec:
             libvirt:
               images_type: rbd
   destination:
-    server: https://172.16.1.100:6443
+    server: https://kubernetes.default.svc
     namespace: openstack
   syncPolicy:
     automated:

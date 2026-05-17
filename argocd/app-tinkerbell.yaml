@@ -20,7 +20,7 @@ spec:
               dhcpBindInterface: enx00e04c247a98
         artifactsFileServer: http://172.16.0.10:7173
   destination:
-    server: https://172.16.1.100:6443
+    server: https://kubernetes.default.svc
     namespace: tinkerbell
   syncPolicy:
     automated:

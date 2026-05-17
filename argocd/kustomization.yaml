@@ -7,3 +7,6 @@ resources:
   - app-capt.yaml
   - app-hardware.yaml
   - app-cluster.yaml
+  - app-rook-ceph-operator.yaml
+  - app-rook-ceph-cluster.yaml
+  - app-openstack-helm.yaml

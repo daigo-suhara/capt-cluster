@@ -1,0 +1,29 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  annotations:
+    argocd.argoproj.io/sync-wave: "0"
+  name: openstack-ceph-adapter-rook
+  namespace: argocd
+spec:
+  project: default
+  source:
+    repoURL: https://tarballs.opendev.org/openstack/openstack-helm
+    chart: ceph-adapter-rook
+    targetRevision: "*"
+    helm:
+      releaseName: ceph-adapter-rook
+      valuesObject:
+        endpoints:
+          ceph_mon:
+            namespace: rook-ceph
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: openstack
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+    syncOptions:
+      - CreateNamespace=true
+      - ServerSideApply=true

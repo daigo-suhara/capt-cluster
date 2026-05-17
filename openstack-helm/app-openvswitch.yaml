@@ -1,0 +1,25 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  annotations:
+    argocd.argoproj.io/sync-wave: "4"
+  name: openstack-openvswitch
+  namespace: argocd
+spec:
+  project: default
+  source:
+    repoURL: https://tarballs.opendev.org/openstack/openstack-helm
+    chart: openvswitch
+    targetRevision: "*"
+    helm:
+      releaseName: openvswitch
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: openstack
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+    syncOptions:
+      - CreateNamespace=true
+      - ServerSideApply=true

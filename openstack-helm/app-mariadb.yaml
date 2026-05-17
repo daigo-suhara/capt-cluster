@@ -1,0 +1,28 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  annotations:
+    argocd.argoproj.io/sync-wave: "1"
+  name: openstack-mariadb
+  namespace: argocd
+spec:
+  project: default
+  source:
+    repoURL: https://tarballs.opendev.org/openstack/openstack-helm
+    chart: mariadb
+    targetRevision: "*"
+    helm:
+      releaseName: mariadb
+      valuesObject:
+        volume:
+          class_name: ceph-block
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: openstack
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+    syncOptions:
+      - CreateNamespace=true
+      - ServerSideApply=true

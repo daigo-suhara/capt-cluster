@@ -18,7 +18,7 @@ spec:
   controlPlaneRef:
     apiGroup: controlplane.cluster.x-k8s.io
     kind: KubeadmControlPlane
-    name: cp
+    name: control-plane
   infrastructureRef:
     apiGroup: infrastructure.cluster.x-k8s.io
     kind: TinkerbellCluster

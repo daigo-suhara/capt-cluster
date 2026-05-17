@@ -7,7 +7,7 @@ spec:
   clusterSelector:
     matchLabels:
       cluster.x-k8s.io/cluster-name: cluster
-  releaseName: cilium
+  releaseName: cilium-addon
   repoURL: https://helm.cilium.io/
   chartName: cilium
   version: 1.15.4

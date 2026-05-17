@@ -28,4 +28,5 @@ spec:
     server:
       service:
         type: LoadBalancer
+        loadBalancerIP: 172.16.100.10
         externalTrafficPolicy: Local

@@ -10,7 +10,7 @@ spec:
   source:
     repoURL: https://tarballs.opendev.org/openstack/openstack-helm
     chart: ceph-adapter-rook
-    targetRevision: 2026.1.1+98d570b10
+    targetRevision: "*"
     helm:
       releaseName: ceph-adapter-rook
       valuesObject:

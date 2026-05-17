@@ -26,6 +26,11 @@ spec:
       mode: kubernetes
     k8s:
       requireIPv4PodCIDR: true
+    serviceAccounts:
+      cilium:
+        create: false
+      operator:
+        create: false
     hubble:
       relay:
         enabled: true

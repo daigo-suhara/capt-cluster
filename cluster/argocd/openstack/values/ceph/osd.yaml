@@ -10,7 +10,7 @@ labels:
     node_selector_value: cp
 conf:
   storage:
-    osd: |
+    osd:
       - data:
           type: block-logical
           location: /dev/sdb

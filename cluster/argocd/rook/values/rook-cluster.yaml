@@ -49,3 +49,4 @@ cephBlockPools:
       enabled: false
 
 cephObjectStores: []
+cephFileSystems: []

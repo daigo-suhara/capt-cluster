@@ -48,3 +48,5 @@ cephBlockPools:
         size: 3
     storageClass:
       enabled: false
+
+cephObjectStores: []

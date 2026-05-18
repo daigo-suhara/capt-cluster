@@ -12,5 +12,6 @@ resources:
   - apps/glance.yaml
   - apps/neutron.yaml
   - apps/nova.yaml
+  - apps/cinder-volume-rbd-keyring.yaml
   - apps/cinder.yaml
   - apps/horizon.yaml

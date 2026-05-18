@@ -44,3 +44,4 @@ spec:
         allowWorkflow: true
   disks:
     - device: /dev/sda
+    - device: /dev/sdb

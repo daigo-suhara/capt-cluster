@@ -1,4 +1,0 @@
-labels:
-  server:
-    node_selector_key: cluster-role
-    node_selector_value: control-plane

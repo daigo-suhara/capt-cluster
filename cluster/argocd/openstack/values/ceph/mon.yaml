@@ -11,3 +11,6 @@ labels:
   test:
     node_selector_key: cluster-role
     node_selector_value: control-plane
+network:
+  public: 172.16.0.0/16
+  cluster: 172.16.0.0/16

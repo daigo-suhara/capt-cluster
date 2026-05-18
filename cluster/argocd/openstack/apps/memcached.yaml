@@ -3,8 +3,6 @@ kind: Application
 metadata:
   name: memcached
   namespace: argocd
-  annotations:
-    argocd.argoproj.io/sync-wave: "30"
 spec:
   project: default
   sources:

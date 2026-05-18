@@ -3,8 +3,6 @@ kind: Application
 metadata:
   name: keystone
   namespace: argocd
-  annotations:
-    argocd.argoproj.io/sync-wave: "60"
 spec:
   project: default
   sources:

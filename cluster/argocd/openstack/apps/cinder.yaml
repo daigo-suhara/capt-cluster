@@ -3,8 +3,6 @@ kind: Application
 metadata:
   name: cinder
   namespace: argocd
-  annotations:
-    argocd.argoproj.io/sync-wave: "110"
 spec:
   project: default
   sources:

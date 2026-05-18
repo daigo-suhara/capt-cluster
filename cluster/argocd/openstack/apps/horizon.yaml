@@ -3,8 +3,6 @@ kind: Application
 metadata:
   name: horizon
   namespace: argocd
-  annotations:
-    argocd.argoproj.io/sync-wave: "120"
 spec:
   project: default
   sources:

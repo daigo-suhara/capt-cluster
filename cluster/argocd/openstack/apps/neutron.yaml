@@ -3,8 +3,6 @@ kind: Application
 metadata:
   name: neutron
   namespace: argocd
-  annotations:
-    argocd.argoproj.io/sync-wave: "90"
 spec:
   project: default
   sources:

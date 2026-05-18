@@ -9,6 +9,7 @@ resources:
   - addons/helmchartproxy-metallb.yaml
   - addons/helmchartproxy-argocd.yaml
   - addons/crs-metallb-config.yaml
+  - addons/crs-rook-bootstrap.yaml
   - addons/crs-openstack-bootstrap.yaml
 
 secretGenerator:
@@ -22,6 +23,11 @@ secretGenerator:
     type: addons.cluster.x-k8s.io/resource-set
     files:
       - addons/openstack-bootstrap-app.yaml
+  - name: rook-bootstrap-manifest
+    namespace: tinkerbell
+    type: addons.cluster.x-k8s.io/resource-set
+    files:
+      - addons/rook-bootstrap-app.yaml
 
 generatorOptions:
   disableNameSuffixHash: true

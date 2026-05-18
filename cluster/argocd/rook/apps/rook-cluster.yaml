@@ -1,24 +1,26 @@
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: ceph-mon
+  name: rook-cluster
   namespace: argocd
+  annotations:
+    argocd.argoproj.io/sync-wave: "1"
 spec:
   project: default
   sources:
-    - repoURL: https://opendev.org/openstack/openstack-helm
-      targetRevision: master
-      path: ceph-mon
+    - repoURL: https://charts.rook.io/release
+      chart: rook-ceph-cluster
+      targetRevision: 1.19.4
       helm:
-        releaseName: ceph-mon
+        releaseName: rook-ceph-cluster
         valueFiles:
-          - $values/cluster/argocd/openstack/values/ceph-mon.yaml
+          - $values/cluster/argocd/rook/values/rook-cluster.yaml
     - repoURL: https://github.com/daigo-suhara/capt-cluster.git
       targetRevision: HEAD
       ref: values
   destination:
     server: https://kubernetes.default.svc
-    namespace: ceph
+    namespace: rook-ceph
   syncPolicy:
     automated:
       prune: true

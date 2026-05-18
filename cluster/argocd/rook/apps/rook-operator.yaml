@@ -1,22 +1,25 @@
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: openstack
+  name: rook-operator
   namespace: argocd
   annotations:
-    argocd.argoproj.io/sync-wave: "10"
+    argocd.argoproj.io/sync-wave: "0"
 spec:
   project: default
   source:
-    path: cluster/argocd/openstack
-    repoURL: https://github.com/daigo-suhara/capt-cluster.git
-    targetRevision: HEAD
+    repoURL: https://charts.rook.io/release
+    chart: rook-ceph
+    targetRevision: 1.19.4
+    helm:
+      releaseName: rook-ceph
   destination:
     server: https://kubernetes.default.svc
-    namespace: argocd
+    namespace: rook-ceph
   syncPolicy:
     automated:
       prune: true
       selfHeal: true
     syncOptions:
+      - CreateNamespace=true
       - ServerSideApply=true

@@ -1,0 +1,53 @@
+cephClusterSpec:
+  cephVersion:
+    image: quay.io/ceph/ceph:v19.2.3
+  dataDirHostPath: /var/lib/rook
+  mon:
+    count: 3
+    allowMultiplePerNode: false
+  storage:
+    useAllNodes: false
+    useAllDevices: false
+    nodes:
+      - name: tx1320m3-01
+        devices:
+          - name: sdb
+      - name: tx1320m3-02
+        devices:
+          - name: sdb
+      - name: tx1320m3-03
+        devices:
+          - name: sdb
+  placement:
+    all:
+      nodeAffinity:
+        requiredDuringSchedulingIgnoredDuringExecution:
+          nodeSelectorTerms:
+            - matchExpressions:
+                - key: cluster-role
+                  operator: In
+                  values:
+                    - control-plane
+
+cephBlockPools:
+  - name: rbd
+    spec:
+      replicated:
+        size: 3
+    storageClass:
+      enabled: true
+      name: general
+      isDefault: true
+      reclaimPolicy: Delete
+  - name: cinder.volumes
+    spec:
+      replicated:
+        size: 3
+    storageClass:
+      enabled: false
+  - name: nova-vms
+    spec:
+      replicated:
+        size: 3
+    storageClass:
+      enabled: false

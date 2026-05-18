@@ -1,0 +1,13 @@
+apiVersion: addons.cluster.x-k8s.io/v1beta1
+kind: ClusterResourceSet
+metadata:
+  name: rook-bootstrap
+  namespace: tinkerbell
+spec:
+  clusterSelector:
+    matchLabels:
+      cluster.x-k8s.io/cluster-name: cluster
+  strategy: Reconcile
+  resources:
+    - name: rook-bootstrap-manifest
+      kind: Secret

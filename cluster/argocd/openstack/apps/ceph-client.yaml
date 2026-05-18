@@ -1,0 +1,30 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: ceph-client
+  namespace: argocd
+  annotations:
+    argocd.argoproj.io/sync-wave: "-10"
+spec:
+  project: default
+  sources:
+    - repoURL: https://opendev.org/openstack/openstack-helm
+      targetRevision: master
+      path: ceph-client
+      helm:
+        releaseName: ceph-client
+        valueFiles:
+          - $values/cluster/argocd/openstack/values/ceph-client.yaml
+    - repoURL: https://github.com/daigo-suhara/capt-cluster.git
+      targetRevision: HEAD
+      ref: values
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: ceph
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+    syncOptions:
+      - CreateNamespace=true
+      - ServerSideApply=true

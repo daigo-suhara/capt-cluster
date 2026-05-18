@@ -1,9 +1,20 @@
 apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
 resources:
-  - 00-namespace.yaml
-  - 01-ceph.yaml
-  - 05-ceph-provisioners.yaml
-  - 10-bootstrap.yaml
-  - 20-core.yaml
-  - 30-services.yaml
+  - namespaces/openstack.yaml
+  - apps/ceph-mon.yaml
+  - apps/ceph-osd.yaml
+  - apps/ceph-client.yaml
+  - apps/ceph-provisioners.yaml
+  - apps/mariadb.yaml
+  - apps/rabbitmq.yaml
+  - apps/memcached.yaml
+  - apps/openvswitch.yaml
+  - apps/libvirt.yaml
+  - apps/keystone.yaml
+  - apps/placement.yaml
+  - apps/glance.yaml
+  - apps/neutron.yaml
+  - apps/nova.yaml
+  - apps/cinder.yaml
+  - apps/horizon.yaml

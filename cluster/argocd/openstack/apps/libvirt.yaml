@@ -1,0 +1,30 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: libvirt
+  namespace: argocd
+  annotations:
+    argocd.argoproj.io/sync-wave: "50"
+spec:
+  project: default
+  sources:
+    - repoURL: https://opendev.org/openstack/openstack-helm
+      targetRevision: master
+      path: libvirt
+      helm:
+        releaseName: libvirt
+        valueFiles:
+          - $values/cluster/argocd/openstack/values/libvirt.yaml
+    - repoURL: https://github.com/daigo-suhara/capt-cluster.git
+      targetRevision: HEAD
+      ref: values
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: openstack
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+    syncOptions:
+      - CreateNamespace=true
+      - ServerSideApply=true

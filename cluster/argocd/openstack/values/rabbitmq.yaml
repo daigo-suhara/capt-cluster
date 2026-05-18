@@ -1,0 +1,13 @@
+labels:
+  server:
+    node_selector_key: cluster-role
+    node_selector_value: control-plane
+  prometheus_rabbitmq_exporter:
+    node_selector_key: cluster-role
+    node_selector_value: control-plane
+  test:
+    node_selector_key: cluster-role
+    node_selector_value: control-plane
+  jobs:
+    node_selector_key: cluster-role
+    node_selector_value: control-plane

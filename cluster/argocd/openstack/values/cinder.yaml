@@ -1,0 +1,50 @@
+labels:
+  api:
+    node_selector_key: cluster-role
+    node_selector_value: control-plane
+  backup:
+    node_selector_key: cluster-role
+    node_selector_value: control-plane
+  job:
+    node_selector_key: cluster-role
+    node_selector_value: control-plane
+  scheduler:
+    node_selector_key: cluster-role
+    node_selector_value: control-plane
+  test:
+    node_selector_key: cluster-role
+    node_selector_value: control-plane
+  volume:
+    node_selector_key: cluster-role
+    node_selector_value: control-plane
+
+bootstrap:
+  bootstrap_conf_backends: true
+  volume_types:
+    name:
+      volume_backend_name: rbd1
+
+ceph_client:
+  configmap: ceph-etc
+  enable_external_ceph_backend: false
+  internal_ceph_backend: rbd1
+  user_secret_name: pvc-ceph-client-key
+
+conf:
+  ceph:
+    pools:
+      "cinder.volumes":
+        app_name: cinder-volume
+        chunk_size: 8
+        crush_rule: replicated_rule
+        replication: 3
+  backends:
+    rbd1:
+      volume_backend_name: rbd1
+      rbd_pool: cinder.volumes
+      rbd_user: cinder
+      rbd_ceph_conf: /etc/ceph/ceph.conf
+  cinder:
+    DEFAULT:
+      enabled_backends: rbd1
+      default_volume_type: rbd1

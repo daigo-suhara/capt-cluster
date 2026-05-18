@@ -12,8 +12,5 @@ conf:
   storage:
     osd:
       - data:
-          type: block-logical
+          type: bluestore
           location: /dev/sdb
-        journal:
-          type: directory
-          location: /var/lib/openstack-helm/ceph/osd/journal-one

@@ -5,3 +5,4 @@ resources:
   - apps/rook-operator.yaml
   - apps/rook-cluster.yaml
   - apps/rook-adapter.yaml
+  - apps/rook-storageclass.yaml

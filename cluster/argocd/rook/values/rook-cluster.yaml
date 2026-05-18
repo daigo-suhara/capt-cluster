@@ -1,6 +1,9 @@
 cephClusterSpec:
   cephVersion:
     image: quay.io/ceph/ceph:v19.2.3
+  cephConfig:
+    global:
+      mon_clock_drift_allowed: "0.1"
   dataDirHostPath: /var/lib/rook
   mon:
     count: 3

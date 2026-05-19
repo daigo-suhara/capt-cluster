@@ -8,9 +8,9 @@ metadata:
 spec:
   project: default
   source:
-    repoURL: https://tarballs.opendev.org/openstack/openstack-helm-infra
-    chart: rabbitmq
-    targetRevision: 0.1.0
+    repoURL: https://github.com/openstack/openstack-helm-infra.git
+    path: rabbitmq
+    targetRevision: master
     helm:
       values: |
         pod:

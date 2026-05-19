@@ -8,9 +8,9 @@ metadata:
 spec:
   project: default
   source:
-    repoURL: https://tarballs.opendev.org/openstack/openstack-helm-infra
-    chart: openvswitch
-    targetRevision: 0.1.0
+    repoURL: https://github.com/openstack/openstack-helm-infra.git
+    path: openvswitch
+    targetRevision: master
   destination:
     server: https://kubernetes.default.svc
     namespace: openstack

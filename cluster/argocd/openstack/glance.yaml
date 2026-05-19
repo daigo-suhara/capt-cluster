@@ -8,9 +8,9 @@ metadata:
 spec:
   project: default
   source:
-    repoURL: https://tarballs.opendev.org/openstack/openstack-helm
-    chart: glance
-    targetRevision: 0.1.0
+    repoURL: https://github.com/openstack/openstack-helm.git
+    path: glance
+    targetRevision: master
     helm:
       values: |
         storage: ceph

@@ -13,6 +13,11 @@ spec:
     targetRevision: master
     helm:
       values: |
+        manifests:
+          job_db_init: true
+          job_db_sync: true
+          job_ks_user: true
+          job_ks_service: true
         conf:
           horizon:
             apache: |
@@ -24,7 +29,7 @@ spec:
               <VirtualHost *:{{ tuple "dashboard" "internal" "web" . | include "helm-toolkit.endpoints.endpoint_port_lookup" }}>
                 WSGIApplicationGroup %{GLOBAL}
                 WSGIScriptReloading On
-                WSGIDaemonProcess horizon-http processes=3 threads=1 user=horizon group=horizon display-name=%{GROUP}
+                WSGIDaemonProcess horizon-http processes=5 threads=1 user=horizon group=horizon display-name=%{GROUP}
                 WSGIProcessGroup horizon-http
                 WSGIScriptAlias / /var/www/cgi-bin/horizon/django.wsgi
                 WSGIPassAuthorization On

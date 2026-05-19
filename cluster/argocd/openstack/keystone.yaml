@@ -33,3 +33,19 @@ spec:
     syncOptions:
       - CreateNamespace=true
       - ServerSideApply=true
+  ignoreDifferences:
+    - group: apps
+      kind: Deployment
+      jsonPointers:
+        - /metadata/annotations/configmap-etc-hash
+        - /metadata/annotations/configmap-bin-hash
+    - group: apps
+      kind: StatefulSet
+      jsonPointers:
+        - /metadata/annotations/configmap-etc-hash
+        - /metadata/annotations/configmap-bin-hash
+    - group: apps
+      kind: DaemonSet
+      jsonPointers:
+        - /metadata/annotations/configmap-etc-hash
+        - /metadata/annotations/configmap-bin-hash

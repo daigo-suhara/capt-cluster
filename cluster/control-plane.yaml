@@ -21,7 +21,6 @@ spec:
     format: cloud-config
     ntp:
       enabled: true
-      ntp_client: chrony
       servers:
         - ntp.nict.jp
         - pool.ntp.org

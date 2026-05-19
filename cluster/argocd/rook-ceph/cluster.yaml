@@ -63,10 +63,14 @@ spec:
             spec:
               replicated:
                 size: 3
+            storageClass:
+              enabled: false
           - name: vms
             spec:
               replicated:
                 size: 3
+            storageClass:
+              enabled: false
         cephFileSystems: []
         cephObjectStores: []
         cephFileSystemVolumeSnapshotClass:

@@ -11,6 +11,18 @@ spec:
     repoURL: https://opendev.org/openstack/openstack-helm
     path: keystone
     targetRevision: master
+    helm:
+      values: |
+        manifests:
+          job_db_init: true
+          job_db_sync: true
+          job_ks_user: true
+          job_ks_service: true
+          job_ks_endpoints: true
+          job_bootstrap: true
+          job_credential_setup: true
+          job_fernet_setup: true
+          secret_keystone_db_admin: true
   destination:
     server: https://kubernetes.default.svc
     namespace: openstack
@@ -18,3 +30,6 @@ spec:
     automated:
       prune: true
       selfHeal: true
+    syncOptions:
+      - CreateNamespace=true
+      - ServerSideApply=true

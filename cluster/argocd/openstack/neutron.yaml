@@ -11,6 +11,13 @@ spec:
     repoURL: https://opendev.org/openstack/openstack-helm
     path: neutron
     targetRevision: master
+    helm:
+      values: |
+        manifests:
+          job_db_init: true
+          job_db_sync: true
+          job_ks_user: true
+          job_ks_service: true
   destination:
     server: https://kubernetes.default.svc
     namespace: openstack
@@ -18,3 +25,6 @@ spec:
     automated:
       prune: true
       selfHeal: true
+    syncOptions:
+      - CreateNamespace=true
+      - ServerSideApply=true

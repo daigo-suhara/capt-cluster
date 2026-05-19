@@ -13,6 +13,11 @@ spec:
     targetRevision: master
     helm:
       values: |
+        manifests:
+          job_db_init: true
+          job_db_sync: true
+          job_ks_user: true
+          job_ks_service: true
         storage: ceph
         conf:
           cinder:
@@ -32,3 +37,6 @@ spec:
     automated:
       prune: true
       selfHeal: true
+    syncOptions:
+      - CreateNamespace=true
+      - ServerSideApply=true

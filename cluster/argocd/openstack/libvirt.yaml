@@ -13,6 +13,7 @@ spec:
     targetRevision: master
     helm:
       values: |
+        # force Argo CD refresh
         helm3_hook: false
   destination:
     server: https://kubernetes.default.svc

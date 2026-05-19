@@ -9,6 +9,7 @@ resources:
   - addons/helmchartproxy-metallb.yaml
   - addons/helmchartproxy-argocd.yaml
   - addons/crs-metallb-config.yaml
+  - addons/crs-workload-argocd-app.yaml
 
 secretGenerator:
   - name: metallb-config-manifest
@@ -16,6 +17,11 @@ secretGenerator:
     type: addons.cluster.x-k8s.io/resource-set
     files:
       - addons/metallb-config.yaml
+  - name: workload-argocd-app-manifest
+    namespace: tinkerbell
+    type: addons.cluster.x-k8s.io/resource-set
+    files:
+      - addons/workload-argocd-app.yaml
 
 generatorOptions:
   disableNameSuffixHash: true

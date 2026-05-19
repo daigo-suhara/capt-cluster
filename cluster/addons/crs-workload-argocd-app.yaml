@@ -1,0 +1,13 @@
+apiVersion: addons.cluster.x-k8s.io/v1beta1
+kind: ClusterResourceSet
+metadata:
+  name: workload-argocd-app
+  namespace: tinkerbell
+spec:
+  clusterSelector:
+    matchLabels:
+      cluster.x-k8s.io/cluster-name: cluster
+  strategy: Reconcile
+  resources:
+    - name: workload-argocd-app-manifest
+      kind: Secret

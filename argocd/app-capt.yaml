@@ -9,7 +9,7 @@ spec:
   project: default
   source:
     repoURL: https://github.com/daigo-suhara/capt-cluster.git
-    targetRevision: HEAD
+    targetRevision: master
     path: system/capt
   destination:
     server: https://kubernetes.default.svc

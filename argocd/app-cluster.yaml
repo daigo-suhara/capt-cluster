@@ -11,7 +11,7 @@ spec:
   source:
     path: cluster
     repoURL: https://github.com/daigo-suhara/capt-cluster.git
-    targetRevision: HEAD
+    targetRevision: master
   destination:
     server: https://kubernetes.default.svc
     namespace: tinkerbell

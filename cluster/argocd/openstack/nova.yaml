@@ -1,0 +1,31 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: openstack-nova
+  namespace: argocd
+  annotations:
+    argocd.argoproj.io/sync-wave: "13"
+spec:
+  project: default
+  source:
+    repoURL: https://tarballs.opendev.org/openstack/openstack-helm
+    chart: nova
+    targetRevision: 0.1.0
+    helm:
+      values: |
+        conf:
+          nova:
+            libvirt:
+              virt_type: kvm
+              images_type: rbd
+              images_rbd_pool: vms
+              images_rbd_ceph_conf: /etc/ceph/ceph.conf
+              rbd_user: nova
+              rbd_secret_uuid: 457f605d-adaa-4710-83b9-331487137b01 # Placeholder
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: openstack
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true

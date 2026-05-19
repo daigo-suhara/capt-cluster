@@ -19,6 +19,12 @@ spec:
         maxSurge: 0
   kubeadmConfigSpec:
     format: cloud-config
+    ntp:
+      enabled: true
+      ntp_client: chrony
+      servers:
+        - ntp.nict.jp
+        - pool.ntp.org
     preKubeadmCommands:
       - mkdir -p /etc/kubernetes/manifests
       - ctr images pull ghcr.io/kube-vip/kube-vip:v1.0.0

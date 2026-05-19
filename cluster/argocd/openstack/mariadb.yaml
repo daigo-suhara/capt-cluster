@@ -1,0 +1,24 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: openstack-mariadb
+  namespace: argocd
+  annotations:
+    argocd.argoproj.io/sync-wave: "10"
+spec:
+  project: default
+  source:
+    repoURL: https://tarballs.opendev.org/openstack/openstack-helm-infra
+    chart: mariadb
+    targetRevision: 0.1.0 # Placeholder, adjust if needed
+    helm:
+      values: |
+        pod:
+          replicas: 1 # For small cluster
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: openstack
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true

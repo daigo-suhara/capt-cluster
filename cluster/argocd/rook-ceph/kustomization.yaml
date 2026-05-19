@@ -4,3 +4,4 @@ resources:
   - namespace.yaml
   - operator.yaml
   - cluster.yaml
+  - ceph-clients.yaml

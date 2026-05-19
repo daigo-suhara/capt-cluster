@@ -1,0 +1,34 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: openstack-cinder
+  namespace: argocd
+  annotations:
+    argocd.argoproj.io/sync-wave: "12"
+spec:
+  project: default
+  source:
+    repoURL: https://tarballs.opendev.org/openstack/openstack-helm
+    chart: cinder
+    targetRevision: 0.1.0
+    helm:
+      values: |
+        storage: ceph
+        conf:
+          cinder:
+            DEFAULT:
+              enabled_backends: ceph
+          backends:
+            ceph:
+              volume_driver: cinder.volume.drivers.rbd.RBDDriver
+              volume_backend_name: ceph
+              rbd_pool: rbd
+              rbd_user: cinder
+              rbd_secret_uuid: 457f605d-adaa-4710-83b9-331487137b01 # Placeholder
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: openstack
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true

@@ -1,0 +1,30 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: openstack-glance
+  namespace: argocd
+  annotations:
+    argocd.argoproj.io/sync-wave: "12"
+spec:
+  project: default
+  source:
+    repoURL: https://tarballs.opendev.org/openstack/openstack-helm
+    chart: glance
+    targetRevision: 0.1.0
+    helm:
+      values: |
+        storage: ceph
+        conf:
+          glance:
+            glance_store:
+              default_store: rbd
+              stores: rbd,file
+              rbd_store_pool: images
+              rbd_store_user: glance
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: openstack
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true

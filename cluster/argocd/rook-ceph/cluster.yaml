@@ -59,6 +59,14 @@ spec:
               parameters:
                 imageFeatures: layering
                 csi.storage.k8s.io/fstype: ext4
+          - name: images
+            spec:
+              replicated:
+                size: 3
+          - name: vms
+            spec:
+              replicated:
+                size: 3
         cephFileSystems: []
         cephObjectStores: []
         cephFileSystemVolumeSnapshotClass:

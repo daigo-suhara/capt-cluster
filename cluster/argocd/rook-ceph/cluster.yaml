@@ -1,0 +1,78 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: rook-ceph-cluster
+  namespace: argocd
+  annotations:
+    argocd.argoproj.io/sync-wave: "1"
+spec:
+  project: default
+  source:
+    repoURL: https://charts.rook.io/release
+    chart: rook-ceph-cluster
+    targetRevision: 1.19.4
+    helm:
+      releaseName: rook-ceph-cluster
+      valuesObject:
+        operatorNamespace: rook-ceph
+        cephClusterSpec:
+          cephVersion:
+            image: quay.io/ceph/ceph:v19.2.3
+          dataDirHostPath: /var/lib/rook
+          mon:
+            count: 3
+          storage:
+            useAllNodes: false
+            useAllDevices: false
+            nodes:
+              - name: tx1320m3-01
+                devices:
+                  - name: sdb
+              - name: tx1320m3-02
+                devices:
+                  - name: sdb
+              - name: tx1320m3-03
+                devices:
+                  - name: sdb
+          placement:
+            all:
+              nodeAffinity:
+                requiredDuringSchedulingIgnoredDuringExecution:
+                  nodeSelectorTerms:
+                    - matchExpressions:
+                        - key: cluster-role
+                          operator: In
+                          values:
+                            - control-plane
+        cephBlockPools:
+          - name: rbd
+            spec:
+              replicated:
+                size: 3
+            storageClass:
+              enabled: true
+              name: general
+              isDefault: true
+              reclaimPolicy: Delete
+              allowVolumeExpansion: true
+              volumeBindingMode: Immediate
+              parameters:
+                imageFeatures: layering
+                csi.storage.k8s.io/fstype: ext4
+        cephFileSystems: []
+        cephObjectStores: []
+        cephFileSystemVolumeSnapshotClass:
+          enabled: false
+        cephBlockPoolsVolumeSnapshotClass:
+          enabled: false
+        cephObjectStoreUsers: []
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: rook-ceph
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+    syncOptions:
+      - CreateNamespace=true
+      - ServerSideApply=true

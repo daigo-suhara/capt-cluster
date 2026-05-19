@@ -8,7 +8,7 @@ metadata:
 spec:
   project: default
   source:
-    repoURL: https://tarballs.opendev.org/openstack/openstack-helm-infra
+    repoURL: https://tarballs.opendev.org/openstack/openstack-helm
     chart: mariadb
     targetRevision: HEAD
     helm:

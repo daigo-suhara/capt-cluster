@@ -14,7 +14,8 @@ spec:
     helm:
       values: |
         pod:
-          replicas: 1
+          replicas:
+            server: 1
   destination:
     server: https://kubernetes.default.svc
     namespace: openstack

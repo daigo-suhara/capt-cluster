@@ -13,6 +13,7 @@ spec:
     targetRevision: master
     helm:
       values: |
+        helm3_hook: false
         manifests:
           job_db_init: true
           job_db_sync: true

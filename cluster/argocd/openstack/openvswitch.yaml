@@ -11,6 +11,9 @@ spec:
     repoURL: https://opendev.org/openstack/openstack-helm
     path: openvswitch
     targetRevision: master
+    helm:
+      values: |
+        helm3_hook: false
   destination:
     server: https://kubernetes.default.svc
     namespace: openstack

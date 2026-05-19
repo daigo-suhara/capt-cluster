@@ -10,11 +10,11 @@ spec:
   source:
     repoURL: https://tarballs.opendev.org/openstack/openstack-helm-infra
     chart: mariadb
-    targetRevision: 0.1.0 # Placeholder, adjust if needed
+    targetRevision: HEAD
     helm:
       values: |
         pod:
-          replicas: 1 # For small cluster
+          replicas: 1
   destination:
     server: https://kubernetes.default.svc
     namespace: openstack

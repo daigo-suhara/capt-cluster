@@ -15,6 +15,9 @@ spec:
       values: |
         # force Argo CD refresh
         helm3_hook: false
+        conf:
+          ceph:
+            enabled: true
   destination:
     server: https://kubernetes.default.svc
     namespace: openstack

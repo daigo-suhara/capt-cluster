@@ -20,6 +20,20 @@ spec:
           job_db_sync: true
           job_ks_user: true
           job_ks_service: true
+        conf:
+          neutron:
+            DEFAULT:
+              l3_ha: false
+              max_l3_agents_per_router: 1
+          auto_bridge_add:
+            br-ex: eno1
+          plugins:
+            ml2_conf:
+              ml2_type_flat:
+                flat_networks: public
+            openvswitch_agent:
+              ovs:
+                bridge_mappings: public:br-ex
   destination:
     server: https://kubernetes.default.svc
     namespace: openstack

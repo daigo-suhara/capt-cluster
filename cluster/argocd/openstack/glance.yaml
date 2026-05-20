@@ -20,7 +20,10 @@ spec:
           job_db_sync: true
           job_ks_user: true
           job_ks_service: true
-        storage: ceph
+        storage: pvc
+        volume:
+          class_name: general
+          size: 10Gi
         conf:
           glance:
             glance_store:

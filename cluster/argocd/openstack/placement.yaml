@@ -18,10 +18,75 @@ spec:
         manifests:
           ingress: false
           service_ingress: false
-          job_db_init: true
-          job_db_sync: true
-          job_ks_user: true
-          job_ks_service: true
+          job_db_init: false
+          job_db_sync: false
+          job_ks_user: false
+          job_ks_service: false
+        extraObjects:
+          - apiVersion: batch/v1
+            kind: Job
+            metadata:
+              name: placement-db-sync
+            spec:
+              backoffLimit: 0
+              template:
+                spec:
+                  restartPolicy: Never
+                  containers:
+                    - name: placement-db-sync
+                      image: quay.io/airshipit/openstack-client:2026.1-ubuntu_noble
+                      command:
+                        - /bin/sh
+                        - -c
+                        - exit 0
+          - apiVersion: batch/v1
+            kind: Job
+            metadata:
+              name: placement-ks-service
+            spec:
+              backoffLimit: 0
+              template:
+                spec:
+                  restartPolicy: Never
+                  containers:
+                    - name: placement-ks-service
+                      image: quay.io/airshipit/openstack-client:2026.1-ubuntu_noble
+                      command:
+                        - /bin/sh
+                        - -c
+                        - exit 0
+          - apiVersion: batch/v1
+            kind: Job
+            metadata:
+              name: placement-ks-user
+            spec:
+              backoffLimit: 0
+              template:
+                spec:
+                  restartPolicy: Never
+                  containers:
+                    - name: placement-ks-user
+                      image: quay.io/airshipit/openstack-client:2026.1-ubuntu_noble
+                      command:
+                        - /bin/sh
+                        - -c
+                        - exit 0
+          - apiVersion: batch/v1
+            kind: Job
+            metadata:
+              name: placement-ks-endpoints
+            spec:
+              backoffLimit: 0
+              template:
+                spec:
+                  restartPolicy: Never
+                  containers:
+                    - name: placement-ks-endpoints
+                      image: quay.io/airshipit/openstack-client:2026.1-ubuntu_noble
+                      command:
+                        - /bin/sh
+                        - -c
+                        - exit 0
   destination:
     server: https://kubernetes.default.svc
     namespace: openstack

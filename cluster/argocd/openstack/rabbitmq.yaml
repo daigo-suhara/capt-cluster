@@ -18,6 +18,29 @@ spec:
         pod:
           replicas:
             server: 1
+        manifests:
+          ingress_management: false
+          service_ingress_management: false
+        extraObjects:
+          - apiVersion: v1
+            kind: Service
+            metadata:
+              name: rabbitmq-public
+            spec:
+              type: LoadBalancer
+              loadBalancerIP: 172.16.100.12
+              selector:
+                app.kubernetes.io/component: server
+                app.kubernetes.io/instance: openstack-rabbitmq
+                app.kubernetes.io/name: rabbitmq
+                application: rabbitmq
+                component: server
+                release_group: openstack-rabbitmq
+              ports:
+                - name: http
+                  port: 15672
+                  protocol: TCP
+                  targetPort: 15672
   destination:
     server: https://kubernetes.default.svc
     namespace: openstack

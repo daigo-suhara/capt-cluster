@@ -5,3 +5,4 @@ resources:
   - operator.yaml
   - cluster.yaml
   - ceph-clients.yaml
+  - ceph-adapter-rook.yaml

@@ -1,0 +1,46 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: rook-ceph-tools
+  namespace: rook-ceph
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: rook-ceph-tools
+  template:
+    metadata:
+      labels:
+        app: rook-ceph-tools
+    spec:
+      containers:
+        - name: ceph-tools
+          image: quay.io/ceph/ceph:v19.2.3
+          command:
+            - /bin/bash
+            - -ec
+            - |
+              cat >/etc/ceph/ceph.conf <<EOF
+              [global]
+              mon host = ${MON_HOST}
+              EOF
+              sleep infinity
+          env:
+            - name: MON_HOST
+              valueFrom:
+                secretKeyRef:
+                  name: rook-ceph-config
+                  key: mon_host
+          volumeMounts:
+            - name: ceph-conf
+              mountPath: /etc/ceph
+            - name: admin-keyring
+              mountPath: /etc/ceph/ceph.client.admin.keyring
+              subPath: keyring
+              readOnly: true
+      volumes:
+        - name: ceph-conf
+          emptyDir: {}
+        - name: admin-keyring
+          secret:
+            secretName: rook-ceph-admin-keyring

@@ -29,10 +29,6 @@ spec:
       prune: true
       selfHeal: true
   ignoreDifferences:
-    - group: ""
-      kind: Service
-      jsonPointers:
-        - /spec/selector/statefulset.kubernetes.io~1pod-name
     - group: apps
       kind: Deployment
       jsonPointers:
@@ -43,9 +39,6 @@ spec:
       jsonPointers:
         - /metadata/annotations/configmap-etc-hash
         - /metadata/annotations/configmap-bin-hash
-        - /spec/volumeClaimTemplates/0/apiVersion
-        - /spec/volumeClaimTemplates/0/kind
-        - /spec/volumeClaimTemplates/0/status
     - group: apps
       kind: DaemonSet
       jsonPointers:

@@ -84,6 +84,11 @@ spec:
         - /metadata/annotations/configmap-etc-hash
         - /metadata/annotations/configmap-bin-hash
         - /spec/persistentVolumeClaimRetentionPolicy
+        - /spec/template/spec/dnsPolicy
+        - /spec/template/spec/restartPolicy
+        - /spec/template/spec/schedulerName
+        - /spec/template/spec/serviceAccount
+        - /spec/template/spec/terminationGracePeriodSeconds
       jqPathExpressions:
         - .spec.revisionHistoryLimit
         - .spec.template.spec.initContainers[].resources

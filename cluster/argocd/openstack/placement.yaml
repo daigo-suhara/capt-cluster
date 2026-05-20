@@ -22,7 +22,6 @@ spec:
           job_db_sync: false
           job_ks_user: false
           job_ks_service: false
-          job_ks_endpoints: false
   destination:
     server: https://kubernetes.default.svc
     namespace: openstack

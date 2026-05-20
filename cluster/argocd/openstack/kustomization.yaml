@@ -9,7 +9,6 @@ resources:
   - openvswitch.yaml
   - keystone.yaml
   - glance.yaml
-  - placement-ks-endpoints.yaml
   - placement.yaml
   - nova.yaml
   - neutron.yaml

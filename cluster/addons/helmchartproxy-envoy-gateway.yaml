@@ -1,0 +1,27 @@
+apiVersion: addons.cluster.x-k8s.io/v1alpha1
+kind: HelmChartProxy
+metadata:
+  name: envoy-gateway
+  namespace: tinkerbell
+spec:
+  clusterSelector:
+    matchLabels:
+      cluster.x-k8s.io/cluster-name: cluster
+  releaseName: envoy-gateway
+  repoURL: oci://docker.io/envoyproxy
+  chartName: gateway-helm
+  version: v1.7.3
+  namespace: envoy-gateway-system
+  options:
+    enableClientCache: false
+    waitForJobs: true
+    wait: true
+    timeout: 10m0s
+    install:
+      createNamespace: true
+    upgrade:
+      maxHistory: 10
+  valuesTemplate: |-
+    service:
+      type: LoadBalancer
+      loadBalancerIP: 172.16.100.12

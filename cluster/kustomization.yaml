@@ -7,6 +7,7 @@ resources:
   - provisioning-template.yaml
   - addons/helmchartproxy-cilium.yaml
   - addons/helmchartproxy-metallb.yaml
+  - addons/helmchartproxy-envoy-gateway.yaml
   - addons/helmchartproxy-argocd.yaml
   - addons/crs-metallb-config.yaml
   - addons/crs-workload-argocd-app.yaml

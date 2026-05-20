@@ -24,6 +24,11 @@ spec:
   valuesTemplate: |-
     ipam:
       mode: kubernetes
+    kubeProxyReplacement: true
+    gatewayAPI:
+      enabled: true
+      gatewayClass:
+        create: false
     k8s:
       requireIPv4PodCIDR: true
     hubble:

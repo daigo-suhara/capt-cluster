@@ -10,7 +10,7 @@ spec:
   releaseName: cilium
   repoURL: https://helm.cilium.io/
   chartName: cilium
-  version: 1.15.4
+  version: 1.18.4
   namespace: kube-system
   options:
     enableClientCache: false
@@ -35,4 +35,4 @@ spec:
         enabled: false
       ui:
         enabled: false
-    version: 1.15.4
+    version: 1.18.4

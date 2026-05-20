@@ -89,6 +89,11 @@ spec:
         - /spec/template/spec/schedulerName
         - /spec/template/spec/serviceAccount
         - /spec/template/spec/terminationGracePeriodSeconds
+        - /spec/updateStrategy/rollingUpdate/partition
+        - /spec/volumeClaimTemplates/0/apiVersion
+        - /spec/volumeClaimTemplates/0/kind
+        - /spec/volumeClaimTemplates/0/spec/volumeMode
+        - /spec/volumeClaimTemplates/0/status
       jqPathExpressions:
         - .spec.revisionHistoryLimit
         - .spec.template.spec.initContainers[].resources

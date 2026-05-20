@@ -49,14 +49,19 @@ spec:
             spec:
               parentRefs:
                 - name: rabbitmq-gateway
+                  group: gateway.networking.k8s.io
+                  kind: Gateway
               rules:
                 - matches:
                     - path:
                         type: PathPrefix
                         value: /
                   backendRefs:
-                    - name: rabbitmq
+                    - group: ""
+                      kind: Service
+                      name: rabbitmq
                       port: 15672
+                      weight: 1
   destination:
     server: https://kubernetes.default.svc
     namespace: openstack
@@ -79,6 +84,16 @@ spec:
         - /metadata/annotations/configmap-etc-hash
         - /metadata/annotations/configmap-bin-hash
         - /spec/persistentVolumeClaimRetentionPolicy
+      jqPathExpressions:
+        - .spec.revisionHistoryLimit
+        - .spec.template.spec.initContainers[].resources
+        - .spec.template.spec.initContainers[].terminationMessagePath
+        - .spec.template.spec.initContainers[].terminationMessagePolicy
+        - .spec.template.spec.initContainers[].env[].valueFrom.fieldRef.apiVersion
+        - .spec.template.spec.containers[].resources
+        - .spec.template.spec.containers[].terminationMessagePath
+        - .spec.template.spec.containers[].terminationMessagePolicy
+        - .spec.template.spec.containers[].env[].valueFrom.fieldRef.apiVersion
     - group: apps
       kind: DaemonSet
       jsonPointers:

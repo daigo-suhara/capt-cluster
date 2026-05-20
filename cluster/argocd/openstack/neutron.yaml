@@ -34,6 +34,10 @@ spec:
             openvswitch_agent:
               ovs:
                 bridge_mappings: public:br-ex
+        endpoints:
+          oslo_messaging:
+            host_fqdn_override:
+              default: rabbitmq.openstack.svc.cluster.local
   destination:
     server: https://kubernetes.default.svc
     namespace: openstack

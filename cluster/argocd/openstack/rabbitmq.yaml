@@ -26,32 +26,15 @@ spec:
             ingress:
               public: false
         extraObjects:
-          - apiVersion: cilium.io/v2alpha1
-            kind: CiliumGatewayClassConfig
-            metadata:
-              name: rabbitmq-gateway-config
-              namespace: openstack
-            spec:
-              service:
-                type: LoadBalancer
-                loadBalancerIP: 172.16.100.12
-          - apiVersion: gateway.networking.k8s.io/v1
-            kind: GatewayClass
-            metadata:
-              name: cilium
-            spec:
-              controllerName: io.cilium/gateway-controller
-              parametersRef:
-                group: cilium.io
-                kind: CiliumGatewayClassConfig
-                name: rabbitmq-gateway-config
-                namespace: openstack
           - apiVersion: gateway.networking.k8s.io/v1
             kind: Gateway
             metadata:
               name: rabbitmq-gateway
             spec:
               gatewayClassName: cilium
+              addresses:
+                - type: IPAddress
+                  value: 172.16.100.12
               listeners:
                 - name: http
                   port: 80

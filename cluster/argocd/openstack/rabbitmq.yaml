@@ -78,8 +78,13 @@ spec:
       jsonPointers:
         - /metadata/annotations/configmap-etc-hash
         - /metadata/annotations/configmap-bin-hash
+        - /spec/persistentVolumeClaimRetentionPolicy
     - group: apps
       kind: DaemonSet
       jsonPointers:
         - /metadata/annotations/configmap-etc-hash
         - /metadata/annotations/configmap-bin-hash
+    - group: gateway.networking.k8s.io
+      kind: HTTPRoute
+      jsonPointers:
+        - /status

@@ -64,7 +64,8 @@ kubectl -n argocd get secret argocd-initial-admin-secret \
 ## ワークロードクラスタ側 Argo CD
 
 ワークロードクラスタ側 Argo CD は、`cluster/addons/helmchartproxy-argocd.yaml`
-でインストールされます。
+でインストールされます。OpenStack の Keystone は MetalLB-backed の
+`LoadBalancer` Service で公開しています。
 
 アクセス先:
 
@@ -145,6 +146,14 @@ ssh -i ~/.ssh/id_ed25519 tinkerbell@172.16.10.11 \
 ssh -i ~/.ssh/id_ed25519 tinkerbell@172.16.10.11 \
   'sudo kubectl --kubeconfig /etc/kubernetes/admin.conf -n argocd \
   get svc argocd-server -o wide'
+```
+
+OpenStack の Keystone public Service:
+
+```bash
+ssh -i ~/.ssh/id_ed25519 tinkerbell@172.16.10.11 \
+  'sudo kubectl --kubeconfig /etc/kubernetes/admin.conf -n openstack \
+  get svc keystone-public -o wide'
 ```
 
 Argo CD の Application 一覧:

@@ -26,6 +26,17 @@ spec:
         volume:
           class_name: general
           size: 10Gi
+        conf:
+          glance:
+            glance_store:
+              default_backend: file
+              filesystem_store_datadir: /var/lib/glance/images
+              file:
+                filesystem_store_datadir: /var/lib/glance/images
+              os_glance_tasks_store:
+                filesystem_store_datadir: /var/lib/glance/tmp/os_glance_tasks_store
+              os_glance_staging_store:
+                filesystem_store_datadir: /var/lib/glance/tmp/os_glance_staging_store
   destination:
     server: https://kubernetes.default.svc
     namespace: openstack

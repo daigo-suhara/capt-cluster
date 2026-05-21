@@ -22,6 +22,8 @@ spec:
           job_db_sync: true
           job_ks_user: true
           job_ks_service: true
+          job_ks_endpoints: true
+          job_rabbit_init: true
         conf:
           neutron:
             DEFAULT:

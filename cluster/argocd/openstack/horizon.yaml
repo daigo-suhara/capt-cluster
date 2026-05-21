@@ -61,9 +61,6 @@ spec:
               name: horizon-gateway
             spec:
               gatewayClassName: cilium
-              addresses:
-                - type: IPAddress
-                  value: 172.16.100.14
               listeners:
                 - name: http
                   port: 80

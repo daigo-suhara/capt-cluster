@@ -6,7 +6,6 @@ resources:
   - worker.yaml
   - provisioning-template.yaml
   - addons/helmchartproxy-cilium.yaml
-  - addons/helmchartproxy-ingress-openstack.yaml
   - addons/helmchartproxy-metallb.yaml
   - addons/helmchartproxy-argocd.yaml
   - addons/crs-metallb-config.yaml

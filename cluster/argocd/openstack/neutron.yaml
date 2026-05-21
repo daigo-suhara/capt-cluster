@@ -16,6 +16,7 @@ spec:
         # force Argo CD refresh
         helm3_hook: false
         manifests:
+          ingress_api: false
           job_db_init: true
           job_db_sync: true
           job_ks_user: true
@@ -38,6 +39,27 @@ spec:
             openvswitch_agent:
               ovs:
                 bridge_mappings: public:br-ex
+        extraObjects:
+          - apiVersion: v1
+            kind: Service
+            metadata:
+              name: neutron-public
+            spec:
+              type: LoadBalancer
+              loadBalancerIP: 172.16.100.14
+              externalTrafficPolicy: Cluster
+              ports:
+                - name: q-api
+                  port: 9696
+                  protocol: TCP
+                  targetPort: 9696
+              selector:
+                app.kubernetes.io/component: server
+                app.kubernetes.io/instance: openstack-neutron
+                app.kubernetes.io/name: neutron
+                application: neutron
+                component: server
+                release_group: openstack-neutron
   destination:
     server: https://kubernetes.default.svc
     namespace: openstack

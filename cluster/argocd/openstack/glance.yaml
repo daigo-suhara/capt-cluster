@@ -30,8 +30,9 @@ spec:
               rbd_store_pool: glance.images
               rbd_store_user: glance
               rbd_store_ceph_conf: /etc/ceph/ceph.conf
-        secrets:
-          rbd: pvc-ceph-client-key
+        ceph_client:
+          configmap: ceph-etc
+          user_secret_name: pvc-ceph-client-key
   destination:
     server: https://kubernetes.default.svc
     namespace: openstack

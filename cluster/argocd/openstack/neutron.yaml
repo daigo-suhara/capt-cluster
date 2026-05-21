@@ -33,7 +33,7 @@ spec:
           static:
             server:
               jobs: []
-            dhcp_agent:
+            dhcp:
               jobs: []
             l3:
               jobs: []

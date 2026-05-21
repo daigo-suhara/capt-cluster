@@ -23,6 +23,11 @@ spec:
           job_db_sync: true
           job_ks_user: true
           job_ks_service: true
+          service_ingress_metadata: false
+          service_ingress_novncproxy: false
+          service_ingress_osapi: false
+          service_ingress_serialproxy: false
+          service_ingress_spiceproxy: false
         conf:
           ceph:
             enabled: true

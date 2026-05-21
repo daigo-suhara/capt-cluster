@@ -17,7 +17,7 @@ spec:
         helm3_hook: false
         manifests:
           job_db_init: true
-          job_db_sync: true
+          job_db_sync: false
           job_ks_user: true
           job_ks_service: true
           ingress_api: false

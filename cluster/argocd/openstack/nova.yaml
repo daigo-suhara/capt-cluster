@@ -27,6 +27,18 @@ spec:
           ceph:
             enabled: true
           nova:
+            keystone_authtoken:
+              username: nova
+              password: password
+              project_name: service
+              user_domain_name: service
+              project_domain_name: service
+            service_user:
+              username: nova_service_user
+              password: password
+              project_name: service
+              user_domain_name: service
+              project_domain_name: service
             libvirt:
               virt_type: kvm
               images_type: rbd
@@ -34,6 +46,10 @@ spec:
               images_rbd_ceph_conf: /etc/ceph/ceph.conf
               rbd_user: nova
               rbd_secret_uuid: 457f605d-adaa-4710-83b9-331487137b01 # Placeholder
+        endpoints:
+          oslo_messaging:
+            host_fqdn_override:
+              default: rabbitmq.openstack.svc.cluster.local
   destination:
     server: https://kubernetes.default.svc
     namespace: openstack

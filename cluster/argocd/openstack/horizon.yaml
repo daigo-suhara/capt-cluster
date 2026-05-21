@@ -20,6 +20,29 @@ spec:
           job_db_sync: true
           job_ks_user: true
           job_ks_service: true
+          ingress_api: false
+          service_ingress: false
+        extraObjects:
+          - apiVersion: v1
+            kind: Service
+            metadata:
+              name: horizon-public
+            spec:
+              type: LoadBalancer
+              loadBalancerIP: 172.16.100.13
+              externalTrafficPolicy: Cluster
+              ports:
+                - name: web
+                  port: 80
+                  protocol: TCP
+                  targetPort: 80
+              selector:
+                app.kubernetes.io/component: server
+                app.kubernetes.io/instance: openstack-horizon
+                app.kubernetes.io/name: horizon
+                application: horizon
+                component: server
+                release_group: openstack-horizon
         conf:
           horizon:
             apache: |

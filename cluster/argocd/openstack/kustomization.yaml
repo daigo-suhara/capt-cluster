@@ -13,3 +13,4 @@ resources:
   - nova.yaml
   - neutron.yaml
   - horizon.yaml
+  - skyline.yaml

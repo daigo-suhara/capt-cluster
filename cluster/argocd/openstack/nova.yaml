@@ -15,9 +15,6 @@ spec:
       values: |
         # force Argo CD refresh
         helm3_hook: false
-        bootstrap:
-          wait_for_computes:
-            enabled: true
         manifests:
           job_db_init: true
           job_db_sync: true

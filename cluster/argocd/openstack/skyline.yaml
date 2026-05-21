@@ -28,6 +28,14 @@ spec:
           static:
             skyline:
               jobs: []
+        conf:
+          skyline:
+            openstack:
+              system_user_name: admin
+              system_user_password: password
+              system_user_domain: default
+              system_project: admin
+              system_project_domain: default
   destination:
     server: https://kubernetes.default.svc
     namespace: openstack

@@ -23,9 +23,12 @@ spec:
         conf:
           neutron:
             DEFAULT:
-              transport_url: rabbit://neutron:password@rabbitmq.openstack.svc.cluster.local:5672/neutron
               l3_ha: false
               max_l3_agents_per_router: 1
+        endpoints:
+          oslo_messaging:
+            host_fqdn_override:
+              default: rabbitmq.openstack.svc.cluster.local
           auto_bridge_add:
             br-ex: eno1
           plugins:

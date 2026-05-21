@@ -18,6 +18,7 @@ spec:
         manifests:
           ingress_api: false
           service_ingress_api: false
+          job_bootstrap: false
           job_db_init: true
           job_db_sync: true
           job_ks_user: true

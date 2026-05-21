@@ -85,7 +85,7 @@ spec:
                   backendRefs:
                     - group: ""
                       kind: Service
-                      name: horizon
+                      name: horizon-int
                       port: 80
                       weight: 1
   destination:

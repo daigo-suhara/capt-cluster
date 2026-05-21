@@ -29,6 +29,9 @@ spec:
         conf:
           ceph:
             enabled: true
+            cinder:
+              user: cinder
+              keyring: AQCEawxqDbU8GBAAisYBswfj/NG2mG9dS7irGA==
           nova:
             DEFAULT:
               transport_url: rabbit://nova:password@rabbitmq.openstack.svc.cluster.local:5672/nova

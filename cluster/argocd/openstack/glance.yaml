@@ -16,6 +16,8 @@ spec:
         # force Argo CD refresh
         helm3_hook: false
         manifests:
+          ingress_api: false
+          service_ingress_api: false
           job_db_init: true
           job_db_sync: true
           job_ks_user: true
@@ -24,13 +26,6 @@ spec:
         volume:
           class_name: general
           size: 10Gi
-        conf:
-          glance:
-            glance_store:
-              default_store: rbd
-              stores: rbd,file
-              rbd_store_pool: images
-              rbd_store_user: glance
   destination:
     server: https://kubernetes.default.svc
     namespace: openstack

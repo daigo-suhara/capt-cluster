@@ -24,6 +24,10 @@ spec:
           job_db_init: true
           job_db_sync: true
           job_ks_user: true
+        dependencies:
+          static:
+            skyline:
+              jobs: []
   destination:
     server: https://kubernetes.default.svc
     namespace: openstack

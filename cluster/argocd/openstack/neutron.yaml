@@ -29,6 +29,28 @@ spec:
             DEFAULT:
               l3_ha: false
               max_l3_agents_per_router: 1
+        dependencies:
+          static:
+            server:
+              jobs: []
+            dhcp_agent:
+              jobs: []
+            l3:
+              jobs: []
+            metadata:
+              jobs: []
+            ovs_agent:
+              jobs: []
+            rpc_server:
+              jobs: []
+            lb_agent:
+              jobs: []
+            ks_user:
+              jobs: []
+            ks_endpoints:
+              jobs: []
+            rabbit_init:
+              jobs: []
         endpoints:
           oslo_messaging:
             host_fqdn_override:

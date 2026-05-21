@@ -16,8 +16,7 @@ spec:
         # force Argo CD refresh
         helm3_hook: false
         manifests:
-          ingress: false
-          service_ingress: false
+          service_ingress: true
           job_db_init: false
           job_db_sync: false
           job_ks_user: false

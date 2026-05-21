@@ -21,11 +21,11 @@ spec:
           job_ks_user: true
           job_ks_service: true
           job_storage_init: false
-          service_ingress_metadata: false
-          service_ingress_novncproxy: false
-          service_ingress_osapi: false
-          service_ingress_serialproxy: false
-          service_ingress_spiceproxy: false
+          service_ingress_metadata: true
+          service_ingress_novncproxy: true
+          service_ingress_osapi: true
+          service_ingress_serialproxy: true
+          service_ingress_spiceproxy: true
         conf:
           ceph:
             enabled: true

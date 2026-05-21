@@ -16,7 +16,8 @@ spec:
         # force Argo CD refresh
         helm3_hook: false
         manifests:
-          ingress_api: false
+          ingress_api: true
+          service_ingress_api: true
           job_db_init: true
           job_db_sync: true
           job_ks_user: true
@@ -26,26 +27,6 @@ spec:
           job_credential_setup: true
           job_fernet_setup: true
           secret_keystone_db_admin: true
-        extraObjects:
-          - apiVersion: v1
-            kind: Service
-            metadata:
-              name: keystone-public
-            spec:
-              type: LoadBalancer
-              loadBalancerIP: 172.16.100.11
-              selector:
-                app.kubernetes.io/component: api
-                app.kubernetes.io/instance: openstack-keystone
-                app.kubernetes.io/name: keystone
-                application: keystone
-                component: api
-                release_group: openstack-keystone
-              ports:
-                - name: ks-pub
-                  port: 5000
-                  protocol: TCP
-                  targetPort: 5000
   destination:
     server: https://kubernetes.default.svc
     namespace: openstack

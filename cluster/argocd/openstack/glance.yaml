@@ -33,6 +33,8 @@ spec:
         ceph_client:
           configmap: ceph-etc
           user_secret_name: pvc-ceph-client-key
+        secrets:
+          rbd: pvc-ceph-client-key
   destination:
     server: https://kubernetes.default.svc
     namespace: openstack

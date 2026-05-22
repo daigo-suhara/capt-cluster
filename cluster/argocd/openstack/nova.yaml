@@ -52,7 +52,7 @@ spec:
               images_type: rbd
               images_rbd_pool: vms
               images_rbd_ceph_conf: /etc/ceph/ceph.conf
-              rbd_user: nova
+              rbd_user: cinder
               rbd_secret_uuid: 457f605d-adaa-4710-83b9-331487137b01 # Placeholder
         endpoints:
           oslo_messaging:

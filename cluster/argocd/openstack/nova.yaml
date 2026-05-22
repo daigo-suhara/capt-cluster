@@ -53,7 +53,7 @@ spec:
               images_rbd_pool: vms
               images_rbd_ceph_conf: /etc/ceph/ceph.conf
               rbd_user: cinder
-              rbd_secret_uuid: 457f605d-adaa-4710-83b9-331487137b01 # Placeholder
+              rbd_secret_uuid: 457eb676-33da-42ec-9a8c-9293d545c337
         endpoints:
           oslo_messaging:
             host_fqdn_override:

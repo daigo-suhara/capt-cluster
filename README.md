@@ -117,6 +117,16 @@ allocation pool = 172.16.200.2-172.16.200.254
 
 Magnum のテンプレートは `fedora-coreos-latest` と `kubernetes-default` を使います。
 
+Bootstrap は Argo CD では `suspend: true` の `CronJob` として同期します。
+実行するときだけ次のように one-shot Job を作ります。
+
+```bash
+kubectl -n openstack create job openstack-bootstrap-trove-$(date +%s) \
+  --from=cronjob/openstack-bootstrap-trove
+kubectl -n openstack create job openstack-bootstrap-magnum-$(date +%s) \
+  --from=cronjob/openstack-bootstrap-magnum
+```
+
 ## MetalLB
 
 MetalLB はワークロードクラスタにインストールされます。

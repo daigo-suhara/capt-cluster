@@ -173,10 +173,6 @@ data:
         return 1
       fi
 
-      python3 -m http.server 8080 --bind 0.0.0.0 --directory "$tmp_dir" >/tmp/fcos-http.log 2>&1 &
-      server_pid=$!
-      trap 'kill "$server_pid" >/dev/null 2>&1 || true; rm -rf "$tmp_dir"' EXIT
-
       if ! $OPENSTACK image create \
         --public \
         --disk-format qcow2 \
@@ -184,23 +180,12 @@ data:
         --property os_distro=fedora-coreos \
         --min-disk 10 \
         --min-ram 2 \
+        --file "$image_file" \
         "$image_name" >/dev/null; then
-        kill "$server_pid" >/dev/null 2>&1 || true
         rm -rf "$tmp_dir"
         return 1
       fi
 
-      if ! $OPENSTACK image import \
-        --method web-download \
-        --uri "http://${POD_IP}:8080/${image_name}.qcow2" \
-        --wait \
-        "$image_name"; then
-        kill "$server_pid" >/dev/null 2>&1 || true
-        rm -rf "$tmp_dir"
-        return 1
-      fi
-
-      kill "$server_pid" >/dev/null 2>&1 || true
       rm -rf "$tmp_dir"
     }
 
@@ -240,6 +225,7 @@ data:
 
     ensure_magnum_cluster_template() {
       template_name=kubernetes-default
+      fixed_subnet_id=$($OPENSTACK subnet show private -f value -c id)
 
       if $OPENSTACK coe cluster template show "$template_name" >/dev/null 2>&1; then
         return 0
@@ -251,7 +237,7 @@ data:
         --keypair magnum-bootstrap \
         --external-network public \
         --fixed-network private \
-        --fixed-subnet private \
+        --fixed-subnet "$fixed_subnet_id" \
         --dns-nameserver 8.8.8.8 \
         --flavor magnum-node \
         --master-flavor magnum-master \

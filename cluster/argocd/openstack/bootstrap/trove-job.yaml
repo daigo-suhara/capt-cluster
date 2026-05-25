@@ -1,14 +1,14 @@
 apiVersion: batch/v1
 kind: Job
 metadata:
-  generateName: openstack-bootstrap-trove-
+  name: openstack-bootstrap-trove
   namespace: openstack
   labels:
     app.kubernetes.io/name: openstack-bootstrap-trove
     app.kubernetes.io/part-of: openstack-bootstrap
   annotations:
     argocd.argoproj.io/hook: Sync
-    argocd.argoproj.io/hook-delete-policy: HookSucceeded,HookFailed
+    argocd.argoproj.io/hook-delete-policy: BeforeHookCreation,HookSucceeded,HookFailed
 spec:
   backoffLimit: 0
   selector:

@@ -1,14 +1,14 @@
 apiVersion: batch/v1
 kind: Job
 metadata:
-  generateName: openstack-bootstrap-magnum-
+  name: openstack-bootstrap-magnum
   namespace: openstack
   labels:
     app.kubernetes.io/name: openstack-bootstrap-magnum
     app.kubernetes.io/part-of: openstack-bootstrap
   annotations:
     argocd.argoproj.io/hook: Sync
-    argocd.argoproj.io/hook-delete-policy: HookSucceeded,HookFailed
+    argocd.argoproj.io/hook-delete-policy: BeforeHookCreation,HookSucceeded,HookFailed
 spec:
   backoffLimit: 0
   selector:

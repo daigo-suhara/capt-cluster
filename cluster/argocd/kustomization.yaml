@@ -3,4 +3,3 @@ kind: Kustomization
 resources:
   - sealed-secrets.yaml
   - cloudflared.yaml
-  - rook-ceph

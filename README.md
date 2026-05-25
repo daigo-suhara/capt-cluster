@@ -92,41 +92,6 @@ ssh -i ~/.ssh/id_ed25519 tinkerbell@172.16.10.11 \
   get pods,svc,applications'
 ```
 
-## OpenStack bootstrap
-
-ワークロードクラスタ側には `openstack-bootstrap` Application もあります。
-これは OpenStack の初期設定をまとめて流すためのもので、次を自動化します。
-
-- `public` ネットワークの再作成
-- `private` ネットワークの確保
-- `router` の外部ゲートウェイ設定
-- Trove の `postgresql` datastore 初期化
-- Fedora CoreOS イメージ `fedora-coreos-latest` の投入
-- Magnum 用の `magnum-bootstrap` keypair と標準 flavor の作成
-- Magnum の `kubernetes-default` cluster template の作成
-
-`public` ネットワークは次の設定で作り直します。
-
-```text
-provider:network_type = flat
-provider:physical_network = public
-cidr = 172.16.0.0/16
-gateway = 172.16.0.1
-allocation pool = 172.16.200.2-172.16.200.254
-```
-
-Magnum のテンプレートは `fedora-coreos-latest` と `kubernetes-default` を使います。
-
-Bootstrap は Argo CD では `suspend: true` の `CronJob` として同期します。
-実行するときだけ次のように one-shot Job を作ります。
-
-```bash
-kubectl -n openstack create job openstack-bootstrap-trove-$(date +%s) \
-  --from=cronjob/openstack-bootstrap-trove
-kubectl -n openstack create job openstack-bootstrap-magnum-$(date +%s) \
-  --from=cronjob/openstack-bootstrap-magnum
-```
-
 ## MetalLB
 
 MetalLB はワークロードクラスタにインストールされます。

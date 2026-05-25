@@ -37,6 +37,24 @@ spec:
         secrets:
           rbd: pvc-ceph-client-key
         extraObjects:
+          - apiVersion: v1
+            kind: Service
+            metadata:
+              name: glance
+            spec:
+              type: ClusterIP
+              ports:
+                - name: http
+                  port: 80
+                  protocol: TCP
+                  targetPort: 9292
+              selector:
+                app.kubernetes.io/component: api
+                app.kubernetes.io/instance: openstack-glance
+                app.kubernetes.io/name: glance
+                application: glance
+                component: api
+                release_group: openstack-glance
           - apiVersion: batch/v1
             kind: Job
             metadata:

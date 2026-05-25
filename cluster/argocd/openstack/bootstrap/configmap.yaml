@@ -1,0 +1,293 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: openstack-bootstrap-script
+  namespace: openstack
+data:
+  bootstrap.sh: |
+    #!/bin/sh
+    set -eu
+
+    OPENSTACK=/var/lib/openstack/bin/openstack
+    TROVE_MANAGE=/var/lib/openstack/bin/trove-manage
+    MAGNUM_PUBLIC_KEY='ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAID+3Q/eAOgoIs0pNtGvQ8ueXK1Gg8CnIdhcU9rwpeMFm suharadaigo'
+
+    wait_for_openstack() {
+      attempts=0
+      until $OPENSTACK token issue >/dev/null 2>&1; do
+        attempts=$((attempts + 1))
+        if [ "$attempts" -ge 60 ]; then
+          echo "OpenStack API did not become ready in time" >&2
+          exit 1
+        fi
+        sleep 10
+      done
+    }
+
+    network_provider_type() {
+      $OPENSTACK network show "$1" -f value -c provider:network_type 2>/dev/null || true
+    }
+
+    network_provider_physical() {
+      $OPENSTACK network show "$1" -f value -c provider:physical_network 2>/dev/null || true
+    }
+
+    network_external() {
+      $OPENSTACK network show "$1" -f value -c router:external 2>/dev/null || true
+    }
+
+    ensure_private_network() {
+      if $OPENSTACK network show private >/dev/null 2>&1; then
+        return 0
+      fi
+
+      echo "Creating private network"
+      $OPENSTACK network create \
+        --share \
+        --provider-network-type vxlan \
+        private
+
+      $OPENSTACK subnet create \
+        --network private \
+        --subnet-range 192.168.200.0/24 \
+        --gateway 192.168.200.1 \
+        --allocation-pool start=192.168.200.2,end=192.168.200.254 \
+        --dns-nameserver 8.8.8.8 \
+        private
+    }
+
+    recreate_public_network() {
+      recreate=0
+      if $OPENSTACK network show public >/dev/null 2>&1; then
+        if [ "$(network_provider_type public)" != "flat" ] || \
+           [ "$(network_provider_physical public)" != "public" ] || \
+           ! { [ "$(network_external public)" = "True" ] || [ "$(network_external public)" = "External" ]; }; then
+          recreate=1
+        fi
+      else
+        recreate=1
+      fi
+
+      if [ "$recreate" -eq 0 ]; then
+        return 0
+      fi
+
+      echo "Recreating public network with flat provider settings"
+
+      if $OPENSTACK router show router >/dev/null 2>&1; then
+        $OPENSTACK router unset --external-gateway router >/dev/null 2>&1 || \
+          $OPENSTACK router set --external-gateway none router >/dev/null 2>&1 || true
+      fi
+
+      for subnet_id in $($OPENSTACK subnet list --network public -f value -c ID 2>/dev/null || true); do
+        $OPENSTACK subnet delete "$subnet_id"
+      done
+
+      if $OPENSTACK network show public >/dev/null 2>&1; then
+        $OPENSTACK network delete public
+      fi
+
+      $OPENSTACK network create \
+        --share \
+        --external \
+        --provider-network-type flat \
+        --provider-physical-network public \
+        public
+
+      $OPENSTACK subnet create \
+        --network public \
+        --subnet-range 172.16.0.0/16 \
+        --gateway 172.16.0.1 \
+        --allocation-pool start=172.16.200.2,end=172.16.200.254 \
+        --dns-nameserver 8.8.8.8 \
+        --dhcp \
+        public
+
+      if $OPENSTACK router show router >/dev/null 2>&1; then
+        $OPENSTACK router set --external-gateway public router
+      fi
+    }
+
+    ensure_public_router_interface() {
+      if $OPENSTACK router show router >/dev/null 2>&1; then
+        $OPENSTACK router add subnet router private >/dev/null 2>&1 || true
+      fi
+    }
+
+    ensure_neutron_public_endpoint() {
+      endpoint_id=$($OPENSTACK endpoint list --service neutron --interface public -f value -c ID 2>/dev/null || true)
+      if [ -n "$endpoint_id" ]; then
+        $OPENSTACK endpoint set --url http://neutron-server.openstack.svc.cluster.local:9696 "$endpoint_id"
+      fi
+    }
+
+    ensure_trove_datastore() {
+      if ! $OPENSTACK datastore show postgresql >/dev/null 2>&1; then
+        $TROVE_MANAGE --config-file /etc/trove/trove.conf datastore_update postgresql ""
+      fi
+
+      image_name=trove-master-guest-ubuntu-noble
+      image_file=/work/${image_name}.qcow2
+      image_url=https://tarballs.opendev.org/openstack/trove/images/${image_name}.qcow2
+
+      if ! $OPENSTACK image show "$image_name" >/dev/null 2>&1; then
+        mkdir -p /work
+        curl -L --fail --retry 3 --retry-all-errors -o "$image_file" "$image_url"
+        $OPENSTACK image create \
+          "$image_name" \
+          --private \
+          --disk-format qcow2 \
+          --container-format bare \
+          --file "$image_file" \
+          --property hw_rng_model=virtio \
+          --tag trove \
+          --tag postgresql
+      fi
+
+      image_id=$($OPENSTACK image show "$image_name" -f value -c id)
+      validation_rules=/var/lib/openstack/lib/python3.12/site-packages/trove/templates/postgresql/validation-rules.json
+
+      for version in 12 16 17; do
+        $TROVE_MANAGE --config-file /etc/trove/trove.conf datastore_version_update \
+          postgresql "$version" postgresql "$image_id" "" 1 --version "$version"
+        $TROVE_MANAGE --config-file /etc/trove/trove.conf db_load_datastore_config_parameters \
+          postgresql "$version" "$validation_rules"
+      done
+
+      $TROVE_MANAGE --config-file /etc/trove/trove.conf datastore_update postgresql 17
+    }
+
+    ensure_fedora_coreos_image() {
+      image_name=fedora-coreos-latest
+
+      if $OPENSTACK image show "$image_name" >/dev/null 2>&1; then
+        return 0
+      fi
+
+      tmp_dir=$(mktemp -d)
+      image_file="$tmp_dir/${image_name}.qcow2"
+
+      if ! python3 -c "import json, lzma, pathlib, shutil, sys, urllib.request; target = pathlib.Path(sys.argv[1]); response = urllib.request.urlopen('https://builds.coreos.fedoraproject.org/streams/stable.json'); stream = json.load(response); response.close(); location = stream['architectures']['x86_64']['artifacts']['openstack']['formats']['qcow2.xz']['disk']['location']; xz_path = target.with_suffix('.qcow2.xz'); source = urllib.request.urlopen(location); dest = open(xz_path, 'wb'); shutil.copyfileobj(source, dest); source.close(); dest.close(); source = lzma.open(xz_path, 'rb'); dest = open(target, 'wb'); shutil.copyfileobj(source, dest); source.close(); dest.close()" "$image_file"
+      then
+        rm -rf "$tmp_dir"
+        return 1
+      fi
+
+      python3 -m http.server 8080 --bind 0.0.0.0 --directory "$tmp_dir" >/tmp/fcos-http.log 2>&1 &
+      server_pid=$!
+      trap 'kill "$server_pid" >/dev/null 2>&1 || true; rm -rf "$tmp_dir"' EXIT
+
+      if ! $OPENSTACK image create \
+        --public \
+        --disk-format qcow2 \
+        --container-format bare \
+        --property os_distro=fedora-coreos \
+        --min-disk 10 \
+        --min-ram 2 \
+        "$image_name" >/dev/null; then
+        kill "$server_pid" >/dev/null 2>&1 || true
+        rm -rf "$tmp_dir"
+        return 1
+      fi
+
+      if ! $OPENSTACK image import \
+        --method web-download \
+        --uri "http://${POD_IP}:8080/${image_name}.qcow2" \
+        --wait \
+        "$image_name"; then
+        kill "$server_pid" >/dev/null 2>&1 || true
+        rm -rf "$tmp_dir"
+        return 1
+      fi
+
+      kill "$server_pid" >/dev/null 2>&1 || true
+      rm -rf "$tmp_dir"
+    }
+
+    ensure_flavor() {
+      flavor_name=$1
+      flavor_vcpus=$2
+      flavor_ram=$3
+      flavor_disk=$4
+
+      if $OPENSTACK flavor show "$flavor_name" >/dev/null 2>&1; then
+        return 0
+      fi
+
+      $OPENSTACK flavor create \
+        --vcpus "$flavor_vcpus" \
+        --ram "$flavor_ram" \
+        --disk "$flavor_disk" \
+        "$flavor_name"
+    }
+
+    ensure_magnum_defaults() {
+      ensure_flavor magnum-master 2 2048 20
+      ensure_flavor magnum-node 4 4096 40
+
+      MAGNUM_IMAGE_NAME=cirros
+      if ensure_fedora_coreos_image; then
+        MAGNUM_IMAGE_NAME=fedora-coreos-latest
+      fi
+
+      if ! $OPENSTACK keypair show magnum-bootstrap >/dev/null 2>&1; then
+        tmp_key="$(mktemp)"
+        printf '%s\n' "$MAGNUM_PUBLIC_KEY" > "$tmp_key"
+        $OPENSTACK keypair create --public-key "$tmp_key" magnum-bootstrap
+        rm -f "$tmp_key"
+      fi
+    }
+
+    ensure_magnum_cluster_template() {
+      template_name=kubernetes-default
+
+      if $OPENSTACK coe cluster template show "$template_name" >/dev/null 2>&1; then
+        return 0
+      fi
+
+      $OPENSTACK coe cluster template create \
+        --coe kubernetes \
+        --image "$MAGNUM_IMAGE_NAME" \
+        --keypair magnum-bootstrap \
+        --external-network public \
+        --fixed-network private \
+        --fixed-subnet private \
+        --dns-nameserver 8.8.8.8 \
+        --flavor magnum-node \
+        --master-flavor magnum-master \
+        --docker-volume-size 5 \
+        --docker-storage-driver overlay2 \
+        --network-driver flannel \
+        --floating-ip-enabled \
+        "$template_name"
+    }
+
+    case "${BOOTSTRAP_TARGET:-all}" in
+      magnum)
+        wait_for_openstack
+        ensure_private_network
+        recreate_public_network
+        ensure_public_router_interface
+        ensure_neutron_public_endpoint
+        ensure_magnum_defaults
+        ensure_magnum_cluster_template
+        ;;
+      trove)
+        wait_for_openstack
+        ensure_trove_datastore
+        ;;
+      all)
+        wait_for_openstack
+        ensure_private_network
+        recreate_public_network
+        ensure_public_router_interface
+        ensure_neutron_public_endpoint
+        ensure_trove_datastore
+        ensure_magnum_defaults
+        ensure_magnum_cluster_template
+        ;;
+      *)
+        echo "Unsupported BOOTSTRAP_TARGET=${BOOTSTRAP_TARGET:-}" >&2
+        exit 1
+        ;;
+    esac

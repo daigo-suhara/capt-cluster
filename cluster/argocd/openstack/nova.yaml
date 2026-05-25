@@ -61,6 +61,31 @@ spec:
             host_fqdn_override:
               default: rabbitmq.openstack.svc.cluster.local
         extraObjects:
+          - apiVersion: batch/v1
+            kind: Job
+            metadata:
+              name: nova-ks-endpoints-fix
+            spec:
+              backoffLimit: 0
+              template:
+                spec:
+                  restartPolicy: Never
+                  containers:
+                    - name: fix-endpoint
+                      image: quay.io/airshipit/openstack-client:2026.1-ubuntu_noble
+                      command:
+                        - /bin/sh
+                        - -ec
+                        - |
+                          export OS_AUTH_URL=http://keystone-api.openstack.svc.cluster.local:5000/v3
+                          export OS_USERNAME=admin
+                          export OS_PASSWORD=password
+                          export OS_PROJECT_NAME=admin
+                          export OS_USER_DOMAIN_NAME=Default
+                          export OS_PROJECT_DOMAIN_NAME=Default
+                          export OS_INTERFACE=internal
+                          endpoint_id=$(/var/lib/openstack/bin/openstack endpoint list --service nova --interface public -f value -c ID)
+                          /var/lib/openstack/bin/openstack endpoint set --url http://nova-api.openstack.svc.cluster.local:8774/v2.1/ "$endpoint_id"
           - apiVersion: gateway.networking.k8s.io/v1
             kind: Gateway
             metadata:

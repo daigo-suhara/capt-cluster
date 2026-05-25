@@ -8,9 +8,14 @@ resources:
   - libvirt.yaml
   - openvswitch.yaml
   - keystone.yaml
+  - heat.yaml
+  - barbican.yaml
   - glance.yaml
   - placement.yaml
   - nova.yaml
   - neutron.yaml
+  - magnum.yaml
+  - trove.yaml
+  - bootstrap.yaml
   - horizon.yaml
   - skyline.yaml

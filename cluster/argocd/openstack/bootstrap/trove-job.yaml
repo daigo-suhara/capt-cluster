@@ -1,0 +1,66 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: openstack-bootstrap-trove
+  namespace: openstack
+  annotations:
+    argocd.argoproj.io/sync-options: Replace=true
+spec:
+  backoffLimit: 0
+  template:
+    spec:
+      restartPolicy: Never
+      containers:
+        - name: bootstrap
+          image: quay.io/airshipit/trove:2026.1-ubuntu_noble
+          imagePullPolicy: IfNotPresent
+          env:
+            - name: BOOTSTRAP_TARGET
+              value: trove
+            - name: OS_AUTH_URL
+              value: http://keystone-api.openstack.svc.cluster.local:5000/v3
+            - name: OS_USERNAME
+              value: admin
+            - name: OS_PASSWORD
+              value: password
+            - name: OS_PROJECT_NAME
+              value: admin
+            - name: OS_USER_DOMAIN_NAME
+              value: Default
+            - name: OS_PROJECT_DOMAIN_NAME
+              value: Default
+            - name: OS_INTERFACE
+              value: internal
+            - name: OS_IDENTITY_API_VERSION
+              value: "3"
+          command:
+            - /bin/sh
+            - /scripts/bootstrap.sh
+          volumeMounts:
+            - name: script
+              mountPath: /scripts
+            - name: workdir
+              mountPath: /work
+            - name: trove-etc
+              mountPath: /etc/trove/trove.conf
+              subPath: trove.conf
+              readOnly: true
+            - name: trove-etc
+              mountPath: /etc/trove/logging.conf
+              subPath: logging.conf
+              readOnly: true
+            - name: trove-etc
+              mountPath: /etc/trove/policy.yaml
+              subPath: policy.yaml
+              readOnly: true
+      volumes:
+        - name: script
+          configMap:
+            name: openstack-bootstrap-script
+            defaultMode: 0755
+        - name: workdir
+          emptyDir:
+            sizeLimit: 2Gi
+        - name: trove-etc
+          secret:
+            secretName: trove-etc

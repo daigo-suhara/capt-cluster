@@ -61,6 +61,25 @@ spec:
               DIRMODE: 0700
               CONTENTS: |
                 datasource: Ec2
+          - name: "add cloud-init ntp config"
+            image: quay.io/tinkerbell/actions/writefile
+            timeout: 90
+            environment:
+              DEST_DISK: {{ formatPartition ( index .Hardware.Disks 0 ) 3 }}
+              FS_TYPE: ext4
+              DEST_PATH: /etc/cloud/cloud.cfg.d/20_ntp.cfg
+              UID: 0
+              GID: 0
+              MODE: 0644
+              DIRMODE: 0755
+              CONTENTS: |
+                ntp:
+                  enabled: true
+                  ntp_client: chrony
+                  servers:
+                    - ntp.nict.jp
+                  pools:
+                    - pool.ntp.org
           - name: "write netplan config"
             image: quay.io/tinkerbell/actions/writefile
             timeout: 90

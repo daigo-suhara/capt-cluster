@@ -21,10 +21,8 @@ spec:
     format: cloud-config
     ntp:
       enabled: true
-      ntp_client: chrony
       servers:
         - ntp.nict.jp
-      pools:
         - pool.ntp.org
     preKubeadmCommands:
       - mkdir -p /etc/kubernetes/manifests

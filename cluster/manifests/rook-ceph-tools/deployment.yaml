@@ -20,20 +20,23 @@ spec:
             - /bin/bash
             - -ec
             - |
+              for _ in {1..60}; do
+                MON_HOST="$(cat /rook-config/mon_host 2>/dev/null || true)"
+                [ -n "${MON_HOST}" ] && break
+                sleep 5
+              done
+              [ -n "${MON_HOST}" ]
               cat >/etc/ceph/ceph.conf <<EOF
               [global]
               mon host = ${MON_HOST}
               EOF
               sleep infinity
-          env:
-            - name: MON_HOST
-              valueFrom:
-                secretKeyRef:
-                  name: rook-ceph-config
-                  key: mon_host
           volumeMounts:
             - name: ceph-conf
               mountPath: /etc/ceph
+            - name: rook-config
+              mountPath: /rook-config
+              readOnly: true
             - name: admin-keyring
               mountPath: /etc/ceph/ceph.client.admin.keyring
               subPath: keyring
@@ -41,6 +44,9 @@ spec:
       volumes:
         - name: ceph-conf
           emptyDir: {}
+        - name: rook-config
+          secret:
+            secretName: rook-ceph-config
         - name: admin-keyring
           secret:
             secretName: rook-ceph-admin-keyring

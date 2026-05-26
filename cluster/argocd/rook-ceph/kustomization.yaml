@@ -1,6 +1,7 @@
 apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
 resources:
-  - sealed-secrets.yaml
-  - cloudflared.yaml
-  - rook-ceph
+  - namespace.yaml
+  - operator.yaml
+  - cluster.yaml
+  - tools.yaml

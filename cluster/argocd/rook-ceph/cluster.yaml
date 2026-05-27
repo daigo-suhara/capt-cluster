@@ -16,7 +16,7 @@ spec:
       valuesObject:
         operatorNamespace: rook-ceph
         toolbox:
-          enabled: false
+          enabled: true
         cephClusterSpec:
           cephVersion:
             image: quay.io/ceph/ceph:v19.2.3

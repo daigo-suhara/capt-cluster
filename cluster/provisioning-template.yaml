@@ -73,6 +73,9 @@ spec:
               MODE: 0644
               DIRMODE: 0755
               CONTENTS: |
+                package_update: true
+                packages:
+                  - chrony
                 ntp:
                   enabled: true
                   ntp_client: chrony
@@ -80,6 +83,9 @@ spec:
                     - ntp.nict.jp
                   pools:
                     - pool.ntp.org
+                runcmd:
+                  - systemctl enable --now chrony
+                  - chronyc -a makestep || true
           - name: "write netplan config"
             image: quay.io/tinkerbell/actions/writefile
             timeout: 90

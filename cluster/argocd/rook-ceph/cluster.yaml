@@ -20,9 +20,6 @@ spec:
         cephClusterSpec:
           cephVersion:
             image: quay.io/ceph/ceph:v19.2.3
-          cephConfig:
-            global:
-              mon_clock_drift_allowed: "1.0"
           cleanupPolicy:
             wipeDevicesFromOtherClusters: true
           dataDirHostPath: /var/lib/rook

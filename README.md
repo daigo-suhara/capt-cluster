@@ -164,6 +164,51 @@ ssh -i ~/.ssh/id_ed25519 tinkerbell@172.16.10.11 \
   get applications'
 ```
 
+## ワークロードクラスタの再プロビジョニング
+
+ワークロードクラスタを最初から作り直す場合は、管理クラスタ側で
+`tinkerbell` namespace の CAPI `Cluster` を削除します。
+
+```bash
+ssh -i ~/.ssh/id_ed25519 ubuntu@mgmt \
+  'microk8s kubectl -n tinkerbell delete cluster.cluster.x-k8s.io cluster --wait=false'
+```
+
+削除後は CAPI controller が control-plane / machine を順に片付けます。
+進捗は次で確認できます。
+
+```bash
+ssh -i ~/.ssh/id_ed25519 ubuntu@mgmt \
+  'microk8s kubectl -n tinkerbell get clusters.cluster.x-k8s.io,kubeadmcontrolplanes.controlplane.cluster.x-k8s.io,machinedeployments.cluster.x-k8s.io,machines.cluster.x-k8s.io'
+```
+
+この構成では管理クラスタ側の Argo CD が `cluster/` を監視しているため、
+`Cluster` 削除後は再度 `cluster` Application が同じ定義を適用し、
+ワークロードクラスタの再プロビジョニングが始まります。
+
+Argo CD 側の状態確認:
+
+```bash
+ssh -i ~/.ssh/id_ed25519 ubuntu@mgmt \
+  'microk8s kubectl -n argocd get applications.argoproj.io'
+```
+
+ワークロードクラスタ側のノード確認:
+
+```bash
+ssh -i ~/.ssh/id_ed25519 tinkerbell@172.16.10.11 \
+  'sudo kubectl --kubeconfig /etc/kubernetes/admin.conf get nodes'
+```
+
+Ceph を使う場合はノード間の時刻同期が必須です。現在のテンプレートは
+cloud-init で `chrony` をインストールして起動する前提です。再作成後に
+時刻同期が怪しい場合は各ノードで次を確認します。
+
+```bash
+ssh -i ~/.ssh/id_ed25519 tinkerbell@172.16.10.11 \
+  'timedatectl status && systemctl status chrony --no-pager'
+```
+
 ## 注意点
 
 `argocd/` は管理クラスタ側 Argo CD 用です。

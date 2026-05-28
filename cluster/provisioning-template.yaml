@@ -20,7 +20,7 @@ spec:
             image: quay.io/tinkerbell/actions/oci2disk
             timeout: 2400
             environment:
-              IMG_URL: ghcr.io/tinkerbell/cluster-api-provider-tinkerbell/ubuntu:2404-v1.35.4-amd64.gz
+              IMG_URL: ghcr.io/daigo-suhara/cluster-api-provider-tinkerbell/ubuntu:2404-v1.35.4-amd64.gz
               DEST_DISK: {{ index .Hardware.Disks 0 }}
               COMPRESSED: true
           - name: "add tink cloud-init config"

@@ -7,6 +7,17 @@ metadata:
     argocd.argoproj.io/sync-wave: "14"
 spec:
   project: default
+  ignoreDifferences:
+    - group: admissionregistration.k8s.io
+      kind: MutatingWebhookConfiguration
+      name: webhook.serving.knative.dev
+      jsonPointers:
+        - /webhooks
+    - group: admissionregistration.k8s.io
+      kind: ValidatingWebhookConfiguration
+      name: validation.webhook.serving.knative.dev
+      jsonPointers:
+        - /webhooks
   source:
     repoURL: https://github.com/daigo-suhara/capt-cluster.git
     targetRevision: master

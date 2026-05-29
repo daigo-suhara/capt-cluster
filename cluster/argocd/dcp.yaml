@@ -7,6 +7,17 @@ metadata:
     argocd.argoproj.io/sync-wave: "15"
 spec:
   project: default
+  ignoreDifferences:
+    - group: serving.knative.dev
+      kind: Service
+      name: dcp-cloudrun
+      namespace: dcp-system
+      jsonPointers:
+        - /spec/template/spec/containers/0/ports/0/protocol
+        - /spec/template/spec/containers/0/readinessProbe/successThreshold
+        - /spec/template/spec/containers/0/resources
+        - /spec/template/spec/enableServiceLinks
+        - /spec/template/spec/timeoutSeconds
   source:
     repoURL: https://github.com/daigo-suhara/dcp.git
     targetRevision: main

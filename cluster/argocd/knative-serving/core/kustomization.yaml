@@ -17,3 +17,15 @@ patches:
         namespace: knative-serving
       data:
         ingress-class: kourier.ingress.networking.knative.dev
+  - target:
+      kind: ConfigMap
+      name: config-domain
+      namespace: knative-serving
+    patch: |-
+      apiVersion: v1
+      kind: ConfigMap
+      metadata:
+        name: config-domain
+        namespace: knative-serving
+      data:
+        172.16.100.12.nip.io: |

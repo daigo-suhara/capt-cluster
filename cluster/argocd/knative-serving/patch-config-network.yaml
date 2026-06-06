@@ -5,3 +5,4 @@ metadata:
   namespace: knative-serving
 data:
   ingress-class: kourier.ingress.networking.knative.dev
+  autocreate-cluster-domain-claims: "true"

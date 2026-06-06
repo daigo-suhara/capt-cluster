@@ -14,7 +14,7 @@ spec:
     helm:
       values: |
         global:
-          storageClass: ceph-rbd
+          defaultStorageClass: ceph-rbd
         authentik:
           secret_key: "dcloud-authentik-secret-key-please-change"
           bootstrap_password: "dcloud-authentik-bootstrap-password-please-change"

@@ -6,4 +6,4 @@ resources:
   - knative-serving-core.yaml
   - cloudflared.yaml
   - rook-ceph
-  - dcp.yaml
+  - dcloud.yaml

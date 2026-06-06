@@ -22,10 +22,10 @@ spec:
           postgresql:
             password: "dcloud-authentik-postgres-password-please-change"
         server:
-          service:
-            type: LoadBalancer
           ingress:
-            enabled: false
+            enabled: true
+            hosts:
+              - auth.daigo-suhara.com
         postgresql:
           enabled: true
           auth:

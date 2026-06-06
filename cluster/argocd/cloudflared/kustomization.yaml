@@ -3,5 +3,4 @@ kind: Kustomization
 namespace: cloudflare
 resources:
   - secret.yaml
-  - config.yaml
   - deployment.yaml

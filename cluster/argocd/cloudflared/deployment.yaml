@@ -25,18 +25,12 @@ spec:
           command:
             - cloudflared
             - tunnel
-            - --config
-            - /etc/cloudflared/config/config.yaml
             - --no-autoupdate
             - --loglevel
             - info
             - --metrics
             - 0.0.0.0:2000
             - run
-          volumeMounts:
-            - name: cloudflared-config
-              mountPath: /etc/cloudflared/config
-              readOnly: true
           ports:
             - name: metrics
               containerPort: 2000
@@ -60,7 +54,3 @@ spec:
             limits:
               cpu: 200m
               memory: 128Mi
-      volumes:
-        - name: cloudflared-config
-          configMap:
-            name: cloudflared-config

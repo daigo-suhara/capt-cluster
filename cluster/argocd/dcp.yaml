@@ -1,7 +1,7 @@
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: dcp
+  name: dcloud
   namespace: argocd
   annotations:
     argocd.argoproj.io/sync-wave: "15"
@@ -10,8 +10,8 @@ spec:
   ignoreDifferences:
     - group: serving.knative.dev
       kind: Service
-      name: dcp-cloudrun
-      namespace: dcp-system
+      name: container
+      namespace: dcloud-system
       jsonPointers:
         - /spec/template/spec/containers/0/ports/0/protocol
         - /spec/template/spec/containers/0/readinessProbe/successThreshold
@@ -19,14 +19,14 @@ spec:
         - /spec/template/spec/enableServiceLinks
         - /spec/template/spec/timeoutSeconds
   source:
-    repoURL: https://github.com/daigo-suhara/dcp.git
+    repoURL: https://github.com/daigo-suhara/dcloud.git
     targetRevision: main
-    path: charts/dcp
+    path: charts/dcloud
     helm:
-      releaseName: dcp
+      releaseName: dcloud
   destination:
     server: https://kubernetes.default.svc
-    namespace: dcp-system
+    namespace: dcloud-system
   syncPolicy:
     automated:
       prune: true

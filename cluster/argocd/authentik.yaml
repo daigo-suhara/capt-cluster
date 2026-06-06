@@ -13,6 +13,8 @@ spec:
     targetRevision: 2026.5.2
     helm:
       values: |
+        global:
+          storageClass: ceph-rbd
         authentik:
           secret_key: "dcloud-authentik-secret-key-please-change"
           bootstrap_password: "dcloud-authentik-bootstrap-password-please-change"
@@ -30,6 +32,13 @@ spec:
           enabled: true
           auth:
             password: "dcloud-authentik-postgres-password-please-change"
+          primary:
+            persistence:
+              storageClass: ceph-rbd
+        redis:
+          master:
+            persistence:
+              storageClass: ceph-rbd
   destination:
     server: https://kubernetes.default.svc
     namespace: authentik

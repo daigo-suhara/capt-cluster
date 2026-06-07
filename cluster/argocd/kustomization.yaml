@@ -1,6 +1,7 @@
 apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
 resources:
+  - argocd-cm.yaml
   - sealed-secrets.yaml
   - knative-serving-crds.yaml
   - knative-serving-core.yaml

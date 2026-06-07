@@ -4,7 +4,6 @@ resources:
   - sealed-secrets.yaml
   - knative-serving-crds.yaml
   - knative-serving-core.yaml
-  - authentik.yaml
   - cloudflared.yaml
   - rook-ceph
   - dcloud.yaml

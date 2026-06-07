@@ -8,3 +8,4 @@ resources:
   - app-capt.yaml
   - app-hardware.yaml
   - app-cluster.yaml
+  - app-kubevirt.yaml

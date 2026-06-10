@@ -24,6 +24,11 @@ spec:
     path: charts/dcloud
     helm:
       releaseName: dcloud
+      values: |
+        api:
+          service:
+            type: LoadBalancer
+            loadBalancerIP: 172.16.100.14
   destination:
     server: https://kubernetes.default.svc
     namespace: dcloud-system

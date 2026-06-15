@@ -17,3 +17,5 @@ patches:
         namespace: knative-serving
       data:
         ingress-class: kourier.ingress.networking.knative.dev
+        external-domain-tls: "Disabled"
+        autocreate-cluster-domain-claims: "true"

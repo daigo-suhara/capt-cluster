@@ -1,19 +1,21 @@
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: cloudflared
+  name: istio
   namespace: argocd
   annotations:
-    argocd.argoproj.io/sync-wave: "18"
+    argocd.argoproj.io/sync-wave: "12"
 spec:
   project: default
   source:
-    repoURL: https://github.com/daigo-suhara/capt-cluster.git
-    targetRevision: master
-    path: cluster/argocd/cloudflared
+    repoURL: https://github.com/daigo-suhara/dcloud.git
+    targetRevision: main
+    path: charts/istio
+    helm:
+      releaseName: istio
   destination:
     server: https://kubernetes.default.svc
-    namespace: cloudflare
+    namespace: istio-system
   syncPolicy:
     automated:
       prune: true

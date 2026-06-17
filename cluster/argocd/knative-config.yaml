@@ -1,23 +1,24 @@
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: cloudflared
+  name: knative-config
   namespace: argocd
   annotations:
-    argocd.argoproj.io/sync-wave: "18"
+    argocd.argoproj.io/sync-wave: "16"
 spec:
   project: default
   source:
-    repoURL: https://github.com/daigo-suhara/capt-cluster.git
-    targetRevision: master
-    path: cluster/argocd/cloudflared
+    repoURL: https://github.com/daigo-suhara/dcloud.git
+    targetRevision: main
+    path: charts/knative-config
+    helm:
+      releaseName: knative-config
   destination:
     server: https://kubernetes.default.svc
-    namespace: cloudflare
+    namespace: knative-serving
   syncPolicy:
     automated:
-      prune: true
+      prune: false
       selfHeal: true
     syncOptions:
-      - CreateNamespace=true
       - ServerSideApply=true

@@ -3,8 +3,11 @@ kind: Kustomization
 resources:
   - argocd-cm.yaml
   - sealed-secrets.yaml
+  - istio.yaml
   - knative-serving-crds.yaml
   - knative-serving-core.yaml
+  - net-istio.yaml
+  - knative-config.yaml
+  - dcloud.yaml
   - cloudflared.yaml
   - rook-ceph
-  - dcloud.yaml

@@ -10,7 +10,7 @@ spec:
   source:
     chart: gateway
     repoURL: https://istio-release.storage.googleapis.com/charts
-    targetRevision: "1.23.0"
+    targetRevision: "1.24.3"
     helm:
       releaseName: istio-ingressgateway
       values: |

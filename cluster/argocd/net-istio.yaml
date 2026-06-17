@@ -8,9 +8,9 @@ metadata:
 spec:
   project: default
   source:
-    repoURL: https://github.com/knative/net-istio.git
-    targetRevision: knative-v1.22.0
-    path: config
+    repoURL: https://github.com/daigo-suhara/capt-cluster.git
+    targetRevision: master
+    path: cluster/argocd/knative-serving/net-istio
   destination:
     server: https://kubernetes.default.svc
     namespace: knative-serving

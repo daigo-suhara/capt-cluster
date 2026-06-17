@@ -32,7 +32,7 @@ spec:
       name: istiod
       namespace: istio-system
       jqPathExpressions:
-        - .spec.template.spec.containers[].env[].valueFrom.resourceFieldRef.divisor
+        - '.spec.template.spec.containers[].env[] | select(.name == "GOMEMLIMIT" or .name == "GOMAXPROCS") | .valueFrom'
   syncPolicy:
     automated:
       prune: true

@@ -1,18 +1,18 @@
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: istio-base
+  name: istiod
   namespace: argocd
   annotations:
-    argocd.argoproj.io/sync-wave: "11"
+    argocd.argoproj.io/sync-wave: "12"
 spec:
   project: default
   source:
-    chart: base
+    chart: istiod
     repoURL: https://istio-release.storage.googleapis.com/charts
     targetRevision: "1.23.0"
     helm:
-      releaseName: istio-base
+      releaseName: istiod
   destination:
     server: https://kubernetes.default.svc
     namespace: istio-system

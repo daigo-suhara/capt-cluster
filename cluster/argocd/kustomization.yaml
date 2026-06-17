@@ -3,6 +3,7 @@ kind: Kustomization
 resources:
   - argocd-cm.yaml
   - sealed-secrets.yaml
+  - istio-base.yaml
   - istio.yaml
   - knative-serving-crds.yaml
   - knative-serving-core.yaml

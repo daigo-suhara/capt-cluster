@@ -1,19 +1,21 @@
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: knative-serving-crds
+  name: istio-base
   namespace: argocd
   annotations:
-    argocd.argoproj.io/sync-wave: "14"
+    argocd.argoproj.io/sync-wave: "11"
 spec:
   project: default
   source:
-    repoURL: https://github.com/daigo-suhara/capt-cluster.git
-    targetRevision: master
-    path: cluster/argocd/knative-serving/crds
+    repoURL: https://github.com/daigo-suhara/dcloud.git
+    targetRevision: main
+    path: charts/istio-base
+    helm:
+      releaseName: istio-base
   destination:
     server: https://kubernetes.default.svc
-    namespace: knative-serving
+    namespace: istio-system
   syncPolicy:
     automated:
       prune: true

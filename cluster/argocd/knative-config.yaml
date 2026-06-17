@@ -4,7 +4,7 @@ metadata:
   name: knative-config
   namespace: argocd
   annotations:
-    argocd.argoproj.io/sync-wave: "16"
+    argocd.argoproj.io/sync-wave: "17"
 spec:
   project: default
   source:

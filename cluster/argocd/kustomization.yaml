@@ -8,7 +8,6 @@ resources:
   - knative-serving-crds.yaml
   - knative-serving-core.yaml
   - net-istio.yaml
-  - knative-config.yaml
   - dcloud.yaml
   - cloudflared.yaml
   - rook-ceph

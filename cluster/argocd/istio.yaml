@@ -8,17 +8,9 @@ metadata:
 spec:
   project: default
   source:
-    chart: gateway
-    repoURL: https://istio-release.storage.googleapis.com/charts
-    targetRevision: "1.24.3"
-    helm:
-      releaseName: istio-ingressgateway
-      values: |
-        labels:
-          app: istio-ingressgateway
-          istio: ingressgateway
-        service:
-          type: LoadBalancer
+    repoURL: https://github.com/daigo-suhara/capt-cluster.git
+    targetRevision: master
+    path: cluster/argocd/istio-gateway
   destination:
     server: https://kubernetes.default.svc
     namespace: istio-system

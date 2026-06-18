@@ -1,46 +1,13 @@
 apiVersion: networking.istio.io/v1alpha3
 kind: EnvoyFilter
 metadata:
-  name: websocket-over-h2
+  name: knative-upstream-h1
   namespace: istio-system
 spec:
   workloadSelector:
     labels:
       istio: ingressgateway
   configPatches:
-  # Enable RFC 8441 (allow_connect) on the external listener (Envoy listens on 8080, not 80)
-  - applyTo: NETWORK_FILTER
-    match:
-      context: GATEWAY
-      listener:
-        portNumber: 8080
-        filterChain:
-          filter:
-            name: envoy.filters.network.http_connection_manager
-    patch:
-      operation: MERGE
-      value:
-        typed_config:
-          "@type": type.googleapis.com/envoy.extensions.filters.network.http_connection_manager.v3.HttpConnectionManager
-          http2_protocol_options:
-            allow_connect: true
-  # Enable RFC 8441 on the internal (knative-local-gateway) listener
-  - applyTo: NETWORK_FILTER
-    match:
-      context: GATEWAY
-      listener:
-        portNumber: 8081
-        filterChain:
-          filter:
-            name: envoy.filters.network.http_connection_manager
-    patch:
-      operation: MERGE
-      value:
-        typed_config:
-          "@type": type.googleapis.com/envoy.extensions.filters.network.http_connection_manager.v3.HttpConnectionManager
-          http2_protocol_options:
-            allow_connect: true
-  # Restore HTTP/2 for Knative ExternalName port 80 clusters, add allow_connect for WebSocket tunneling
   - applyTo: CLUSTER
     match:
       context: GATEWAY
@@ -53,5 +20,4 @@ spec:
           envoy.extensions.upstreams.http.v3.HttpProtocolOptions:
             "@type": type.googleapis.com/envoy.extensions.upstreams.http.v3.HttpProtocolOptions
             explicit_http_config:
-              http2_protocol_options:
-                allow_connect: true
+              http_protocol_options: {}

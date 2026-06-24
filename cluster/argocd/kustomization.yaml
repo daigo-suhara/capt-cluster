@@ -11,5 +11,6 @@ resources:
   - net-istio.yaml
   - kubeblocks.yaml
   - dcloud.yaml
+  - dcloud
   - cloudflared.yaml
   - rook-ceph
